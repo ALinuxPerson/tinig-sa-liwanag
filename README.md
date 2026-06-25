@@ -5,7 +5,7 @@
 **ACM TechSprint Asteria Submission**  
 **Event dates:** June 25-27, 2026
 
-> *Measuring what gets erased — an open code-switch ASR benchmark for Hiligaynon, the language of 9M+ Filipinos that speech AI has never learned to hear.*
+> *Measuring what gets erased. Sugidanon is an open code-switch ASR benchmark for Hiligaynon, the language of 9M+ Filipinos that speech AI has never learned to hear.*
 
 **Live demo:**
 
@@ -27,7 +27,7 @@ A dataset we built from scratch, 40 native-recorded code-switch Hiligaynon/Tagal
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb)
 
-Downloads the dataset, runs the ASR baseline, and prints the switch penalty on a fresh machine — no local setup.
+Downloads the dataset, runs the ASR baseline, and prints the switch penalty on a fresh machine. No local setup.
 
 **ASR baselines:**
 
@@ -55,9 +55,9 @@ Meta MMS:        https://huggingface.co/facebook/mms-1b-all
 
 > **The Philippines has 130+ languages. Most are invisible to modern speech technology.**
 
-Hiligaynon (Ilonggo) — spoken by **9M+ people** across Iloilo, Negros, Guimaras, and Panay, and carrier of a deep oral tradition (the *sugidanon* epic chants this project is named for) — is one of them. Off-the-shelf speech models are rarely even *measured* on Ilonggo, so no one had quantified where they fail.
+Hiligaynon (Ilonggo) — spoken by **9M+ people** across Iloilo, Negros, Guimaras, and Panay, and carrier of a deep oral tradition (the *sugidanon* epic chants this project is named for), is one of them. Off-the-shelf speech models are rarely even *measured* on Ilonggo, so no one had quantified where they fail.
 
-**Sugidanon makes that failure measurable.** Its core contribution is **switch-region WER**: instead of one blunt error rate, it separates errors on borrowed English/Tagalog words from errors on the Hiligaynon matrix language. The finding is sharp and reproducible — current models transcribe the borrowed words well but miss the Hiligaynon itself, a **negative switch penalty (−30.1%)** that puts a number on exactly what gets erased.
+**Sugidanon makes that failure measurable.** Its core contribution is **switch-region WORD ERROR RATE**: instead of one blunt error rate, it separates errors on borrowed English/Tagalog words from errors on the Hiligaynon matrix language. The finding is sharp and reproducible — current models transcribe the borrowed words well but miss the Hiligaynon itself, a **negative switch penalty (−30.1%)** that puts a number on exactly what gets erased.
 
 Measurement is the first act of inclusion:
 
