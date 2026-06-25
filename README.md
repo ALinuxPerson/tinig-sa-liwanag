@@ -43,7 +43,7 @@ A dataset we built from scratch, 40 native-recorded code-switch Hiligaynon/Tagal
 
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb)
 
-Downloads the dataset, runs the ASR baseline, and prints the switch penalty on a fresh machine. No local setup.
+Once all-run; it downloads the dataset, runs the ASR baseline, and prints the switch penalty on a fresh machine. No local setup.
 
 **ASR baselines:**
 
