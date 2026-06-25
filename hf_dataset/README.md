@@ -76,6 +76,22 @@ Transcripts were reviewed by the speaker; per-word language tags are auto-seeded
 (`lang_tags_status: seed_unverified`) pending a confirmation pass. Single
 speaker — a seed benchmark to extend, not a final model-ranking corpus.
 
+## Subsets
+
+The headline benchmark is the `scripted_native` subset. Natural-speech
+extensions are kept **separate** and never blended into the headline WER.
+
+| Subset | Speaker | Speech type | Status |
+|--------|---------|-------------|--------|
+| `scripted_native` | Native | Prompted code-switch clips | Headline benchmark (40 clips) |
+| `native_podcast` | Native | Natural long-form | Extension, `seed_unverified` |
+| `native_vlog` | Native | Everyday conversational | Extension, `seed_unverified` |
+| `non_native_eval` | Non-native | Learner speech | Robustness only — never native gold |
+
+Each clip carries `subset`, `source_type`, `speech_style`, and `gold_status`
+fields. Non-native clips are a robustness subset and must not be used as native
+Hiligaynon gold data.
+
 ## Quick start
 
 ```python
