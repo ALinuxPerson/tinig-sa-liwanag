@@ -3,21 +3,28 @@
 **ACM TechSprint Asteria Submission**  
 **Event dates:** June 25-27, 2026
 
+**Live demos:**
+
+```text
+https://tinig-sa-liwanag.vercel.app   # translation benchmark demo
+https://tinig-one.vercel.app          # Tinig — AI assistant using Tinig sa Liwanag's resources
+```
+
 ## Members
 
 - **Legaspi, Jazztinn Kyle**
-- **De Guzman, Nimeesha Baterna**
-- **Bumpus, Michael**
-- **Arwin Jeremy**
+- **Michael C. Baterna**
+- **Arwin Jeremy Bumpus**
+- **De Guzman, Nimeesha**
 
 ## Team roles and rules
 
 | Member | Primary role |
 |--------|--------------|
 | Legaspi, Jazztinn Kyle | Lead / pipeline, evaluation scripts, demo app |
-| De Guzman, Nimeesha Baterna | Benchmark data, schema, domain examples |
-| Bumpus, Michael | Frontend / demo UI, documentation |
-| Arwin Jeremy | Lexicon, Tagalog/Hiligaynon bridge, review coordination |
+| Michael C. Baterna | Benchmark data, schema, domain examples |
+| Arwin Jeremy Bumpus | Frontend / demo UI, documentation |
+| De Guzman, Nimeesha | Lexicon, Tagalog/Hiligaynon bridge, review coordination |
 
 Working rules:
 
@@ -59,12 +66,7 @@ The primary task for v1 is:
 English / Filipino / code-switched text -> Hiligaynon text
 ```
 
-Live demos:
-
-```text
-https://tinig-sa-liwanag.vercel.app   # translation benchmark demo
-https://tinig-one.vercel.app          # Tinig — AI assistant using Tinig sa Liwanag's resources
-```
+Live demos are linked at the top of this README.
 
 ## Features
 
