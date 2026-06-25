@@ -21,7 +21,7 @@ https://tinig-sa-liwanag.vercel.app
 https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch
 ```
 
-A dataset we built from scratch — 40 native-recorded code-switch Hiligaynon/Tagalog/English clips with per-word language tags, switch-region WER scoring, and a second 40-clip speaker extension. Recorded and reviewed by native Ilonggo speakers. CC BY 4.0.
+A dataset we built from scratch, 40 native-recorded code-switch Hiligaynon/Tagalog/English clips with per-word language tags, switch-region WER scoring, and a second 40-clip speaker extension. Recorded and reviewed by native Ilonggo speakers. CC BY 4.0.
 
 **Reproduce the benchmark (one-click Google Colab):**
 
@@ -47,7 +47,7 @@ Meta MMS:        https://huggingface.co/facebook/mms-1b-all
 
 ## Acknowledgments
 
-**Aziel Faith Agustin** — Hiligaynon (Ilonggo) speaker who reviewed the elicitation sentences and recorded all 40 clips. The dataset's reference transcripts and audio exist thanks to their voice and review.
+**Aziel Faith Agustin** — Hiligaynon (Ilonggo) speaker who reviewed the elicitation sentences and recorded all 80+ clips. The dataset's reference transcripts and audio exist thanks to their voice and review.
 
 ---
 
