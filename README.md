@@ -12,6 +12,11 @@ Most ASR systems are tested only on "clean" monolingual speech, so nobody knows
 how badly they break at **language switch points**. Sugidanon measures exactly
 that — and adds a TTS path that pronounces each language correctly.
 
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb)
+
+**Run it in your browser:** the Colab notebook clones this repo and runs the full
+benchmark + TTS demo with zero local setup (core cells need no installs).
+
 > **Track:** Inclusive Speech Technology for Philippine Languages (FTIC / GitHub).
 > Deliverable is a *reusable open resource* — a labeled test set, a scoring
 > harness, and a pipeline — **not an application.**
