@@ -3,7 +3,7 @@
   "audio_file": "audio/hil_cs_008.wav",
   "duration_sec": 5.49,
   "domain": "transport",
-  "switch_type": "HIL+TL+EN",
+  "switch_type": "HIL+EN",
   "transcript": "Traffic gid subong, kaya mag-grab na lang ako para mas mabakas.",
   "speaker": {
     "id": "spk01",

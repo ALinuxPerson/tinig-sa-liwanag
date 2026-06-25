@@ -3,7 +3,7 @@
   "audio_file": "audio/hil_cs_009.wav",
   "duration_sec": 4.41,
   "domain": "transport",
-  "switch_type": "HIL",
+  "switch_type": "HIL+EN",
   "transcript": "Diin ka manaog, sa eskina ukon sa terminal?",
   "speaker": {
     "id": "spk01",

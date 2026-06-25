@@ -3,7 +3,7 @@
   "audio_file": "audio/hil_cs_003.wav",
   "duration_sec": 4.86,
   "domain": "market",
-  "switch_type": "HIL+TL+EN",
+  "switch_type": "HIL+TL",
   "transcript": "Nag-discount gali ang tindahan, kaya bumili na lang tayo ng marami.",
   "speaker": {
     "id": "spk01",

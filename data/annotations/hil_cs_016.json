@@ -3,7 +3,7 @@
   "audio_file": "audio/hil_cs_016.wav",
   "duration_sec": 3.18,
   "domain": "family",
-  "switch_type": "HIL+TL",
+  "switch_type": "HIL",
   "transcript": "Kaon na kita kay handa na ang sud-an ni Nanay.",
   "speaker": {
     "id": "spk01",

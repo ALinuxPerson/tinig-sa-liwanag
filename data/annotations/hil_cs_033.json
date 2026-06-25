@@ -3,7 +3,7 @@
   "audio_file": "audio/hil_cs_033.wav",
   "duration_sec": 4.26,
   "domain": "everyday",
-  "switch_type": "HIL+TL",
+  "switch_type": "HIL",
   "transcript": "Wala lang, ginatamad ako maglakat subong.",
   "speaker": {
     "id": "spk01",

@@ -31,14 +31,14 @@ SENTENCES = [
     # 1. Market / Palengke
     ("market", "HIL+EN", "Pila ang grocery budget naton para sa weekend?"),
     ("market", "HIL+TL", "Magbakal ta sang isda kay mura-mura pa siya kanina."),
-    ("market", "HIL+TL+EN", "Nag-discount gali ang tindahan, kaya bumili na lang tayo ng marami."),
+    ("market", "HIL+TL", "Nag-discount gali ang tindahan, kaya bumili na lang tayo ng marami."),
     ("market", "HIL", "Tama na ina nga bugas, indi na magdugang."),
     ("market", "HIL+EN", "Wala na sang change ang vendor, so pabayloan ta sang bente."),
     # 2. Transport / Jeepney
     ("transport", "HIL+EN", "Pwede ko mag-drop off sa may corner sang highway?"),
     ("transport", "HIL+TL", "Sakay na tayo kay ma-late pa ako sa trabaho."),
-    ("transport", "HIL+TL+EN", "Traffic gid subong, kaya mag-grab na lang ako para mas mabakas."),
-    ("transport", "HIL", "Diin ka manaog, sa eskina ukon sa terminal?"),
+    ("transport", "HIL+EN", "Traffic gid subong, kaya mag-grab na lang ako para mas mabakas."),
+    ("transport", "HIL+EN", "Diin ka manaog, sa eskina ukon sa terminal?"),
     ("transport", "HIL+EN", "Bayad lang anay, kulang pa ang fare mo sang tatlo ka pesos."),
     # 3. School / Work
     ("school_work", "HIL+EN", "Indi ko ma-submit ang assignment kay slow ang wifi namon."),
@@ -47,7 +47,7 @@ SENTENCES = [
     ("school_work", "HIL+EN", "Naka-pasar ka na sa subject mo? Congrats, abi!"),
     ("school_work", "HIL", "Ginahimo ko pa ang akon project para sa klase."),
     # 4. Family / Home
-    ("family", "HIL+TL", "Kaon na kita kay handa na ang sud-an ni Nanay."),
+    ("family", "HIL", "Kaon na kita kay handa na ang sud-an ni Nanay."),
     ("family", "HIL+EN", "Charge mo anay ang phone ko, lowbat na gid."),
     ("family", "HIL+TL+EN", "Lipat ko gali i-off ang aircon, kaya ang taas ng bill namin."),
     ("family", "HIL", "Diin gintago mo ang yabi sang puwertahan?"),
@@ -67,7 +67,7 @@ SENTENCES = [
     # 7. Everyday / Spontaneous
     ("everyday", "HIL+EN", "Sige, text mo na lang ako kung diin kita magkita."),
     ("everyday", "HIL+TL+EN", "Ambot ah, basta i-message mo na lang sa group chat namin."),
-    ("everyday", "HIL+TL", "Wala lang, ginatamad ako maglakat subong."),
+    ("everyday", "HIL", "Wala lang, ginatamad ako maglakat subong."),
     ("everyday", "HIL", "Salamat gid sa imo bulig kahapon, ginapasalamatan ko ina."),
     ("everyday", "HIL+EN", "Okay lang na, next time na lang ta mag-hangout."),
     # 8. Oral tradition / Heritage
