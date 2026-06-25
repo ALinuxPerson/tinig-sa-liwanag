@@ -131,7 +131,22 @@ python g2p_hil/g2p.py "Maayong aga sa imo"
 - **TTS metric:** round-trip WER (`scripts/roundtrip_wer.py`) — synthesize, run
   back through STT, measure error — plus a quick human naturalness rating.
 
-## Translate text → Hiligaynon
+## Local translator app (Google-Translate style)
+
+A two-pane web app — type English/Tagalog on the left, Hiligaynon on the right.
+Runs on the **Python stdlib only**, zero installs (dictionary backend):
+
+```bash
+python app/server.py          # open http://localhost:8000
+```
+
+For fluent neural translation (needs `pip install transformers torch` + a model):
+
+```bash
+python app/server.py --backend hf --model welyjesch/lfm25-sft-hiligaynon
+```
+
+## Translate text → Hiligaynon (CLI)
 
 ```bash
 # offline word-by-word demo (no installs)

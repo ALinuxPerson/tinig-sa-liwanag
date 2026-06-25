@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sugidanon — Hiligaynon Translator</title>
+<style>
+  :root { --accent:#1a73e8; --bg:#f5f6f8; --card:#fff; --line:#dadce0; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+         background:var(--bg); color:#202124; }
+  header { padding:18px 24px; background:var(--card); border-bottom:1px solid var(--line); }
+  header h1 { margin:0; font-size:20px; font-weight:600; }
+  header span { color:#5f6368; font-size:13px; }
+  .wrap { max-width:1000px; margin:24px auto; padding:0 16px; }
+  .panes { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+  @media (max-width:700px){ .panes{ grid-template-columns:1fr; } }
+  .pane { background:var(--card); border:1px solid var(--line); border-radius:12px;
+          padding:14px; min-height:240px; display:flex; flex-direction:column; }
+  .pane label { font-size:12px; font-weight:600; color:#5f6368; text-transform:uppercase;
+                letter-spacing:.04em; margin-bottom:8px; }
+  textarea { flex:1; border:none; resize:none; font-size:18px; line-height:1.5;
+             outline:none; font-family:inherit; background:transparent; }
+  #out { flex:1; font-size:18px; line-height:1.5; white-space:pre-wrap; color:#202124; }
+  #out .ph { color:#9aa0a6; }
+  .bar { max-width:1000px; margin:16px auto 0; padding:0 16px; display:flex;
+         gap:12px; align-items:center; }
+  button { background:var(--accent); color:#fff; border:none; border-radius:8px;
+           padding:10px 22px; font-size:15px; font-weight:600; cursor:pointer; }
+  button:disabled { opacity:.6; cursor:default; }
+  .hint { color:#5f6368; font-size:13px; }
+  .star { color:#9aa0a6; }
+</style>
+</head>
+<body>
+<header>
+  <h1>🇵🇭 Sugidanon — Hiligaynon Translator</h1>
+  <span>English / Tagalog → Hiligaynon (Ilonggo) · Team Hague</span>
+</header>
+
+<div class="wrap">
+  <div class="panes">
+    <div class="pane">
+      <label>Before — English / Tagalog</label>
+      <textarea id="src" placeholder="Type here..." autofocus></textarea>
+    </div>
+    <div class="pane">
+      <label>After — Hiligaynon</label>
+      <div id="out"><span class="ph">translation appears here</span></div>
+    </div>
+  </div>
+</div>
+
+<div class="bar">
+  <button id="go">Translate →</button>
+  <span class="hint" id="hint">Tip: Ctrl/Cmd+Enter to translate. <span class="star">*word*</span> = not in dictionary yet.</span>
+</div>
+
+<script>
+const src = document.getElementById('src');
+const out = document.getElementById('out');
+const go  = document.getElementById('go');
+
+async function translate() {
+  const text = src.value.trim();
+  if (!text) { out.innerHTML = '<span class="ph">type something on the left</span>'; return; }
+  go.disabled = true;
+  out.innerHTML = '<span class="ph">translating…</span>';
+  try {
+    const r = await fetch('/api/translate', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({ text })
+    });
+    const data = await r.json();
+    out.textContent = data.translation || data.error || '(no output)';
+  } catch (e) {
+    out.textContent = 'error: ' + e;
+  } finally {
+    go.disabled = false;
+  }
+}
+
+go.addEventListener('click', translate);
+src.addEventListener('keydown', e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') translate();
+});
+</script>
+</body>
+</html>
