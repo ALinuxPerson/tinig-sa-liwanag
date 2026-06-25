@@ -47,7 +47,7 @@ Meta MMS:        https://huggingface.co/facebook/mms-1b-all
 
 ## Acknowledgments
 
-- **Aziel** — Hiligaynon (Ilonggo) speaker who reviewed the elicitation
+- **Aziel Faith Agustin** — Hiligaynon (Ilonggo) speaker who reviewed the elicitation
   sentences and recorded all 40 clips in the speech corpus. The dataset's
   reference transcripts and audio exist thanks to their voice and review.
 
