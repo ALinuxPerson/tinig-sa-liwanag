@@ -49,7 +49,6 @@ function Code({ children }) {
 export default function Home() {
   return (
     <div className="page">
-      <div className="bg" aria-hidden />
       <main className="wrap">
         <header className="hero glass">
           <p className="kicker">Open speech benchmark &middot; Hiligaynon (Ilonggo)</p>
@@ -177,91 +176,91 @@ python3 score.py --ref data/annotations --hyp data/predictions`}</Code>
       </main>
 
       <style jsx>{`
-        .page { position: relative; min-height: 100vh; color: #eef1f8; overflow-x: hidden; }
-        .bg {
-          position: fixed; inset: 0; z-index: -1;
+        .page {
+          min-height: 100vh; color: #f3f6fc;
           background:
-            radial-gradient(60% 60% at 15% 10%, rgba(56,189,248,.35), transparent 60%),
-            radial-gradient(55% 55% at 85% 20%, rgba(167,139,250,.32), transparent 60%),
-            radial-gradient(60% 60% at 70% 95%, rgba(45,212,191,.28), transparent 60%),
-            linear-gradient(160deg, #0b1020, #0a0f1d 60%, #0c1326);
+            radial-gradient(80% 70% at 12% 0%, rgba(56,140,255,.30), transparent 55%),
+            radial-gradient(70% 60% at 100% 8%, rgba(150,110,255,.28), transparent 55%),
+            radial-gradient(80% 70% at 80% 100%, rgba(35,200,190,.22), transparent 55%),
+            #0a0e1c;
+          background-attachment: fixed;
         }
-        .wrap { max-width: 960px; margin: 0 auto; padding: 56px 20px 72px; display: flex; flex-direction: column; gap: 20px; }
+        .wrap { max-width: 940px; margin: 0 auto; padding: 56px 20px 72px; display: flex; flex-direction: column; gap: 18px; }
 
         .glass {
-          background: rgba(255,255,255,.07);
-          backdrop-filter: blur(22px) saturate(150%);
-          -webkit-backdrop-filter: blur(22px) saturate(150%);
-          border: 1px solid rgba(255,255,255,.16);
-          border-radius: 24px;
+          background: rgba(20,28,48,.55);
+          backdrop-filter: blur(18px) saturate(140%);
+          -webkit-backdrop-filter: blur(18px) saturate(140%);
+          border: 1px solid rgba(255,255,255,.12);
+          border-radius: 20px;
           padding: 30px 34px;
-          box-shadow: 0 12px 48px rgba(2,6,23,.45), inset 0 1px 0 rgba(255,255,255,.22);
         }
 
         .hero { text-align: left; }
-        .kicker { text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; color: #9fb3d1; margin: 0 0 10px; }
-        h1 { font-size: 3rem; margin: 0 0 14px; letter-spacing: -.02em;
-             background: linear-gradient(90deg,#fff,#bfe3ff); -webkit-background-clip: text; background-clip: text; color: transparent; }
-        .lede { font-size: 1.18rem; line-height: 1.6; color: #d6deec; margin: 0 0 22px; max-width: 64ch; }
+        .kicker { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; color: #9fc0ff; margin: 0 0 12px; font-weight: 600; }
+        h1 { font-size: 2.9rem; margin: 0 0 14px; letter-spacing: -.02em; color: #ffffff; font-weight: 700; }
+        .lede { font-size: 1.16rem; line-height: 1.6; color: #dbe3f4; margin: 0 0 22px; max-width: 62ch; }
         .links { display: flex; flex-wrap: wrap; gap: 12px; }
         .pill {
           display: inline-block; padding: 11px 18px; border-radius: 999px;
-          border: 1px solid rgba(255,255,255,.22); color: #eaf0fb; text-decoration: none;
-          font-weight: 600; font-size: .95rem; background: rgba(255,255,255,.06);
-          backdrop-filter: blur(8px); transition: transform .15s ease, background .15s ease;
+          border: 1px solid rgba(255,255,255,.20); color: #f3f6fc; text-decoration: none;
+          font-weight: 600; font-size: .95rem; background: rgba(255,255,255,.08);
+          transition: background .15s ease;
         }
-        .pill:hover { transform: translateY(-1px); background: rgba(255,255,255,.14); }
-        .pill.primary { border-color: transparent; color: #04121f;
-          background: linear-gradient(90deg,#7dd3fc,#5eead4); box-shadow: 0 6px 22px rgba(94,234,212,.35); }
+        .pill:hover { background: rgba(255,255,255,.16); }
+        .pill.primary { border-color: transparent; color: #06121f;
+          background: linear-gradient(90deg,#73c8ff,#54e0c6); }
 
-        h2 { font-size: 1.5rem; margin: 0 0 14px; letter-spacing: -.01em; }
-        .eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: .12em; font-size: .72rem; color: #7dd3fc; margin-bottom: 10px; }
-        .punch { font-size: 1.7rem; line-height: 1.35; margin: 0 0 14px; letter-spacing: -.01em; }
-        .plain { font-size: 1.05rem; line-height: 1.65; color: #d6deec; margin: 0 0 24px; max-width: 70ch; }
-        .body { font-size: 1rem; line-height: 1.65; color: #d2dbea; margin: 0 0 14px; max-width: 72ch; }
+        h2 { font-size: 1.5rem; margin: 0 0 14px; letter-spacing: -.01em; color: #ffffff; }
+        .eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; color: #7cc4ff; margin-bottom: 12px; font-weight: 600; }
+        .punch { font-size: 1.65rem; line-height: 1.35; margin: 0 0 16px; letter-spacing: -.01em; color: #ffffff; font-weight: 700; }
+        .plain { font-size: 1.05rem; line-height: 1.65; color: #dbe3f4; margin: 0 0 26px; max-width: 70ch; }
+        .plain strong, .punch strong { color: #ffffff; }
+        .body { font-size: 1rem; line-height: 1.65; color: #d4dcee; margin: 0 0 14px; max-width: 72ch; }
 
-        .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin: 6px 0 22px; }
-        .barcol h3 { font-size: 1rem; margin: 0 0 4px; color: #f1f5ff; }
-        .colsub { font-size: .85rem; color: #98a8c4; margin: 0 0 16px; }
-        .bar { margin: 0 0 14px; }
-        .barhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
-        .barlabel { font-size: .92rem; color: #e7edf8; }
-        .barval { font-size: 1rem; font-weight: 700; }
-        .bartrack { height: 10px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; border: 1px solid rgba(255,255,255,.08); }
+        .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 6px 0 24px; }
+        .barcol h3 { font-size: 1.02rem; margin: 0 0 4px; color: #ffffff; }
+        .colsub { font-size: .86rem; color: #aab8d4; margin: 0 0 18px; line-height: 1.45; }
+        .bar { margin: 0 0 16px; }
+        .barhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; gap: 10px; }
+        .barlabel { font-size: .94rem; color: #eaf0fb; }
+        .barval { font-size: 1.02rem; font-weight: 700; white-space: nowrap; }
+        .bartrack { height: 12px; border-radius: 999px; background: rgba(255,255,255,.10); overflow: hidden; }
         .barfill { height: 100%; border-radius: 999px; transition: width .6s ease; }
-        .barnote { display: block; font-size: .78rem; color: #8fa1bf; margin-top: 4px; }
+        .barnote { display: block; font-size: .8rem; color: #9aa9c6; margin-top: 5px; }
 
-        .takeaway { font-size: 1rem; line-height: 1.6; color: #e3e9f5; padding: 18px 20px;
-          border-radius: 16px; background: rgba(125,211,252,.10); border: 1px solid rgba(125,211,252,.22); }
-        .fine { display: block; margin-top: 8px; font-size: .82rem; color: #93a3c0; }
+        .takeaway { font-size: 1rem; line-height: 1.62; color: #eef2fb; padding: 18px 20px;
+          border-radius: 14px; background: rgba(90,150,255,.14); border: 1px solid rgba(120,170,255,.28); }
+        .takeaway strong { color: #ffffff; }
+        .fine { display: block; margin-top: 8px; font-size: .82rem; color: #a6b3cf; }
 
         .chips { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 18px; }
-        .chip { flex: 1 1 140px; border-radius: 16px; padding: 16px 18px;
-          background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.14); }
-        .chip strong { display: block; font-size: 1.5rem; color: #bfe3ff; }
-        .chip span { font-size: .82rem; color: #aebbd4; }
+        .chip { flex: 1 1 140px; border-radius: 14px; padding: 16px 18px;
+          background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
+        .chip strong { display: block; font-size: 1.5rem; color: #ffffff; }
+        .chip span { font-size: .82rem; color: #b6c2da; }
 
-        .list { margin: 0; padding-left: 20px; line-height: 1.7; color: #d2dbea; }
+        .list { margin: 0; padding-left: 20px; line-height: 1.7; color: #d4dcee; }
         .list li { margin: 6px 0; }
 
-        .ilink { color: #7dd3fc; text-decoration: none; border-bottom: 1px solid rgba(125,211,252,.4); }
-        .ilink:hover { border-color: #7dd3fc; }
+        .ilink { color: #7cc4ff; text-decoration: none; border-bottom: 1px solid rgba(124,196,255,.45); }
+        .ilink:hover { border-color: #7cc4ff; }
 
         .code {
-          background: rgba(3,8,20,.55); border: 1px solid rgba(255,255,255,.12);
-          border-radius: 14px; padding: 16px 18px; overflow-x: auto;
+          background: rgba(4,8,18,.72); border: 1px solid rgba(255,255,255,.10);
+          border-radius: 12px; padding: 16px 18px; overflow-x: auto;
           font-size: .85rem; line-height: 1.55; color: #d7e6ff; margin: 0 0 14px;
         }
         .code code { background: none; }
 
-        .foot { padding: 8px 6px 0; color: #aebbd4; font-size: .95rem; line-height: 1.6; }
-        .foot a { color: #7dd3fc; }
-        .foot strong { color: #eaf0fb; }
+        .foot { padding: 6px 6px 0; color: #b6c2da; font-size: .95rem; line-height: 1.6; }
+        .foot a { color: #7cc4ff; }
+        .foot strong { color: #f3f6fc; }
 
         @media (max-width: 720px) {
-          h1 { font-size: 2.2rem; }
-          .punch { font-size: 1.35rem; }
-          .bars { grid-template-columns: 1fr; gap: 18px; }
+          h1 { font-size: 2.1rem; }
+          .punch { font-size: 1.32rem; }
+          .bars { grid-template-columns: 1fr; gap: 20px; }
           .glass { padding: 24px 20px; }
         }
       `}</style>
