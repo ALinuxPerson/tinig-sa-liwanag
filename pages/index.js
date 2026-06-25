@@ -3,6 +3,10 @@ import { useEffect, useMemo, useState } from "react";
 
 const SWITCH_TYPES = ["HIL", "HIL+EN", "HIL+TL", "HIL+TL+EN"];
 
+// The finding in one clip: the model keeps the borrowed English ("preserve",
+// "culture") but erases the Hiligaynon matrix around it.
+const FEATURED_CLIP = "hil_cs_038";
+
 function MetricCard({ label, value, suffix = "%", hint, strong }) {
   return (
     <div className={`glass metric ${strong ? "metricStrong" : ""}`}>
@@ -129,6 +133,11 @@ export default function Home() {
     return [...new Set(data.clips.map((c) => c.domain))];
   }, [data]);
 
+  const featured = useMemo(() => {
+    if (!data?.clips) return null;
+    return data.clips.find((c) => c.clip_id === FEATURED_CLIP) || null;
+  }, [data]);
+
   const clips = useMemo(() => {
     if (!data?.clips) return [];
     return data.clips.filter(
@@ -169,6 +178,26 @@ export default function Home() {
           </p>
           <span className="modelTag">model · {data.model}</span>
         </header>
+
+        {featured && (
+          <section className="glass featured">
+            <span className="featuredTag">▶ The finding, in one clip</span>
+            <p className="featuredCaption">
+              The model keeps the borrowed English — <strong>preserve</strong>,{" "}
+              <strong>culture</strong> — but erases the Hiligaynon around it. The
+              language the speaker owns is the language the machine drops.
+            </p>
+            <audio controls preload="none" src={`/${featured.audio}`} className="player" />
+            <div className="rowLabel">Reference — token diff</div>
+            <div className="tokens">
+              {featured.tokens.map((t, i) => (
+                <Token key={i} t={t} />
+              ))}
+            </div>
+            <div className="rowLabel">Whisper prediction (forced <code>tl</code>)</div>
+            <div className="pred">{featured.prediction}</div>
+          </section>
+        )}
 
         <section className="metrics">
           <MetricCard label="Overall WER" value={h.overall} hint="all clips" />
@@ -344,6 +373,26 @@ export default function Home() {
           background: rgba(249, 115, 22, 0.12);
           padding: 4px 10px;
           border-radius: 999px;
+        }
+        .featured {
+          padding: 22px 26px;
+          border-color: rgba(249, 115, 22, 0.45);
+          background: rgba(249, 115, 22, 0.1);
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        .featuredTag {
+          font-size: 0.74rem;
+          font-weight: 700;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: var(--accent-strong);
+        }
+        .featuredCaption {
+          margin: 0 0 4px;
+          max-width: 72ch;
+          color: #2a2320;
         }
         .metrics {
           display: grid;

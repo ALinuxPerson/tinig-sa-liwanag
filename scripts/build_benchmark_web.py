@@ -129,6 +129,30 @@ def cohort_summary(ann_dir, hyp_dir):
     }
 
 
+def headline_pairs(ann_dir, hyp_dir):
+    """Per-language-pair switch-region WER, computed from the data."""
+    pair_buckets = {}
+    for fn in sorted(os.listdir(ann_dir)):
+        if not fn.endswith(".json"):
+            continue
+        hp = os.path.join(hyp_dir, fn)
+        if not os.path.exists(hp):
+            continue
+        ref, langs = score.load_reference(os.path.join(ann_dir, fn))
+        hyp = score.load_hypothesis(hp)
+        score.score_clip(ref, langs, hyp, pair_buckets)
+
+    def wer(c):
+        return round(100 * c.errors / c.words, 1) if c.words else 0.0
+
+    out = {}
+    for label, key in (("hil<->en", "hil_en"), ("hil<->tl", "hil_tl"), ("tl<->en", "tl_en")):
+        c = pair_buckets.get(label)
+        if c:
+            out[key] = wer(c)
+    return out
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--annotations", default=ANNOTATION_DIR)
@@ -156,12 +180,17 @@ def main():
         "data/extensions/scripted_native_spk2/annotations",
         "data/extensions/scripted_native_spk2/predictions",
     )
+    # Compute the headline summary from the data so it can never drift from the
+    # scorer. Pairs come from the same pair buckets score.py builds.
+    head = cohort_summary(args.annotations, args.hyp)
+    pairs = headline_pairs(args.annotations, args.hyp)
     cohorts = [
         {
             "name": "headline",
             "role": "test",
             "speaker": "spk01",
-            "overall": 59.5, "switch": 35.8, "mono": 66.3, "penalty": -30.6,
+            "overall": head["overall"], "switch": head["switch"],
+            "mono": head["mono"], "penalty": head["penalty"],
             "n": n,
         },
     ]
@@ -174,13 +203,13 @@ def main():
         })
     payload = {
         "model": args.model,
-        "version": "1.0.0",
+        "version": "1.0.1",
         "headline": {
-            "overall": 59.5,
-            "switch": 35.8,
-            "mono": 66.3,
-            "penalty": -30.6,
-            "pairs": {"hil_en": 40.0, "hil_tl": 24.4, "tl_en": 6.2},
+            "overall": head["overall"],
+            "switch": head["switch"],
+            "mono": head["mono"],
+            "penalty": head["penalty"],
+            "pairs": pairs,
         },
         "cohorts": cohorts,
         "clips": clips,
