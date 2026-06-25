@@ -24,12 +24,20 @@
   #out { flex:1; font-size:18px; line-height:1.5; white-space:pre-wrap; color:#202124; }
   #out .ph { color:#9aa0a6; }
   .bar { max-width:1000px; margin:16px auto 0; padding:0 16px; display:flex;
-         gap:12px; align-items:center; }
+         gap:12px; align-items:center; flex-wrap:wrap; }
   button { background:var(--accent); color:#fff; border:none; border-radius:8px;
            padding:10px 22px; font-size:15px; font-weight:600; cursor:pointer; }
   button:disabled { opacity:.6; cursor:default; }
   .hint { color:#5f6368; font-size:13px; }
   .star { color:#9aa0a6; }
+  .samples { max-width:1000px; margin:18px auto 0; padding:0 16px; display:grid;
+             grid-template-columns:repeat(3,1fr); gap:10px; }
+  @media (max-width:800px){ .samples{ grid-template-columns:1fr; } }
+  .sample { background:#fff; color:#202124; border:1px solid var(--line); border-radius:8px;
+            padding:10px 12px; text-align:left; font-size:13px; line-height:1.35;
+            font-weight:500; }
+  .sample span { display:block; color:#5f6368; font-size:11px; margin-bottom:4px;
+                 text-transform:uppercase; letter-spacing:.04em; }
 </style>
 </head>
 <body>
@@ -56,10 +64,22 @@
   <span class="hint" id="hint">Baseline demo. Ctrl/Cmd+Enter to translate. <span class="star">*word*</span> = not in the dictionary backend.</span>
 </div>
 
+<div class="samples" id="samples"></div>
+
 <script>
 const src = document.getElementById('src');
 const out = document.getElementById('out');
 const go  = document.getElementById('go');
+const samples = document.getElementById('samples');
+
+const samplePrompts = [
+  ['Health', 'Please call the doctor if the child has a fever tonight.'],
+  ['Education', 'The class was cancelled because the rain was strong, but students should read the module at home.'],
+  ['Emergency', 'Do not cross the bridge because the water is rising quickly.'],
+  ['Code-switching', 'Kung nahihilo ka, sit down anay and drink water.'],
+  ['Public service', 'If you cannot read the form, ask the staff for help.'],
+  ['Daily life', 'I left the key on the table, not inside the bag.']
+];
 
 async function translate() {
   const text = src.value.trim();
@@ -84,6 +104,17 @@ go.addEventListener('click', translate);
 src.addEventListener('keydown', e => {
   if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') translate();
 });
+
+for (const [label, text] of samplePrompts) {
+  const button = document.createElement('button');
+  button.className = 'sample';
+  button.innerHTML = `<span>${label}</span>${text}`;
+  button.addEventListener('click', () => {
+    src.value = text;
+    translate();
+  });
+  samples.appendChild(button);
+}
 </script>
 </body>
 </html>
