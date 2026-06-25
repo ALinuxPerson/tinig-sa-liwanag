@@ -22,5 +22,8 @@ Thumbs.db
 # TTS PoC output
 out/
 
+# Cloned external corpora (G2P-ASR, etc.) — keep out of our repo/license
+external/
+
 # Keep folder structure but ignore large media if needed
 # data/audio/*.wav
