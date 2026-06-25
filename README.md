@@ -11,6 +11,15 @@ https://tinig-one.vercel.app          # Companion Demo: Tinig — AI assistant u
 Tinig (companion demo repository): https://github.com/ALinuxPerson/tinig
 ```
 
+**Source code & deployment (GitHub):**
+
+```text
+https://github.com/Jazztinn/tinig-sa-liwanag
+```
+
+The Vercel site auto-deploys from this repo's `main` branch to
+`https://tinig-sa-liwanag.vercel.app`.
+
 **Open dataset (Hugging Face):**
 
 ```text
