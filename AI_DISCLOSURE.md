@@ -3,8 +3,8 @@
 **Project:** Sugidanon — A Code-Switched Hiligaynon-Tagalog-English Speech
 Evaluation Benchmark
 **Track:** Inclusive Speech Technology for Philippine Languages (FTIC / GitHub)
-**Team:** [TEAM NAME]
-**Date:** [DATE]
+**Team:** Hague
+**Date:** June 25–26, 2026
 
 We used AI coding and writing assistants during this project. In the spirit of
 open and honest research, this document discloses which tools were used, for
@@ -59,4 +59,4 @@ all generated content. Any remaining mistakes are the team's responsibility, not
 the tools'.
 
 ---
-*Signed: [TEAM MEMBER NAMES]*
+*Signed: Team Hague*
