@@ -157,11 +157,22 @@ class Counts:
         return (self.errors / self.words) if self.words else 0.0
 
 
-PAIR_LABELS = {
+# Switch-pair labels are derived from the data, not hardcoded: any two languages
+# that appear on either side of a switch point get a stable "a<->b" bucket, so the
+# scorer is language-agnostic and the benchmark drops into any code-switch pair
+# (Cebuano, Waray, ...) with no code change. A small table only pins the display
+# spelling for the headline corpus's three pairs; everything else is auto-derived.
+_CANONICAL_PAIRS = {
     frozenset(("hil", "tl")): "hil<->tl",
     frozenset(("hil", "en")): "hil<->en",
     frozenset(("tl", "en")):  "tl<->en",
 }
+PREFERRED_PAIR_ORDER = ["hil<->tl", "hil<->en", "tl<->en"]
+
+
+def pair_label(pair):
+    """Stable label for an unordered language pair, e.g. {'a','b'} -> 'a<->b'."""
+    return _CANONICAL_PAIRS.get(pair) or "<->".join(sorted(pair))
 
 
 def score_clip(ref, langs, hyp, pair_buckets):
@@ -180,9 +191,7 @@ def score_clip(ref, langs, hyp, pair_buckets):
     # switch point(s) it sits within +/-1 of.
     pair_of_token = [set() for _ in ref]
     for idx, pair in switch_pairs(langs):
-        label = PAIR_LABELS.get(pair)
-        if label is None:
-            continue
+        label = pair_label(pair)
         for j in range(max(0, idx - 1), min(len(ref), idx + 2)):
             pair_of_token[j].add(label)
     for j, labels in enumerate(pair_of_token):
@@ -311,7 +320,9 @@ def main():
     if pair_buckets:
         print()
         print("Switch-region WER by language pair:")
-        for label in ("hil<->tl", "hil<->en", "tl<->en"):
+        ordered = [p for p in PREFERRED_PAIR_ORDER if p in pair_buckets]
+        ordered += sorted(p for p in pair_buckets if p not in PREFERRED_PAIR_ORDER)
+        for label in ordered:
             c = pair_buckets.get(label)
             if c and c.words:
                 print(f"  {label:<10}: {c.wer():.1%}  ({c.errors}/{c.words})")
