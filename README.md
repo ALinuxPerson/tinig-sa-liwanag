@@ -146,12 +146,10 @@ Measurement is the first act of inclusion:
 
 Sugidanon directly supports:
 
-| | |
-|:---:|:---:|
-| [![SDG 4 — Quality Education](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Sustainable_Development_Goal_04QualityEducation.svg/200px-Sustainable_Development_Goal_04QualityEducation.svg.png)](https://sdgs.un.org/goals/goal4) | [![SDG 9 — Industry, Innovation & Infrastructure](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Sustainable_Development_Goal_09IndustryInnovation.svg/200px-Sustainable_Development_Goal_09IndustryInnovation.svg.png)](https://sdgs.un.org/goals/goal9) |
-| **SDG 4 — Quality Education**<br>Open, reproducible tools for studying and teaching Philippine language technology. | **SDG 9 — Industry, Innovation & Infrastructure**<br>Novel benchmark infrastructure (switch-region WER) advancing code-switch ASR research. |
-| [![SDG 10 — Reduced Inequalities](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Sustainable_Development_Goal_10ReducedInequalities.svg/200px-Sustainable_Development_Goal_10ReducedInequalities.svg.png)](https://sdgs.un.org/goals/goal10) | [![SDG 17 — Partnerships for the Goals](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Sustainable_Development_Goal_17Partnerships.svg/200px-Sustainable_Development_Goal_17Partnerships.svg.png)](https://sdgs.un.org/goals/goal17) |
-| **SDG 10 — Reduced Inequalities**<br>Quantifies the gap that leaves Hiligaynon speakers underserved by mainstream speech AI; makes the gap fundable and fixable. | **SDG 17 — Partnerships for the Goals**<br>CC BY 4.0 open dataset and MIT-licensed tooling for reuse by researchers, developers, and community contributors worldwide. |
+<a href="https://sdgs.un.org/goals/goal4"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-04.jpg" alt="SDG 4 — Quality Education" width="160"/></a>
+<a href="https://sdgs.un.org/goals/goal9"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-09.jpg" alt="SDG 9 — Industry, Innovation & Infrastructure" width="160"/></a>
+<a href="https://sdgs.un.org/goals/goal10"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-10.jpg" alt="SDG 10 — Reduced Inequalities" width="160"/></a>
+<a href="https://sdgs.un.org/goals/goal17"><img src="https://sdgs.un.org/sites/default/files/goals/E_SDG_Icons-17.jpg" alt="SDG 17 — Partnerships for the Goals" width="160"/></a>
 
 ## Project case
 
