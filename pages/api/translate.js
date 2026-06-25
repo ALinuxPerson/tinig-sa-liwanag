@@ -145,6 +145,18 @@ const BUILT_IN_LEXICON = {
   dirty: "mahigko",
   angry: "akig",
   afraid: "hadlok",
+  quick: "madasig",
+  brown: "kayumanggi",
+  fox: "soro",
+  jump: "lukso",
+  jumped: "naglukso",
+  over: "sa ibabaw sang",
+  lazy: "matamad",
+  dog: "ido",
+  dance: "saot",
+  danced: "nagsaot",
+  dancing: "nagsaot",
+  well: "sing maayo",
   city: "syudad",
   town: "banwa",
   church: "simbahan",
@@ -331,6 +343,27 @@ const BUILT_IN_LEXICON = {
   mura: "barato",
   mabuti: "maayo",
   masama: "malain",
+  sumayaw: "magsaot",
+  sayaw: "saot",
+  nagsayaw: "nagsaot",
+  nang: "sing",
+  maigi: "maayo",
+  galaw: "hulag",
+  tumakbo: "magdalagan",
+  tumalon: "maglukso",
+  umupo: "magpungko",
+  tumayo: "magtindog",
+  matulog: "magtulog",
+  magluto: "magluto",
+  maghugas: "maghugas",
+  magbasa: "magbasa",
+  magsulat: "magsulat",
+  makinig: "magpamati",
+  magsalita: "maghambal",
+  bilhin: "baklon",
+  bumili: "magbakal",
+  ayaw: "indi gusto",
+  pakiusap: "palihog",
   will: "maga",
   need: "kinahanglan",
   call: "tawga",
@@ -594,6 +627,19 @@ const SEED_TRANSLATIONS = new Map([
 ]);
 
 const TAGALOG_PHRASE_TRANSLATIONS = new Map([
+  ["sumayaw ka nang maigi", "Magsaot ka sing maayo."],
+  ["sumayaw ka ng maigi", "Magsaot ka sing maayo."],
+  ["sumayaw ka", "Magsaot ka."],
+  ["tumakbo ka nang mabilis", "Magdalagan ka sing madasig."],
+  ["tumalon ka", "Maglukso ka."],
+  ["umupo ka", "Magpungko ka."],
+  ["tumayo ka", "Magtindog ka."],
+  ["kumain ka na ba", "Nakakaon ka na bala?"],
+  ["kain ka muna", "Kaon ka anay."],
+  ["inom ka ng tubig", "Mag-inom ka sang tubig."],
+  ["matulog ka na", "Magtulog ka na."],
+  ["magbasa ka ng libro", "Magbasa ka sang libro."],
+  ["isulat mo ito", "Isulat mo ini."],
   ["magandang umaga", "Maayong aga."],
   ["magandang hapon", "Maayong hapon."],
   ["magandang gabi", "Maayong gab-i."],
@@ -632,6 +678,26 @@ const TAGALOG_PHRASE_TRANSLATIONS = new Map([
   ["ligtas ako", "Luwas ako."],
 ]);
 
+const ENGLISH_PHRASE_TRANSLATIONS = new Map([
+  [
+    "the quick brown fox jumped over the lazy dog",
+    "Ang madasig nga kayumanggi nga soro naglukso sa ibabaw sang matamad nga ido.",
+  ],
+  ["good morning", "Maayong aga."],
+  ["good afternoon", "Maayong hapon."],
+  ["good evening", "Maayong gab-i."],
+  ["how are you", "Kamusta ka?"],
+  ["thank you very much", "Madamo gid nga salamat."],
+  ["i need help", "Kinahanglan ko sang bulig."],
+  ["where is the hospital", "Diin ang hospital?"],
+  ["drink water", "Mag-inom sang tubig."],
+  ["read the book", "Basaha ang libro."],
+  ["write your name", "Isulat ang imo ngalan."],
+  ["go to school tomorrow", "Magkadto sa eskwelahan buas."],
+  ["call your family", "Tawgi ang imo pamilya."],
+  ["do not cross the road", "Indi magtabok sa dalan."],
+]);
+
 function normalizeText(text) {
   return text
     .toLowerCase()
@@ -641,7 +707,8 @@ function normalizeText(text) {
 }
 
 function translatePhrase(text) {
-  return TAGALOG_PHRASE_TRANSLATIONS.get(normalizeText(text));
+  const key = normalizeText(text);
+  return TAGALOG_PHRASE_TRANSLATIONS.get(key) || ENGLISH_PHRASE_TRANSLATIONS.get(key);
 }
 
 function translateDict(text) {
@@ -661,7 +728,7 @@ function translateDict(text) {
       }
       output.push(`${lead}${translated}${trail}`);
     } else {
-      output.push(`${lead}*${core}*${trail}`);
+      output.push(`${lead}${core}${trail}`);
     }
   }
 
@@ -690,7 +757,7 @@ export default function handler(req, res) {
   if (phraseTranslation) {
     return res.status(200).json({
       translation: phraseTranslation,
-      backend: "tagalog-phrase-baseline",
+      backend: "curated-phrase-baseline",
       note: "Matched a curated demo phrase. This still needs native-speaker review.",
     });
   }
