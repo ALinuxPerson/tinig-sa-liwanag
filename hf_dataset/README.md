@@ -35,7 +35,8 @@ speech technology.**
 Real Hiligaynon-English-Tagalog speech, labeled per word, with a scorer that
 measures what generic models miss: accuracy **at the moment the language
 switches**. Run the one-click Colab to reproduce the headline result on a fresh
-machine in minutes.
+machine in minutes, or use the GitHub release pipeline to validate, score, and
+package the benchmark artifacts.
 
 ## Why it matters
 
@@ -78,17 +79,15 @@ speaker — a seed benchmark to extend, not a final model-ranking corpus.
 
 ## Subsets
 
-The headline benchmark is the `scripted_native` subset. Natural-speech
-extensions are kept **separate** and never blended into the headline WER.
+The current public release contains one benchmark subset:
 
 | Subset | Speaker | Speech type | Status |
 |--------|---------|-------------|--------|
 | `scripted_native` | Native | Prompted code-switch clips | Headline benchmark (40 clips) |
-| `non_native_eval` | Non-native | Podcast/vlog speech | Robustness only (20 clips) — never native gold |
 
 Each clip carries `subset`, `source_type`, `speech_style`, and `gold_status`
-fields. Non-native clips are a robustness subset and must not be used as native
-Hiligaynon gold data.
+fields. Future natural-speech or non-native robustness subsets should be
+reported separately and never blended into the headline WER.
 
 ## Quick start
 
@@ -99,6 +98,15 @@ ds[0]["audio"], ds[0]["transcript"], ds[0]["switch_type"], ds[0]["tokens"]
 ```
 
 Or reproduce the benchmark end-to-end with the one-click Colab badge above.
+
+From the GitHub repo:
+
+```bash
+python3 scripts/build_release.py --overwrite
+```
+
+That command validates the annotations, scores the bundled baseline, refreshes
+the web benchmark JSON, and writes a dataset/benchmark release package.
 
 ## Languages
 
@@ -118,11 +126,7 @@ data/
   annotations/
     <clip_id>.json
   predictions/
-    asr/
-      whisper-large-v3-tl/
-        <clip_id>.json
-      mms-1b-all/
-        <clip_id>.json
+    <clip_id>.json
 ```
 
 Each annotation contains:
@@ -160,40 +164,44 @@ Example:
 
 ## Evaluation
 
-One-command reproduction:
+Primary reproduction from the GitHub repo:
 
 ```bash
-python3 scripts/eval_asr_baselines.py
+python3 scripts/build_release.py --overwrite
 ```
 
-The script evaluates every model directory under:
+Minimal scoring:
 
-```text
-data/predictions/asr/
+```bash
+python3 scripts/validate.py --kind asr --dir data/annotations
+python3 score.py --ref data/annotations --hyp data/predictions
 ```
 
-It reports:
+The scorer reports:
 
 - overall WER
 - switch-region WER
 - monolingual WER
 - switch penalty
 
-Lower-level scoring:
-
-```bash
-python3 score.py --ref data/annotations --hyp data/predictions/asr/whisper-large-v3-tl
-```
-
 ## Baselines
 
-Included worked-example prediction directories:
+Included prediction files in `data/predictions/` are the published worked
+baseline used for the headline result: Whisper small with Tagalog language
+forcing (`--language tl`). They demonstrate the evaluation format and make the
+reported result reproducible.
 
-- `whisper-large-v3-tl`
-- `mms-1b-all`
+To compare another ASR system, write one JSON prediction per clip:
 
-These files demonstrate the evaluation format. They are not final published
-benchmark numbers until real model outputs over the full test set are added.
+```json
+{ "clip_id": "hil_cs_001", "text": "predicted transcript here" }
+```
+
+Then run:
+
+```bash
+python3 score.py --ref data/annotations --hyp path/to/new_predictions
+```
 
 ## Annotation Guidelines
 
@@ -248,7 +256,7 @@ transcripts and audio are their voice and review.
 
 ```bibtex
 @dataset{team_hague_sugidanon_2026,
-  title = {Sugidanon: Code-switched Hiligaynon speech and translation benchmark scaffold},
+  title = {Sugidanon: Open Hiligaynon Code-Switch ASR Benchmark},
   author = {{Team Hague}},
   note = {Speech recorded and reviewed by Aziel Faith Agustin (Hiligaynon speaker)},
   year = {2026},

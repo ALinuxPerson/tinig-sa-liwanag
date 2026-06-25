@@ -121,15 +121,16 @@ Before this can become a real benchmark:
 4. Disagreements should be adjudicated and marked `adjudicated`.
 5. The final test split should be frozen before model tuning.
 
-## Why this is still a valid MVP
+## Why the translation extension remains useful
 
-In a two-hour hackathon, the team cannot honestly claim a production model or a
-gold Hiligaynon dataset without speaker validation. The MVP instead delivers the
-reproducible infrastructure:
+The primary MVP is the code-switch ASR benchmark above. The translation files
+remain useful as an extension layer because they exercise the same discipline:
+schema-first data, explicit review status, baseline generation, and reproducible
+scoring.
 
-- benchmark schema
+- translation schema
 - seed benchmark rows
 - baseline generation
 - automatic scoring
-- demo app
-- clear path to human validation and later STT/TTS work
+- demo app extension
+- clear path to human validation and later STT/translation/TTS work

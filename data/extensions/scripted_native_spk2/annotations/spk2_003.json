@@ -1,0 +1,87 @@
+{
+  "clip_id": "spk2_003",
+  "audio_file": "audio/spk2_003.wav",
+  "duration_sec": 5.88,
+  "domain": "market",
+  "switch_type": "HIL+TL+EN",
+  "transcript": "Sale daw subong, kaya bibili ako ng marami para sa stock.",
+  "speaker": {
+    "id": "spk02",
+    "name": "Nimeesha De Guzman",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": "F"
+  },
+  "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
+    "license": "CC BY 4.0 (text); audio recorded by speaker",
+    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Sale",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "daw",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "subong,",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "kaya",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "bibili",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "ako",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "ng",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "marami",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "para",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "stock.",
+      "lang": null
+    }
+  ],
+  "clip_quality": "ok"
+}

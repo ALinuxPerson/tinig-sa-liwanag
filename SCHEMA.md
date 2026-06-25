@@ -8,6 +8,27 @@ A JSONL translation benchmark supports the later STT -> translation pipeline.
 
 ```text
 data/
+  annotations/
+    hil_cs_001.json
+    ...
+    hil_cs_040.json
+  audio/
+    hil_cs_001.wav
+    ...
+    hil_cs_040.wav
+  predictions/
+    hil_cs_001.json
+    ...
+    hil_cs_040.json
+```
+
+## Optional translation extension
+
+The repository also includes a text translation scaffold for later
+speech-to-text -> translation -> text-to-speech work:
+
+```text
+data/
   benchmark/
     hil_translation_v1.jsonl
   predictions/

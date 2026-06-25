@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-validate.py - Check benchmark files against SCHEMA.md.
+validate.py - Check Sugidanon benchmark files against SCHEMA.md.
 
-Primary v1 mode validates translation benchmark JSONL files in data/benchmark.
-Legacy ASR mode still validates data/annotations/*.json for future speech work.
+ASR mode validates the primary code-switch speech benchmark in
+data/annotations/*.json. Translation mode validates the optional text extension
+in data/benchmark/*.jsonl.
 
 Usage:
     python3 scripts/validate.py --kind translation --dir data/benchmark

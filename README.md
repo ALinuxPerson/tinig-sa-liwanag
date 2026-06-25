@@ -172,71 +172,79 @@ Our interpretation of the project case:
 - Start with Hiligaynon because it is underrepresented compared with Tagalog.
 - Build a benchmark and reproducible pipeline before claiming a production model.
 - Lead with the code-switch ASR benchmark; keep translation as an extension layer.
-- Make limitations explicit: current seed translations still need
-  native-speaker review.
+- Make limitations explicit: one speaker, 40 clips, and per-word language tags
+  still need a confirmation pass before they are fully adjudicated.
 
 ## What we developed
 
 During the hackathon, we narrowed the original STT/TTS idea into a realistic
-MVP: a context-aware Hiligaynon translation benchmark scaffold and demo.
+MVP: a focused Hiligaynon code-switch ASR benchmark that future speech systems
+can evaluate against.
 
 We developed:
 
-- a 30-row seed benchmark for English, Filipino, and code-switched input into
-  Hiligaynon
+- 40 native-recorded Hiligaynon / Tagalog / English code-switch clips
+- per-word `hil` / `tl` / `en` language tags
 - a Hugging Face-style dataset card for the labeled ASR test set
-- a JSONL schema for source text, context notes, reference translation,
-  phenomena labels, difficulty, and review status
-- a baseline prediction generator
-- an automatic evaluator with coverage, exact match, token F1, chrF, and
-  per-domain summaries
-- a one-command ASR baseline evaluator for Whisper/MMS-format predictions
+- a JSON annotation schema for clips, speaker metadata, transcripts, and token
+  language tags
+- a switch-region WER scorer with monolingual, switch-region, switch penalty,
+  and language-pair breakdowns
+- bundled Whisper baseline predictions and reproducible benchmark reports
+- a judge-facing release pipeline (`scripts/build_release.py`)
+- deterministic dataset split CSVs and release packaging
+- dataset integrity tests for audio shape, duplicates, prediction coverage, and
+  packaging
 - transcription guidelines and clear dataset/code licensing notes
-- a Next.js/Vercel demo with phrase matching and dictionary fallback
-- a Tagalog-to-Hiligaynon phrase layer for common demo cases
+- a Next.js/Vercel benchmark explorer with audio playback and token-level error
+  visualization
+- an optional Tagalog-to-Hiligaynon phrase and lexicon layer for later
+  translation demos
 - a script for building a larger noisy Tagalog -> Hiligaynon bridge lexicon from
   Kaikki/Wiktionary dictionaries
-- documentation for future native-speaker review, neural baselines, and STT/TTS
-  extension
+- documentation for future native-speaker review, stronger ASR baselines, and
+  downstream STT/translation/TTS extension
 
-This is not yet a gold translation dataset or a production translation model.
-It is the scaffold that makes that next step reproducible.
+This is not yet a production ASR model. It is the benchmark and release scaffold
+that makes future Hiligaynon speech work measurable.
 
 ## MVP
 
 The MVP is:
 
-> A reproducible context-aware Hiligaynon translation benchmark scaffold with a
-> baseline web demo.
+> A reproducible Hiligaynon code-switch ASR benchmark with native-recorded
+> clips, per-word language tags, switch-region WER scoring, and a benchmark
+> explorer.
 
 The MVP demonstrates:
 
-- how benchmark examples are represented
-- how baseline predictions are generated
-- how translation outputs are evaluated
-- where dictionary and phrase-based translation fail
-- how future Hiligaynon reviewers can validate or correct the seed data
+- how code-switch speech clips are represented
+- how baseline ASR predictions are scored
+- where multilingual ASR fails on Hiligaynon compared with borrowed Tagalog and
+  English words
+- how future Hiligaynon reviewers can validate or correct token language tags
+- how another researcher can package and extend the dataset
 
-For demo quality, the deployed app uses three layers:
+For demo quality, the deployed app includes:
 
-1. exact seed benchmark prompt matches
-2. curated phrase matches for common English and Tagalog demo cases
-3. expanded dictionary fallback for remaining text
+1. a landing page summarizing the benchmark finding
+2. an interactive benchmark explorer with audio playback
+3. a smaller translation demo kept as an extension layer
 
-The phrase and dictionary layers improve presentation, but the research artifact
-remains the benchmark/evaluation pipeline.
+The research artifact is the speech benchmark and evaluation pipeline.
 
 ## Technologies Used
 
 - **Python 3** (stdlib only for the core benchmark tooling — no install needed)
-- **Next.js / React** + **Vercel** for the hosted demo and serverless API route
+- **Next.js / React** + **Vercel** for the hosted benchmark explorer and demo
 - **Node.js / npm** for the web app build
-- **Hugging Face `transformers` + `torch`** (optional neural translation backend)
-- **Ollama** (optional local context-aware LLM, e.g. `aya:8b`)
-- **Kaikki.org / Wiktextract** machine-readable dictionaries for lexicon building
-- Evaluation: custom token F1 + chrF-style metrics (pure Python)
-- Future speech phase: **OpenAI Whisper**, **Meta MMS**, F5-TTS/VITS Hiligaynon,
-  `ffmpeg`
+- **OpenAI Whisper** and **Meta MMS** for ASR baselines
+- **ffmpeg** for optional audio conversion workflows
+- **Hugging Face `transformers` + `torch`** for optional neural extension work
+- **Ollama** and **Kaikki.org / Wiktextract** for optional translation and
+  lexicon extension layers
+- Evaluation: custom switch-region WER, monolingual WER, switch penalty, token
+  F1, and chrF-style metrics where appropriate
 
 ## Repository structure
 
@@ -250,28 +258,29 @@ sugidanon/
 │   └── README.md                    # Hugging Face dataset card
 ├── package.json                     # Next.js/Vercel app
 ├── pages/
-│   ├── index.js                     # hosted demo UI
-│   └── api/translate.js             # serverless translation baseline API
+│   ├── index.js                     # project landing page
+│   ├── benchmark.js                 # interactive ASR benchmark explorer
+│   └── api/translate.js             # optional translation extension API
 ├── styles/
 │   └── globals.css
-├── score.py                         # legacy ASR switch-point scorer
+├── score.py                         # switch-region ASR WER scorer
 ├── scripts/
-│   ├── evaluate_translation.py       # primary v1 evaluator
-│   ├── generate_baseline_predictions.py
-│   ├── build_tl_hil_lexicon.py       # Kaikki/Wiktionary bridge lexicon builder
-│   ├── translate_hil.py              # dictionary or HF translation backend
-│   ├── validate.py                   # validates translation benchmark or ASR files
-│   ├── benchmark_asr.py              # one-command ASR validation + scoring
+│   ├── build_release.py              # judge-facing validation + package pipeline
+│   ├── build_benchmark_web.py        # static data for /benchmark
+│   ├── validate.py                   # validates ASR benchmark or translation files
+│   ├── benchmark_asr.py              # optional Whisper refresh + scoring
 │   ├── package_dataset.py            # release package builder
 │   ├── split_dataset.py              # deterministic split CSV builder
 │   ├── review_annotations.py         # terminal language-tag review
+│   ├── evaluate_translation.py       # optional translation extension evaluator
+│   ├── generate_baseline_predictions.py
 │   └── ...                           # future speech/G2P utilities
 ├── data/
+│   ├── annotations/                  # primary ASR annotations
+│   ├── audio/                        # native-recorded Hiligaynon clips
+│   ├── predictions/                  # ASR JSON predictions + translation JSONL baseline
 │   ├── benchmark/
-│   │   └── hil_translation_v1.jsonl  # primary v1 benchmark
-│   ├── predictions/
-│   │   └── translation_baseline_dict.jsonl
-│   ├── annotations/                  # legacy/future ASR annotations
+│   │   └── hil_translation_v1.jsonl  # optional translation extension
 │   └── lexicon_hil.tsv               # curated dictionary entries
 ├── app/
 │   ├── server.py
@@ -279,6 +288,7 @@ sugidanon/
 ├── docs/
 │   ├── evaluation_report.md
 │   ├── licensing.md
+│   ├── project_case_fit.md
 │   ├── submission_narrative.md
 │   └── transcription_guidelines.md
 └── results/
@@ -289,25 +299,22 @@ sugidanon/
 
 ## Quick start
 
-No installs are required for the core benchmark tooling.
+No installs are required for the core ASR benchmark tooling.
 
 ```bash
-# validate the translation benchmark
-python3 scripts/validate.py --kind translation --dir data/benchmark
+# validate, score, refresh web benchmark data, and package the release
+python3 scripts/build_release.py --overwrite
 
-# regenerate the dictionary baseline predictions
-python3 scripts/generate_baseline_predictions.py
+# minimal proof
+python3 scripts/validate.py --kind asr --dir data/annotations
+python3 score.py --ref data/annotations --hyp data/predictions
 
-# evaluate the included dictionary baseline
-python3 scripts/evaluate_translation.py \
-  --refs data/benchmark/hil_translation_v1.jsonl \
-  --preds data/predictions/translation_baseline_dict.jsonl
-
-# run the local demo app
-python3 app/server.py
+# run the web app
+npm install
+npm run dev
 ```
 
-Then open `http://localhost:8000`.
+Then open `http://localhost:3000`.
 
 ## Code-switch ASR benchmark (speech MVP)
 
@@ -345,11 +352,14 @@ What ships:
   (`hf_dataset/README.md`), and licensing (`docs/licensing.md`, `LICENSE`).
 
 ```bash
+# judge-facing release pipeline
+python3 scripts/build_release.py --overwrite
+
 # build / refresh the code-switch annotation stubs
 python3 scripts/build_codeswitch_set.py
 
-# validate the labeled clips (drop --no-audio-check once wavs exist)
-python3 scripts/validate.py --kind asr --dir data/annotations --no-audio-check
+# validate the labeled clips
+python3 scripts/validate.py --kind asr --dir data/annotations
 
 # capture audio for one prompt
 python3 scripts/record.py --list
@@ -362,8 +372,8 @@ python3 score.py --ref data/annotations --hyp data/predictions
 # one-command local benchmark pipeline
 python3 scripts/benchmark_asr.py --model small --language tl
 
-# build a redistributable metadata + benchmark package
-python3 scripts/benchmark_asr.py --skip-whisper --package
+# build a redistributable metadata + benchmark package only
+python3 scripts/package_dataset.py --output release --overwrite
 
 # build deterministic train/validation/test split CSVs
 python3 scripts/split_dataset.py --output-dir release/dataset
@@ -468,112 +478,93 @@ manual reference source.
 
 ## Benchmark format
 
-The current hackathon scaffold contains 30 seed examples in:
+The primary benchmark uses one JSON annotation per clip:
 
 ```text
-data/benchmark/hil_translation_v1.jsonl
+data/annotations/hil_cs_001.json
+data/audio/hil_cs_001.wav
+data/predictions/hil_cs_001.json
 ```
 
-All current examples are `seed_unverified` until a Hiligaynon speaker reviews
-the reference translations.
-
-Each row in `data/benchmark/hil_translation_v1.jsonl` is one translation case:
+Each annotation contains clip metadata, speaker metadata, the reference
+transcript, and per-word language tags:
 
 ```json
 {
-  "id": "hil-tr-v1-001",
-  "source_lang": "en",
-  "target_lang": "hil",
-  "domain": "health",
-  "source_text": "Please call the doctor if the child has a fever tonight.",
-  "reference_translation": "Palihog tawga ang doktor kon may hilanat ang bata karon nga gab-i.",
-  "context": "The speaker is giving practical health advice to a family member.",
-  "phenomena": ["polite_request", "medical", "conditional"],
-  "difficulty": "medium",
-  "review_status": "seed_unverified"
+  "clip_id": "hil_cs_001",
+  "audio_file": "audio/hil_cs_001.wav",
+  "transcript": "Nag-grocery ko kahapon kay super traffic.",
+  "matrix_language": "hil",
+  "switch_type": "HIL+TL+EN",
+  "tokens": [
+    { "idx": 0, "text": "Nag-grocery", "lang": "hil" },
+    { "idx": 1, "text": "ko", "lang": "hil" },
+    { "idx": 2, "text": "kahapon", "lang": "hil" },
+    { "idx": 3, "text": "kay", "lang": "hil" },
+    { "idx": 4, "text": "super", "lang": "tl" },
+    { "idx": 5, "text": "traffic", "lang": "en" }
+  ]
 }
 ```
 
-`seed_unverified` means the example is a starter case that still needs native
-speaker review before it can be treated as gold data.
+`score.py` aligns each ASR prediction to the reference transcript and attributes
+errors to either monolingual Hiligaynon regions or switch regions within one word
+of a language change.
 
 ## Evaluation
 
-The v1 evaluator reports:
+The ASR evaluator reports:
 
-- coverage: how many benchmark IDs have predictions
-- exact match after normalization
-- token F1
-- chrF-style character n-gram F-score
-- per-domain metric averages
+- overall WER
+- monolingual-region WER
+- switch-region WER
+- switch penalty (`switch WER - monolingual WER`)
+- switch-region WER by language pair (`hil<->tl`, `hil<->en`, `tl<->en`)
 
-See `docs/evaluation_report.md` for the current hackathon evaluation notes.
+See `docs/evaluation_report.md` for the current benchmark result and caveats.
 
-Automatic metrics are only a first pass. The final benchmark should include
-human ratings for:
+## Extension layers
 
-- adequacy: meaning is preserved
-- fluency: Hiligaynon sounds natural
-- context: ambiguous meaning is resolved correctly
-- terminology: domain words are appropriate
-- severity: minor issue, major issue, or meaning changed
+The repository also contains translation and lexicon tooling in
+`data/benchmark/`, `scripts/evaluate_translation.py`, `scripts/translate_hil.py`,
+and `pages/api/translate.js`. These support a later speech-to-text ->
+translation -> text-to-speech direction, but they are not the main judged
+artifact.
 
-## Baselines
+The included translation examples are `seed_unverified` starter cases. They
+should not be presented as a gold translation dataset until reviewed by native
+Hiligaynon speakers.
 
-The included baseline is intentionally simple:
+## Roadmap
 
-- `dict`: offline dictionary lookup from `scripts/translate_hil.py`
-- `hf`: optional Hugging Face model backend when `transformers` and `torch` are installed
+### Milestone 1: harden the current benchmark
 
-The dictionary baseline is useful because it exposes the problem clearly: it can
-translate known words, but it cannot reliably handle grammar, context, idioms,
-or paragraph-level meaning.
+1. Add more native Hiligaynon speakers.
+2. Confirm or correct the per-word language tags.
+3. Keep the test set frozen once tags are adjudicated.
+4. Compare Whisper small, Whisper large-v3, MMS-style models, and future
+   Hiligaynon-tuned ASR models on the same clips.
 
-## Proper plan
+### Milestone 2: grow the reusable speech resource
 
-### Milestone 1: benchmark foundation
+1. Add natural conversation, oral tradition, and everyday speaker subsets.
+2. Keep scripted, natural, and non-native subsets separate in reporting.
+3. Publish expanded dataset cards, model cards, and benchmark reports.
+4. Preserve consent, provenance, and withdrawal records for every speaker.
 
-1. Freeze the translation schema in `SCHEMA.md`.
-2. Write 300-500 English/Filipino/code-switched source examples.
-3. Group examples by domain: health, education, public service, daily life,
-   emergency, and code-switching.
-4. Add context notes and the expected linguistic phenomenon for each example.
-5. Have native Hiligaynon speakers produce and review reference translations.
+### Milestone 3: connect downstream language tools
 
-### Milestone 2: baseline and error analysis
-
-1. Run the dictionary baseline and at least one neural baseline.
-2. Score every prediction with `scripts/evaluate_translation.py`.
-3. Add human ratings for a representative subset.
-4. Document common failure modes: literal translation, wrong pronoun, wrong
-   tense/aspect, missing implied meaning, and unnatural Hiligaynon.
-
-### Milestone 3: model improvement
-
-1. Split reviewed data into train/dev/test.
-2. Fine-tune or adapt an open multilingual model when enough reviewed pairs are
-   available.
-3. Keep the test set fixed.
-4. Publish model cards and dataset cards.
-
-### Milestone 4: demo
-
-1. Keep the demo small: source text in, Hiligaynon text out.
-2. Include benchmark examples so judges can test difficult cases quickly.
-3. Show whether the backend is dictionary, neural baseline, or fine-tuned model.
-4. Avoid claiming production-level translation until human scores support it.
-
-### Milestone 5: speech extension
-
-1. Reuse the text benchmark as the translation component of a speech pipeline.
-2. Add STT input once text translation quality is measurable.
-3. Add TTS output after translation quality and pronunciation resources are ready.
-4. Reuse the existing G2P, ASR, and TTS scripts as future infrastructure.
+1. Use ASR outputs as input to the Hiligaynon translation extension.
+2. Evaluate translation quality with human adequacy, fluency, context, and
+   terminology ratings.
+3. Add TTS only after transcription and translation quality are measurable.
 
 ## Speech tooling
 
 Active speech components (see the code-switch ASR benchmark section above):
 
+- `scripts/build_release.py` - judge-facing validation, scoring, web-data, and
+  release-package pipeline
 - `score.py` — code-switch switch-region WER
 - `scripts/build_codeswitch_set.py` — emit code-switch annotation stubs
 - `scripts/record.py` — capture audio + matching annotation
@@ -588,7 +579,8 @@ Reserved for the later TTS / speech-to-speech phase:
 
 ## Hackathon pitch
 
-See `docs/submission_narrative.md` for a concise project narrative.
+See `docs/project_case_fit.md` for the judge-facing fit summary and
+`docs/submission_narrative.md` for the concise project narrative.
 
 ## AI disclosure
 
@@ -597,8 +589,8 @@ including **ChatGPT**, **Codex**, and **Claude**.
 
 These tools assisted with:
 
-- project scoping and narrowing the MVP from STT/TTS to a translation-first
-  benchmark scaffold
+- project scoping and narrowing the MVP to a focused Hiligaynon code-switch ASR
+  benchmark
 - drafting and revising documentation
 - generating and editing code for the demo app, evaluation scripts, and helper
   scripts
@@ -612,8 +604,8 @@ labels must be reviewed by qualified human speakers before being treated as
 gold data.
 
 AI-generated content was not treated as authoritative linguistic ground truth.
-The current seed translations, phrase examples, and ASR labels are marked as
-requiring future human review where appropriate.
+The current seed translations, phrase examples, and per-word ASR language tags
+are marked as requiring future human review where appropriate.
 
 ## Data protection, privacy & ethics
 

@@ -1,0 +1,87 @@
+{
+  "clip_id": "spk2_032",
+  "audio_file": "audio/spk2_032.wav",
+  "duration_sec": 4.95,
+  "domain": "everyday",
+  "switch_type": "HIL+TL+EN",
+  "transcript": "Hindi ko alam eh, basta i-text mo na lang ako mamaya.",
+  "speaker": {
+    "id": "spk02",
+    "name": "Nimeesha De Guzman",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": "F"
+  },
+  "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
+    "license": "CC BY 4.0 (text); audio recorded by speaker",
+    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Hindi",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "ko",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "alam",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "eh,",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "basta",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "i-text",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "mo",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "na",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "lang",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "ako",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "mamaya.",
+      "lang": null
+    }
+  ],
+  "clip_quality": "ok"
+}

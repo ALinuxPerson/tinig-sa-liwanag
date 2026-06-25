@@ -2,64 +2,102 @@
 
 ## One-line pitch
 
-Sugidanon is a reproducible benchmark scaffold and demo for
-context-aware Hiligaynon translation, designed as the language foundation for
-future Philippine STT/TTS systems.
+Sugidanon is an open Hiligaynon code-switch ASR benchmark that shows exactly
+where multilingual speech recognition fails when Ilonggo speakers move between
+Hiligaynon, Tagalog, and English.
 
 ## Problem
 
-Many Philippine languages remain underrepresented in open language and speech
-technology. Hiligaynon speakers need systems that understand meaning in context,
-not tools that only replace isolated words.
+Many Philippine languages remain underrepresented in open speech technology.
+Generic multilingual ASR systems can appear usable because they catch familiar
+English and Tagalog words, while still failing on the regional language that
+holds the sentence together.
 
-## Original plan
-
-The team first considered building a full Hiligaynon STT/TTS demo. During
-scoping, we narrowed the MVP because speech synthesis and recognition depend on
-a language layer that can already preserve meaning.
+For Hiligaynon, that failure is hard to improve until it is measurable.
 
 ## MVP delivered
 
-This repository now provides:
+This repository ships a reusable speech benchmark, not only a demo app:
 
-- a JSONL schema for context-aware Hiligaynon translation examples
-- a 30-row seed benchmark across daily life, health, education, public service,
-  emergency, workplace, agriculture, and code-switching
-- a reproducible dictionary baseline generator
-- an automatic evaluator with coverage, exact match, token F1, chrF, and
-  per-domain summaries
-- a local demo app with benchmark seed prompts
-- documentation for human review and future speech extension
+- 40 native-recorded Hiligaynon / Tagalog / English code-switch clips
+- per-word language tags for `hil`, `tl`, and `en`
+- a documented annotation schema and transcription policy
+- audio integrity checks and dataset integrity tests
+- a switch-region WER scorer that separates ordinary WER from errors near
+  language switches
+- bundled Whisper baseline predictions
+- a benchmark report with overall WER, monolingual Hiligaynon WER,
+  switch-region WER, switch penalty, and language-pair breakdowns
+- deterministic train / validation / test split CSVs
+- a release package builder for metadata, statistics, cards, predictions, and
+  benchmark outputs
+- a web explorer where judges can play clips, inspect language tags, and see
+  token-level ASR errors
+- a one-click Colab path for reproduction on a fresh machine
 
-## Honest limitation
+## Key finding
 
-The current Hiligaynon references are marked `seed_unverified`. Because the
-team did not have access to native Hiligaynon reviewers during the two-hour
-hackathon, we do not claim this is gold data or a production-quality model.
+The baseline model performs better near Tagalog and English switch words than
+on monolingual Hiligaynon words:
 
-## Why the baseline matters
+| Region | WER |
+|--------|-----|
+| Overall | 59.5% |
+| Monolingual Hiligaynon | 66.3% |
+| Switch-region | 35.8% |
+| Switch penalty | -30.6% |
 
-The dictionary baseline exposes exactly why the project is needed. It can
-translate some known words, but it fails on context, grammar, code-switching,
-and domain-specific meaning. That gives future model work a clear target.
+The negative switch penalty is the point: the model is not mainly breaking on
+borrowed English or Tagalog words. It is breaking on the Hiligaynon matrix
+language.
+
+## Why this fits the project case
+
+The project case asks for reusable open-source infrastructure for Philippine
+speech technology. Sugidanon contributes a focused benchmark that future
+researchers and developers can extend:
+
+- dataset files with provenance and licensing
+- benchmark code that can score new ASR predictions
+- reporting that isolates failures by language region
+- release packaging for dataset and benchmark artifacts
+- a clear path for adding speakers, clips, models, and reviewed language tags
+
+The translation demo and lexicon tools are extension layers. The judged artifact
+is the speech benchmark.
+
+## Reproduce
+
+```bash
+python3 scripts/build_release.py --overwrite
+```
+
+The command validates the ASR annotations, scores the included baseline,
+refreshes web benchmark data, and writes a release package under `release/`.
+
+For the minimal benchmark proof:
+
+```bash
+python3 scripts/validate.py --kind asr --dir data/annotations
+python3 score.py --ref data/annotations --hyp data/predictions
+python3 scripts/package_dataset.py --output release --overwrite
+```
+
+## Honest limitations
+
+- The current corpus has one speaker and 40 clips.
+- Per-word language tags are seed-labeled and need another native-speaker
+  confirmation pass before being described as fully adjudicated gold labels.
+- The baseline result is preliminary and should be compared with larger ASR
+  models.
+- The deterministic split falls back to clip-level splitting until more
+  speakers are added.
+
+These limits are documented because the project is intended as a trustworthy
+benchmark foundation, not a production speech product.
 
 ## Next step
 
-The immediate next step is native-speaker validation:
-
-1. Review each seed translation.
-2. Edit or reject inaccurate references.
-3. Add human scores for adequacy, fluency, context, and terminology.
-4. Freeze a test split.
-5. Compare dictionary, neural, and fine-tuned baselines.
-
-## Future speech path
-
-Once text translation is measurable, the project can reconnect to speech:
-
-```text
-STT -> Hiligaynon translation -> TTS
-```
-
-The existing G2P, ASR, and TTS utilities in the repository remain as future
-infrastructure, but they are not the MVP claim.
+The highest-impact next step is to add more Hiligaynon speakers, confirm the
+token language tags, and freeze a larger test set for comparing Whisper,
+MMS-style models, and future Hiligaynon-tuned ASR systems.

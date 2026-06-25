@@ -1,0 +1,72 @@
+{
+  "clip_id": "spk2_017",
+  "audio_file": "audio/spk2_017.wav",
+  "duration_sec": 4.65,
+  "domain": "family",
+  "switch_type": "HIL+EN",
+  "transcript": "I-off mo ang TV, time na para magtulog.",
+  "speaker": {
+    "id": "spk02",
+    "name": "Nimeesha De Guzman",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": "F"
+  },
+  "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
+    "license": "CC BY 4.0 (text); audio recorded by speaker",
+    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "I-off",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "mo",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "ang",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "TV,",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "time",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "na",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "para",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "magtulog.",
+      "lang": null
+    }
+  ],
+  "clip_quality": "ok"
+}

@@ -1,0 +1,82 @@
+{
+  "clip_id": "spk2_015",
+  "audio_file": "audio/spk2_015.wav",
+  "duration_sec": 4.83,
+  "domain": "school_work",
+  "switch_type": "HIL",
+  "transcript": "Ginahuman ko pa ang akon assignment para sa klase buas.",
+  "speaker": {
+    "id": "spk02",
+    "name": "Nimeesha De Guzman",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": "F"
+  },
+  "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
+    "license": "CC BY 4.0 (text); audio recorded by speaker",
+    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Ginahuman",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "ko",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "pa",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "ang",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "akon",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "assignment",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "para",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "klase",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "buas.",
+      "lang": null
+    }
+  ],
+  "clip_quality": "ok"
+}

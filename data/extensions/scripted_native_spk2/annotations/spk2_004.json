@@ -1,0 +1,77 @@
+{
+  "clip_id": "spk2_004",
+  "audio_file": "audio/spk2_004.wav",
+  "duration_sec": 5.31,
+  "domain": "market",
+  "switch_type": "HIL",
+  "transcript": "Indi pagbaklon ang hilaw nga prutas kay maaslom pa.",
+  "speaker": {
+    "id": "spk02",
+    "name": "Nimeesha De Guzman",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": "F"
+  },
+  "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
+    "license": "CC BY 4.0 (text); audio recorded by speaker",
+    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Indi",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "pagbaklon",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "ang",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "hilaw",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "nga",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "prutas",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "kay",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "maaslom",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "pa.",
+      "lang": null
+    }
+  ],
+  "clip_quality": "ok"
+}

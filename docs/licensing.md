@@ -24,8 +24,8 @@ This includes:
 When using the dataset, cite:
 
 ```text
-Team Hague. Sugidanon: Code-switched Hiligaynon speech and
-translation benchmark scaffold. 2026. CC BY 4.0.
+Team Hague. Sugidanon: Open Hiligaynon code-switch ASR benchmark. 2026.
+CC BY 4.0.
 ```
 
 ## Third-party data

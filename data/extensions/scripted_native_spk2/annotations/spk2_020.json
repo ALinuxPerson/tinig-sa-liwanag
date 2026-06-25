@@ -1,0 +1,82 @@
+{
+  "clip_id": "spk2_020",
+  "audio_file": "audio/spk2_020.wav",
+  "duration_sec": 5.971,
+  "domain": "family",
+  "switch_type": "HIL+EN",
+  "transcript": "Mag-video call ta kay Lola para makita niya ang baby.",
+  "speaker": {
+    "id": "spk02",
+    "name": "Nimeesha De Guzman",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": "F"
+  },
+  "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
+    "license": "CC BY 4.0 (text); audio recorded by speaker",
+    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Mag-video",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "call",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "ta",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "kay",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "Lola",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "para",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "makita",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "niya",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "ang",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "baby.",
+      "lang": null
+    }
+  ],
+  "clip_quality": "ok"
+}

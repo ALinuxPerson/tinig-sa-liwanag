@@ -1,0 +1,77 @@
+{
+  "clip_id": "spk2_006",
+  "audio_file": "audio/spk2_006.wav",
+  "duration_sec": 10.29,
+  "domain": "transport",
+  "switch_type": "HIL+EN",
+  "transcript": "Mag-stop ka lang sa may waiting shed sa unahan.",
+  "speaker": {
+    "id": "spk02",
+    "name": "Nimeesha De Guzman",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": "F"
+  },
+  "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
+    "license": "CC BY 4.0 (text); audio recorded by speaker",
+    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Mag-stop",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "ka",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "lang",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "may",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "waiting",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "shed",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "unahan.",
+      "lang": null
+    }
+  ],
+  "clip_quality": "needs_manual_cut"
+}
