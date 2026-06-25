@@ -99,6 +99,18 @@ python score.py --ref data/annotations --hyp data/predictions
 To benchmark a real model: record clips → `scripts/convert_audio.sh` → annotate
 into `data/annotations/` → `python scripts/run_whisper.py` → `score.py`.
 
+### Pull real Hiligaynon audio (G2P-ASR)
+
+```bash
+bash scripts/fetch_g2p_asr.sh                 # clone external/g2p-asr
+python scripts/ingest.py external/g2p-asr/data --prefix hil --limit 40
+# writes data/audio/*.wav + STUB annotations (all hil); humans then fix
+# per-word hil/tl/en tags by hand per SCHEMA.md, then validate + score.
+```
+
+See `RESOURCES.md` for G2P-ASR, PLD, and Bloom Library sources (and license
+caveats — ingested audio stays under its source license, not CC BY 4.0).
+
 ## TTS proof-of-concept
 
 We do **not** train a voice from scratch. Instead we route each word by language
