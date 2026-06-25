@@ -8,13 +8,13 @@ const GITHUB = "https://github.com/Jazztinn/tinig-sa-liwanag";
 const CEIL = 70;
 const breakdown = [
   { label: "Monolingual Hiligaynon", wer: 66.3, note: "pure Ilonggo words" },
-  { label: "Overall", wer: 59.8, note: "whole utterance" },
-  { label: "Switch-region", wer: 36.4, note: "words next to a language switch" },
+  { label: "Overall", wer: 59.5, note: "whole utterance" },
+  { label: "Switch-region", wer: 35.8, note: "words next to a language switch" },
 ];
 const pairs = [
   { label: "tl ↔ en", wer: 6.2, note: "Tagalog–English: nearly solved" },
   { label: "hil ↔ tl", wer: 24.4, note: "Hiligaynon–Tagalog" },
-  { label: "hil ↔ en", wer: 40.8, note: "Hiligaynon–English: worst" },
+  { label: "hil ↔ en", wer: 40.0, note: "Hiligaynon–English: worst" },
 ];
 
 function werColor(wer) {
@@ -59,7 +59,8 @@ export default function Home() {
             nearly invisible to modern speech technology.
           </p>
           <nav className="links">
-            <a className="pill primary" href={COLAB} target="_blank" rel="noreferrer">Run the benchmark</a>
+            <Link className="pill primary" href="/benchmark">Explore the benchmark</Link>
+            <a className="pill" href={COLAB} target="_blank" rel="noreferrer">Run it (Colab)</a>
             <a className="pill" href={HF} target="_blank" rel="noreferrer">Dataset</a>
             <a className="pill" href={GITHUB} target="_blank" rel="noreferrer">Source code</a>
             <Link className="pill" href="/demo">Translation demo</Link>
@@ -95,7 +96,7 @@ export default function Home() {
           <div className="takeaway">
             <strong>Why it matters:</strong> the failure scales with how much
             Hiligaynon a sentence contains. Tagalog&ndash;English code-switching is
-            nearly solved (6% error); Hiligaynon&ndash;English is the worst (41%).
+            nearly solved (6% error); Hiligaynon&ndash;English is the worst (40%).
             That gap is what Sugidanon measures &mdash; and it&apos;s the first open
             dataset that lets anyone measure it.
             <span className="fine">Baseline: OpenAI Whisper (small), single speaker. Preliminary.</span>

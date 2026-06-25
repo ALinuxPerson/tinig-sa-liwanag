@@ -1,0 +1,2894 @@
+{
+  "model": "whisper-small-tl",
+  "headline": {
+    "overall": 59.5,
+    "switch": 35.8,
+    "mono": 66.3,
+    "penalty": -30.6,
+    "pairs": {
+      "hil_en": 40.0,
+      "hil_tl": 24.4,
+      "tl_en": 6.2
+    }
+  },
+  "clips": [
+    {
+      "clip_id": "hil_cs_001",
+      "audio": "clips/hil_cs_001.wav",
+      "domain": "market",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Pila ang grocery budget naton para sa weekend?",
+      "prediction": "Bilangus rin budget natin para sa weekend.",
+      "tokens": [
+        {
+          "text": "Pila",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "grocery",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "budget",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "naton",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "para",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "weekend",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 50.0,
+        "switch": 42.9,
+        "mono": 100.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_002",
+      "audio": "clips/hil_cs_002.wav",
+      "domain": "market",
+      "switch_type": "HIL+TL",
+      "subset": "scripted_native",
+      "reference": "Magbakal ta sang isda kay mura-mura pa siya kanina.",
+      "prediction": "Magpakalta sa ngisda kay Malumura pa sa kanina.",
+      "tokens": [
+        {
+          "text": "Magbakal",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ta",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "isda",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kay",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "mura-mura",
+          "lang": "tl",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "pa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "siya",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "kanina",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 66.7,
+        "switch": 40.0,
+        "mono": 100.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_003",
+      "audio": "clips/hil_cs_003.wav",
+      "domain": "market",
+      "switch_type": "HIL+TL",
+      "subset": "scripted_native",
+      "reference": "Nag-discount gali ang tindahan, kaya bumili na lang tayo ng marami.",
+      "prediction": "Nagdiscount ka na iantindahan kaya bumili na lang tayo ng marami.",
+      "tokens": [
+        {
+          "text": "Nag-discount",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "gali",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "tindahan",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kaya",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "bumili",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "tayo",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ng",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "marami",
+          "lang": "tl",
+          "switch": false,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 36.4,
+        "switch": 0.0,
+        "mono": 80.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_004",
+      "audio": "clips/hil_cs_004.wav",
+      "domain": "market",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Tama na ina nga bugas, indi na magdugang.",
+      "prediction": "Tamalin na nabukas, dinaw to mong dugang.",
+      "tokens": [
+        {
+          "text": "Tama",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ina",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "nga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "bugas",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "indi",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "magdugang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 87.5,
+        "switch": 0.0,
+        "mono": 87.5
+      }
+    },
+    {
+      "clip_id": "hil_cs_005",
+      "audio": "clips/hil_cs_005.wav",
+      "domain": "market",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Wala na sang change ang vendor, so pabayloan ta sang bente.",
+      "prediction": "Planas ang change ang vendor, super violent ang sang bente.",
+      "tokens": [
+        {
+          "text": "Wala",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "change",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "vendor",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "so",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "pabayloan",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "ta",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "bente",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 54.5,
+        "switch": 57.1,
+        "mono": 50.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_006",
+      "audio": "clips/hil_cs_006.wav",
+      "domain": "transport",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Pwede ko mag-drop off sa may corner sang highway?",
+      "prediction": "Pwede ko mag-drop off sa my corner sa highway.",
+      "tokens": [
+        {
+          "text": "Pwede",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ko",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "mag-drop",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "off",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "may",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "corner",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "highway",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 22.2,
+        "switch": 28.6,
+        "mono": 0.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_007",
+      "audio": "clips/hil_cs_007.wav",
+      "domain": "transport",
+      "switch_type": "HIL+TL",
+      "subset": "scripted_native",
+      "reference": "Sakay na tayo kay ma-late pa ako sa trabaho.",
+      "prediction": "Saka inatayaw kay mali pa ako sa taba'o.",
+      "tokens": [
+        {
+          "text": "Sakay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "tayo",
+          "lang": "tl",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "kay",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ma-late",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "pa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "trabaho",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 55.6,
+        "switch": 75.0,
+        "mono": 40.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_008",
+      "audio": "clips/hil_cs_008.wav",
+      "domain": "transport",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Traffic gid subong, kaya mag-grab na lang ako para mas mabakas.",
+      "prediction": "traffic ito mo kaya maggab na lang ako para mas mabakas",
+      "tokens": [
+        {
+          "text": "Traffic",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "gid",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "subong",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "kaya",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "mag-grab",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "para",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "mas",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "mabakas",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 27.3,
+        "switch": 66.7,
+        "mono": 12.5
+      }
+    },
+    {
+      "clip_id": "hil_cs_009",
+      "audio": "clips/hil_cs_009.wav",
+      "domain": "transport",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Diin ka manaog, sa eskina ukon sa terminal?",
+      "prediction": "D'in ka ma naaw sa iskina or sa okon sa terminal.",
+      "tokens": [
+        {
+          "text": "Diin",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ka",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "manaog",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "eskina",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ukon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "terminal",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 87.5,
+        "switch": 0.0,
+        "mono": 66.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_010",
+      "audio": "clips/hil_cs_010.wav",
+      "domain": "transport",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Bayad lang anay, kulang pa ang fare mo sang tatlo ka pesos.",
+      "prediction": "May adangan ay kulang paangfirm mo saang tatlokapesos.",
+      "tokens": [
+        {
+          "text": "Bayad",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "anay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kulang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "pa",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "fare",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "mo",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "tatlo",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ka",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "pesos",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 83.3,
+        "switch": 75.0,
+        "mono": 87.5
+      }
+    },
+    {
+      "clip_id": "hil_cs_011",
+      "audio": "clips/hil_cs_011.wav",
+      "domain": "school_work",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Indi ko ma-submit ang assignment kay slow ang wifi namon.",
+      "prediction": "Hidit ko masang metang assignment kais lang ang wi-fi na mo.",
+      "tokens": [
+        {
+          "text": "Indi",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ko",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ma-submit",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "assignment",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "kay",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "slow",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "wifi",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "namon",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 80.0,
+        "switch": 71.4,
+        "mono": 66.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_012",
+      "audio": "clips/hil_cs_012.wav",
+      "domain": "school_work",
+      "switch_type": "HIL+TL+EN",
+      "subset": "scripted_native",
+      "reference": "May meeting kami sa Monday, tapos may deadline pa sang report.",
+      "prediction": "May meeting kami sa Monday tapos may deadline pa sa report.",
+      "tokens": [
+        {
+          "text": "May",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "meeting",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "kami",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "Monday",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "tapos",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "may",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "deadline",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "pa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "report",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 9.1,
+        "switch": 9.1,
+        "mono": 0.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_013",
+      "audio": "clips/hil_cs_013.wav",
+      "domain": "school_work",
+      "switch_type": "HIL+TL",
+      "subset": "scripted_native",
+      "reference": "Nahirapan ako sa exam kahapon, grabe ka-budlay.",
+      "prediction": "Nairapan ako sa exam kapun. Graby kabudlay. Takapasawa ka na sa subyek mo. Congrat sabi.",
+      "tokens": [
+        {
+          "text": "Nahirapan",
+          "lang": "tl",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "exam",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "kahapon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "grabe",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ka-budlay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 171.4,
+        "switch": 33.3,
+        "mono": 75.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_014",
+      "audio": "clips/hil_cs_014.wav",
+      "domain": "school_work",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Naka-pasar ka na sa subject mo? Congrats, abi!",
+      "prediction": "Takapasawa ka na sa subyek mo. Congrats, Abhi.",
+      "tokens": [
+        {
+          "text": "Naka-pasar",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ka",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "subject",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "mo",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "Congrats",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "abi",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 37.5,
+        "switch": 40.0,
+        "mono": 33.3
+      }
+    },
+    {
+      "clip_id": "hil_cs_015",
+      "audio": "clips/hil_cs_015.wav",
+      "domain": "school_work",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Ginahimo ko pa ang akon project para sa klase.",
+      "prediction": "Ginahimo, kubang akon nipadjek para sa kasi.",
+      "tokens": [
+        {
+          "text": "Ginahimo",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ko",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "pa",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "akon",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "project",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "para",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "klase",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 55.6,
+        "switch": 0.0,
+        "mono": 55.6
+      }
+    },
+    {
+      "clip_id": "hil_cs_016",
+      "audio": "clips/hil_cs_016.wav",
+      "domain": "family",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Kaon na kita kay handa na ang sud-an ni Nanay.",
+      "prediction": "Kao nakita kayo handa ng sudani nana'y",
+      "tokens": [
+        {
+          "text": "Kaon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kita",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "handa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sud-an",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ni",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "Nanay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 90.0,
+        "switch": 0.0,
+        "mono": 90.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_017",
+      "audio": "clips/hil_cs_017.wav",
+      "domain": "family",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Charge mo anay ang phone ko, lowbat na gid.",
+      "prediction": "Charging mo na ang phone ko, lobat na kin",
+      "tokens": [
+        {
+          "text": "Charge",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "mo",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "anay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "phone",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ko",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "lowbat",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "gid",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 44.4,
+        "switch": 33.3,
+        "mono": 66.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_018",
+      "audio": "clips/hil_cs_018.wav",
+      "domain": "family",
+      "switch_type": "HIL+TL+EN",
+      "subset": "scripted_native",
+      "reference": "Lipat ko gali i-off ang aircon, kaya ang taas ng bill namin.",
+      "prediction": "Tipat ko gali iofang aircon kaya ang taas ng bill namin.",
+      "tokens": [
+        {
+          "text": "Lipat",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ko",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "gali",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "i-off",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "aircon",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "kaya",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "taas",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ng",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "bill",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "namin",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 25.0,
+        "switch": 12.5,
+        "mono": 50.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_019",
+      "audio": "clips/hil_cs_019.wav",
+      "domain": "family",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Diin gintago mo ang yabi sang puwertahan?",
+      "prediction": "Tinggimtado, ingtago mo hindi habis ang portahan?",
+      "tokens": [
+        {
+          "text": "Diin",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "gintago",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "mo",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "yabi",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "puwertahan",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 85.7,
+        "switch": 0.0,
+        "mono": 85.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_020",
+      "audio": "clips/hil_cs_020.wav",
+      "domain": "family",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Mag-video call ta kay Manong nga naa sa abroad.",
+      "prediction": "Ma-video call takay manong na nasa-abroad.",
+      "tokens": [
+        {
+          "text": "Mag-video",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "call",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ta",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "kay",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "Manong",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "nga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "naa",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "abroad",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 77.8,
+        "switch": 83.3,
+        "mono": 66.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_021",
+      "audio": "clips/hil_cs_021.wav",
+      "domain": "health",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "May appointment ako sa health center buwas sang aga.",
+      "prediction": "May point. May tako sa Health Center ba sa nga?",
+      "tokens": [
+        {
+          "text": "May",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "appointment",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "health",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "center",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "buwas",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "aga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 66.7,
+        "switch": 50.0,
+        "mono": 100.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_022",
+      "audio": "clips/hil_cs_022.wav",
+      "domain": "health",
+      "switch_type": "HIL+TL",
+      "subset": "scripted_native",
+      "reference": "Masakit ang ulo ko kaya magpahinga muna ako.",
+      "prediction": "Asa kita hulu ko kaya mapahingamo na ako.",
+      "tokens": [
+        {
+          "text": "Masakit",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ulo",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ko",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "kaya",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "magpahinga",
+          "lang": "tl",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "muna",
+          "lang": "tl",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 62.5,
+        "switch": 50.0,
+        "mono": 75.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_023",
+      "audio": "clips/hil_cs_023.wav",
+      "domain": "health",
+      "switch_type": "HIL+TL+EN",
+      "subset": "scripted_native",
+      "reference": "May check-up kami sa clinic, tapos kailangan pa ng prescription.",
+      "prediction": "May check-up kami sa clinic, tapos kayo lang ang ampas ng prescription.",
+      "tokens": [
+        {
+          "text": "May",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "check-up",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "kami",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "clinic",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "tapos",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "kailangan",
+          "lang": "tl",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "pa",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "ng",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "prescription",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 40.0,
+        "switch": 20.0,
+        "mono": 0.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_024",
+      "audio": "clips/hil_cs_024.wav",
+      "domain": "health",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Indi pagkalimti inom sang bulong sa adlaw-adlaw.",
+      "prediction": "Hindi pa kalimtein ng sang bulong sa Dladlao.",
+      "tokens": [
+        {
+          "text": "Indi",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "pagkalimti",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "inom",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "bulong",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "adlaw-adlaw",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 71.4,
+        "switch": 0.0,
+        "mono": 57.1
+      }
+    },
+    {
+      "clip_id": "hil_cs_025",
+      "audio": "clips/hil_cs_025.wav",
+      "domain": "health",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Nag-register ka na sa barangay para sa vaccine?",
+      "prediction": "Digo yung justo yung anong sobarang kay para sa vaksin.",
+      "tokens": [
+        {
+          "text": "Nag-register",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ka",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "barangay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "para",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "vaccine",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 100.0,
+        "switch": 50.0,
+        "mono": 83.3
+      }
+    },
+    {
+      "clip_id": "hil_cs_026",
+      "audio": "clips/hil_cs_026.wav",
+      "domain": "culture",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Excited gid ako sa Dinagyang festival sa sunod nga semana.",
+      "prediction": "Xayit ви to kong zaya ka ko na gumffistiv askos na n Fuats코",
+      "tokens": [
+        {
+          "text": "Excited",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "gid",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "Dinagyang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "festival",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "sunod",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "nga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "semana",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 130.0,
+        "switch": 100.0,
+        "mono": 100.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_027",
+      "audio": "clips/hil_cs_027.wav",
+      "domain": "culture",
+      "switch_type": "HIL+TL",
+      "subset": "scripted_native",
+      "reference": "Sayaw na tayo kay nagsugod na ang parada.",
+      "prediction": "Sayon na tayo kay nagsugod ng parada.",
+      "tokens": [
+        {
+          "text": "Sayaw",
+          "lang": "tl",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "tayo",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "kay",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "nagsugod",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "parada",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 37.5,
+        "switch": 20.0,
+        "mono": 66.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_028",
+      "audio": "clips/hil_cs_028.wav",
+      "domain": "culture",
+      "switch_type": "HIL+TL+EN",
+      "subset": "scripted_native",
+      "reference": "Ang ganda ng costumes, perfect para sa photo namon!",
+      "prediction": "Ang ganda ng costumes, perfect para sa foto naman.",
+      "tokens": [
+        {
+          "text": "Ang",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ganda",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ng",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "costumes",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "perfect",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "para",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "photo",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "namon",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 22.2,
+        "switch": 22.2,
+        "mono": 0.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_029",
+      "audio": "clips/hil_cs_029.wav",
+      "domain": "culture",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Daku gid ang kasadya sang mga tawo sa plaza.",
+      "prediction": "Tako gina nga kasad yal sa mga tao sa plasa.",
+      "tokens": [
+        {
+          "text": "Daku",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "gid",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kasadya",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "mga",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "tawo",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "plaza",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 88.9,
+        "switch": 0.0,
+        "mono": 77.8
+      }
+    },
+    {
+      "clip_id": "hil_cs_030",
+      "audio": "clips/hil_cs_030.wav",
+      "domain": "culture",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Mag-meet ta sa booth pagkatapos sang performance.",
+      "prediction": "Mag-meet sa bot pagkatapos ng performance.",
+      "tokens": [
+        {
+          "text": "Mag-meet",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ta",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "booth",
+          "lang": "en",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "pagkatapos",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "performance",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 42.9,
+        "switch": 40.0,
+        "mono": 50.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_031",
+      "audio": "clips/hil_cs_031.wav",
+      "domain": "everyday",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Sige, text mo na lang ako kung diin kita magkita.",
+      "prediction": "Sige, text mo na ako kung din, kita makita.",
+      "tokens": [
+        {
+          "text": "Sige",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "text",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "mo",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "kung",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "diin",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kita",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "magkita",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 30.0,
+        "switch": 0.0,
+        "mono": 50.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_032",
+      "audio": "clips/hil_cs_032.wav",
+      "domain": "everyday",
+      "switch_type": "HIL+TL+EN",
+      "subset": "scripted_native",
+      "reference": "Ambot ah, basta i-message mo na lang sa group chat namin.",
+      "prediction": "Ang bota, basta yung message mo na lang sa group chat namin.",
+      "tokens": [
+        {
+          "text": "Ambot",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ah",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "basta",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "i-message",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "mo",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "group",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "chat",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "namin",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 36.4,
+        "switch": 0.0,
+        "mono": 42.9
+      }
+    },
+    {
+      "clip_id": "hil_cs_033",
+      "audio": "clips/hil_cs_033.wav",
+      "domain": "everyday",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Wala lang, ginatamad ako maglakat subong.",
+      "prediction": "La lang, ginatambad na kong malukat subong.",
+      "tokens": [
+        {
+          "text": "Wala",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ginatamad",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ako",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "maglakat",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "subong",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 83.3,
+        "switch": 0.0,
+        "mono": 66.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_034",
+      "audio": "clips/hil_cs_034.wav",
+      "domain": "everyday",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Salamat gid sa imo bulig kahapon, ginapasalamatan ko ina.",
+      "prediction": "Salamat gin sa imubulikapon. Yin napasalamatan ko ina.",
+      "tokens": [
+        {
+          "text": "Salamat",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "gid",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "imo",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "bulig",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kahapon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ginapasalamatan",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ko",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ina",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        }
+      ],
+      "wer": {
+        "overall": 55.6,
+        "switch": 0.0,
+        "mono": 55.6
+      }
+    },
+    {
+      "clip_id": "hil_cs_035",
+      "audio": "clips/hil_cs_035.wav",
+      "domain": "everyday",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Okay lang na, next time na lang ta mag-hangout.",
+      "prediction": "Okay na na, next time na lang, tamaghangap.",
+      "tokens": [
+        {
+          "text": "Okay",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "next",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "time",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "lang",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ta",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "mag-hangout",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 33.3,
+        "switch": 14.3,
+        "mono": 100.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_036",
+      "audio": "clips/hil_cs_036.wav",
+      "domain": "oral_tradition",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Ang sugidanon amo ang aton mga pamatan-on nga sugilanon halin sang una.",
+      "prediction": "Ang subilanganon ang mga atong pamatanon na subilanganon halinsang muna.",
+      "tokens": [
+        {
+          "text": "Ang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sugidanon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "amo",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "aton",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "mga",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "pamatan-on",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "nga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sugilanon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "halin",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "una",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 75.0,
+        "switch": 0.0,
+        "mono": 75.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_037",
+      "audio": "clips/hil_cs_037.wav",
+      "domain": "oral_tradition",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Ginasaysay sang aton mga katigulangan ang mga estorya paagi sa pag-amba.",
+      "prediction": "Gina size size sa'y ato'n makatigulangan ang mga historia paagi sa pagampah.",
+      "tokens": [
+        {
+          "text": "Ginasaysay",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "sang",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "aton",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "mga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "katigulangan",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "mga",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "estorya",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "paagi",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "pag-amba",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 72.7,
+        "switch": 0.0,
+        "mono": 63.6
+      }
+    },
+    {
+      "clip_id": "hil_cs_038",
+      "audio": "clips/hil_cs_038.wav",
+      "domain": "oral_tradition",
+      "switch_type": "HIL+EN",
+      "subset": "scripted_native",
+      "reference": "Importante gid i-preserve ang aton culture para sa palaabuton.",
+      "prediction": "Important, tingin i-preserve ang atun culture para sa paalabutun.",
+      "tokens": [
+        {
+          "text": "Importante",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "gid",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "i-preserve",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "aton",
+          "lang": "hil",
+          "switch": true,
+          "error": true
+        },
+        {
+          "text": "culture",
+          "lang": "en",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "para",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "palaabuton",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 44.4,
+        "switch": 25.0,
+        "mono": 60.0
+      }
+    },
+    {
+      "clip_id": "hil_cs_039",
+      "audio": "clips/hil_cs_039.wav",
+      "domain": "oral_tradition",
+      "switch_type": "HIL",
+      "subset": "scripted_native",
+      "reference": "Madamo nga hurobaton kag paktakon ang nadula na sa karon nga henerasyon.",
+      "prediction": "Madam o nahorobaton, kagpaktakon ang nadula na sa karunahirasyon?",
+      "tokens": [
+        {
+          "text": "Madamo",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "nga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "hurobaton",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kag",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "paktakon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "nadula",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "na",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "karon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "nga",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "henerasyon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 66.7,
+        "switch": 0.0,
+        "mono": 66.7
+      }
+    },
+    {
+      "clip_id": "hil_cs_040",
+      "audio": "clips/hil_cs_040.wav",
+      "domain": "oral_tradition",
+      "switch_type": "HIL+TL",
+      "subset": "scripted_native",
+      "reference": "Dapat ituro natin sa mga bata ang aton lenguahe kag tradisyon.",
+      "prediction": "Dapat ituro natin sa mga bata ang atun lingwahi cadition.",
+      "tokens": [
+        {
+          "text": "Dapat",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "ituro",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "natin",
+          "lang": "tl",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "sa",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "mga",
+          "lang": "hil",
+          "switch": true,
+          "error": false
+        },
+        {
+          "text": "bata",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "ang",
+          "lang": "hil",
+          "switch": false,
+          "error": false
+        },
+        {
+          "text": "aton",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "lenguahe",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "kag",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        },
+        {
+          "text": "tradisyon",
+          "lang": "hil",
+          "switch": false,
+          "error": true
+        }
+      ],
+      "wer": {
+        "overall": 36.4,
+        "switch": 0.0,
+        "mono": 66.7
+      }
+    }
+  ]
+}
