@@ -39,11 +39,15 @@ https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch
 
 A dataset we built from scratch, 40 native-recorded code-switch Hiligaynon/Tagalog/English clips with per-word language tags, switch-region WER scoring, and a second 40-clip speaker extension. Recorded and reviewed by native Ilonggo speakers. CC BY 4.0.
 
-**Reproduce the benchmark (one-click Google Colab):**
+**Reproduce the benchmark — one click, no local setup:**
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb)
+<p align="center">
+  <a href="https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb">
+    <img src="https://colab.research.google.com/assets/colab-badge.svg" alt="Open In Colab" height="40"/>
+  </a>
+</p>
 
-Once all-run; it downloads the dataset, runs the ASR baseline, and prints the switch penalty on a fresh machine. No local setup.
+Downloads the dataset, runs the ASR baseline, and prints the switch penalty on a fresh machine. No local setup.
 
 **ASR baselines:**
 
@@ -73,7 +77,7 @@ Meta MMS:        https://huggingface.co/facebook/mms-1b-all
 
 Hiligaynon (Ilonggo) — spoken by **9M+ people** across Iloilo, Negros, Guimaras, and Panay, and carrier of a deep oral tradition (the *sugidanon* epic chants this project is named for), is one of them. Off-the-shelf speech models are rarely even *measured* on Ilonggo, so no one had quantified where they fail.
 
-**Sugidanon makes that failure measurable.** Its core contribution is **switch-region WORD ERROR RATE**: instead of one blunt error rate, it separates errors on borrowed English/Tagalog words from errors on the Hiligaynon matrix language. The finding is sharp and reproducible — current models transcribe the borrowed words well but miss the Hiligaynon itself, a **negative switch penalty (−30.1%)** that puts a number on exactly what gets erased.
+**Sugidanon makes that failure measurable.** Its core contribution is **switch-region WER**: instead of one blunt error rate, it separates errors on borrowed English/Tagalog words from errors on the Hiligaynon matrix language. The finding is sharp and reproducible — current models transcribe the borrowed words well but miss the Hiligaynon itself.
 
 Measurement is the first act of inclusion:
 
@@ -96,27 +100,228 @@ Sugidanon directly supports:
 
 Whisper small, `--language tl`, **1 speaker / 40 clips**:
 
-| Metric | Value |
-|--------|------:|
-| Overall WER | 57.4% |
-| Switch-region WER | 35.8% |
-| Monolingual WER | 65.9% |
-| Switch penalty | −30.1% |
+| Metric | Value | What it means |
+|--------|------:|---------------|
+| Overall WER | 57.4% | Blended error rate across all tokens |
+| Switch-region WER | 35.8% | Error rate on tokens within 1 word of a language switch |
+| Monolingual (Hiligaynon) WER | 65.9% | Error rate on pure-Hiligaynon regions |
+| **Matrix-Language Erasure Gap** | **−30.1 pp** | `Monolingual WER − Switch-region WER`: the model handles borrowed words far better than native Hiligaynon — a *negative* gap meaning the matrix language is what gets erased |
 
-```text
-Current multilingual models recognize borrowed English and Tagalog words,
-but fail on the Hiligaynon matrix language.
+> **Matrix-Language Erasure Gap** = Monolingual Hiligaynon WER − Switch-region WER = 65.9% − 35.8% = **−30.1 pp**. Positive = model struggles at switches. Negative (our result) = model struggles with the *heritage language itself*, not the switches.
+
+*N is intentionally small (40 clips, 1 headline speaker, 165 switch tokens / 208 mono tokens). Results are reproducible and directionally consistent with the spk02 extension (gap −10.2 pp over 40 clips), but should be interpreted as early-benchmark estimates, not large-sample statistics.*
+
+### Error taxonomy
+
+| Error type | Example | Where it appears |
+|---|---|---|
+| **Deletion** | `kahapon` → *(missing)* | Hiligaynon monolingual regions |
+| **Substitution** | `nag-luto` → `nagluto` | Morphological mismatch in Hil |
+| **Insertion** | extra filler token inserted | Both regions |
+| **Switch confusion** | English/Tagalog token transcribed as Hiligaynon word | Switch boundary |
+| **Language skip** | Hiligaynon clause entirely dropped, English retained | Monolingual region |
+
+Deletion and language-skip dominate the monolingual region; switch-boundary substitutions are the main source of switch-region errors.
+
+## Explorer
+
+*Screenshot / GIF coming — frame reserved:*
+
+<p align="center">
+  <img src="docs/explorer_preview.png" alt="Sugidanon benchmark explorer" width="800"/>
+</p>
+
+## Quick start
+
+### Dependencies
+
+**Core benchmark** — stdlib only, no install needed:
+
+```bash
+python3 score.py --ref data/annotations --hyp data/predictions
 ```
 
-*N is intentionally small (40 clips, 1 headline speaker, 165 switch tokens / 208 mono tokens). Results are reproducible and directionally consistent with the spk02 extension (switch penalty −10.2% over 40 clips), but should be interpreted as early-benchmark estimates, not large-sample statistics.*
+**Optional — ASR baseline:**
 
-## Technologies used
+```bash
+pip install openai-whisper jiwer   # or: pip install -r requirements.txt
+python3 scripts/run_whisper.py
+```
 
-- **Python 3** — stdlib only for core benchmark tooling (no install needed)
-- **Next.js / React** + **Vercel** — hosted benchmark explorer and demo
-- **OpenAI Whisper** and **Meta MMS** — ASR baselines
-- **Hugging Face `transformers` + `torch`** — optional neural extension work
-- **ffmpeg** — optional audio conversion
+**Optional — web explorer:**
+
+```bash
+npm install        # Next.js + React
+npm run dev        # http://localhost:3000
+```
+
+### Run scoring
+
+```bash
+python3 score.py --ref data/annotations --hyp data/predictions
+```
+
+Expected output:
+
+```text
+Overall WER:          57.4%
+Monolingual WER:      65.9%
+Switch-region WER:    35.8%
+Switch penalty:       -30.1 pp
+  hil↔en:             40.0%
+  hil↔tl:             24.4%
+  tl↔en:               6.2%
+```
+
+```bash
+python3 score.py --ref data/annotations --hyp data/predictions --ci
+```
+
+Expected (adds 95% bootstrap CIs):
+
+```text
+Overall WER:          57.4%  [52.1%, 62.6%]
+Monolingual WER:      65.9%  [59.2%, 72.3%]
+Switch-region WER:    35.8%  [29.4%, 42.5%]
+```
+
+### Run validation
+
+```bash
+python3 scripts/validate.py --kind asr --dir data/annotations
+```
+
+Expected output:
+
+```text
+Validating 40 annotation files...
+✓ All 40 files pass schema validation.
+```
+
+### Drift gate
+
+```bash
+python3 scripts/freeze_benchmark.py --verify
+```
+
+Expected output:
+
+```text
+MANIFEST v1.0.1 — 40 annotations, 40 audio files
+All hashes match. Benchmark is frozen and unmodified.
+```
+
+Fails loudly if any annotation or audio file has changed since the freeze.
+
+### Run tests
+
+```bash
+python3 -m unittest discover -s tests
+```
+
+Expected output:
+
+```text
+..........
+----------------------------------------------------------------------
+Ran 10 tests in 0.4s
+
+OK
+```
+
+### Full release pipeline
+
+```bash
+python3 scripts/build_release.py --overwrite
+```
+
+Runs validate → score → freeze verify → build web JSON → package dataset in one shot.
+
+## Annotation labels
+
+Per-word `lang` tags and transcripts carry a `gold_status` field:
+
+| Label | Meaning |
+|---|---|
+| `reviewed` | Confirmed by a native Hiligaynon speaker. Safe to treat as ground truth. |
+| `seed_unverified` | AI-assisted or team-drafted; plausible but not yet speaker-confirmed. Use with caution; do not treat as authoritative language data. |
+
+All 40 headline clips (`scripted_native`, `spk01`) have been reviewed by **Aziel Faith Agustin**. Extension clips (`spk02`) and translation examples carry `seed_unverified` until a second native reviewer signs off.
+
+## CI / tests
+
+The [`benchmark.yml`](https://github.com/Jazztinn/tinig-sa-liwanag/actions/workflows/benchmark.yml) workflow runs on every push:
+
+1. `validate.py` — schema check on all 40 annotation files
+2. `freeze_benchmark.py --verify` — hash drift gate (fails if any file changed)
+3. `score.py` — scores predictions and checks headline numbers match `results/asr_score.txt`
+4. `unittest discover -s tests` — unit tests for scorer, normalizer, and aligner
+
+[![Benchmark integrity](https://github.com/Jazztinn/tinig-sa-liwanag/actions/workflows/benchmark.yml/badge.svg)](https://github.com/Jazztinn/tinig-sa-liwanag/actions/workflows/benchmark.yml)
+
+## How to add a new model
+
+1. Run inference; produce a JSON file of predictions:
+   ```json
+   [{"clip_id": "hil_cs_001", "text": "your model output here"}, ...]
+   ```
+2. Save to `data/predictions_<model_name>/`.
+3. Score:
+   ```bash
+   python3 score.py --ref data/annotations --hyp data/predictions_<model_name> --ci
+   ```
+4. Add a row to `results/asr_baselines.md`.
+5. Open a PR. CI will verify the frozen benchmark is untouched.
+
+## How to add a new clip
+
+1. Record a WAV (16 kHz mono) and save to `data/audio/hil_cs_NNN.wav`.
+2. Create `data/annotations/hil_cs_NNN.json` following [`SCHEMA.md`](SCHEMA.md). Set `gold_status: "seed_unverified"`.
+3. Run validation:
+   ```bash
+   python3 scripts/validate.py --kind asr --dir data/annotations
+   ```
+4. Have a native Hiligaynon speaker review the `tokens[].lang` tags; update `gold_status` to `"reviewed"`.
+5. Re-freeze:
+   ```bash
+   python3 scripts/freeze_benchmark.py
+   ```
+6. Open a PR. CI drift gate enforces the new hash.
+
+## Benchmark format
+
+One JSON annotation per clip:
+
+```json
+{
+  "clip_id": "hil_cs_001",
+  "audio_file": "audio/hil_cs_001.wav",
+  "transcript": "Nag-grocery ko kahapon kay super traffic.",
+  "matrix_language": "hil",
+  "switch_type": "HIL+TL+EN",
+  "tokens": [
+    { "idx": 0, "text": "Nag-grocery", "lang": "hil" },
+    { "idx": 1, "text": "ko",          "lang": "hil" },
+    { "idx": 2, "text": "kahapon",     "lang": "hil" },
+    { "idx": 3, "text": "kay",         "lang": "hil" },
+    { "idx": 4, "text": "super",       "lang": "tl"  },
+    { "idx": 5, "text": "traffic",     "lang": "en"  }
+  ]
+}
+```
+
+`score.py` aligns each ASR prediction to the reference and attributes errors to either monolingual Hiligaynon regions or switch regions within one word of a language change.
+
+## Evaluation
+
+- overall WER
+- monolingual-region WER
+- switch-region WER
+- Matrix-Language Erasure Gap (`monolingual WER − switch-region WER`)
+- switch-region WER by language pair (`hil↔tl`, `hil↔en`, `tl↔en`)
+- 95% clip-level bootstrap confidence intervals (`score.py --ci`)
+
+The benchmark is **frozen and content-addressed**: `data/benchmark/MANIFEST.json` (v1.0.1) hashes every annotation and audio file and pins the scorer, so results reproduce exactly or fail loudly. See `BENCHMARK.md` for the full protocol and `docs/evaluation_report.md` for caveats.
 
 ## Repository structure
 
@@ -175,61 +380,6 @@ sugidanon/
 | Score | `score.py --ci` | switch-region WER + 95% CIs |
 | Slice | `analyze_asr_breakdowns.py` | speaker/domain/switch/pair breakdowns |
 | Ship | `build_benchmark_web.py`, `build_release.py` | web JSON, release package |
-
-## Quick start
-
-No installs required for the core benchmark tooling.
-
-```bash
-# full release pipeline — validate, score, refresh web data, package
-python3 scripts/build_release.py --overwrite
-
-# minimal proof
-python3 scripts/validate.py --kind asr --dir data/annotations
-python3 score.py --ref data/annotations --hyp data/predictions
-python3 scripts/freeze_benchmark.py --verify   # drift gate
-
-# run tests
-python3 -m unittest discover -s tests
-
-# run the web app
-npm install && npm run dev   # http://localhost:3000
-```
-
-## Benchmark format
-
-One JSON annotation per clip:
-
-```json
-{
-  "clip_id": "hil_cs_001",
-  "audio_file": "audio/hil_cs_001.wav",
-  "transcript": "Nag-grocery ko kahapon kay super traffic.",
-  "matrix_language": "hil",
-  "switch_type": "HIL+TL+EN",
-  "tokens": [
-    { "idx": 0, "text": "Nag-grocery", "lang": "hil" },
-    { "idx": 1, "text": "ko",          "lang": "hil" },
-    { "idx": 2, "text": "kahapon",     "lang": "hil" },
-    { "idx": 3, "text": "kay",         "lang": "hil" },
-    { "idx": 4, "text": "super",       "lang": "tl"  },
-    { "idx": 5, "text": "traffic",     "lang": "en"  }
-  ]
-}
-```
-
-`score.py` aligns each ASR prediction to the reference and attributes errors to either monolingual Hiligaynon regions or switch regions within one word of a language change.
-
-## Evaluation
-
-- overall WER
-- monolingual-region WER
-- switch-region WER
-- switch penalty (`switch WER − monolingual WER`)
-- switch-region WER by language pair (`hil↔tl`, `hil↔en`, `tl↔en`)
-- 95% clip-level bootstrap confidence intervals (`score.py --ci`)
-
-The benchmark is **frozen and content-addressed**: `data/benchmark/MANIFEST.json` (v1.0.1) hashes every annotation and audio file and pins the scorer, so results reproduce exactly or fail loudly. See `BENCHMARK.md` for the full protocol and `docs/evaluation_report.md` for caveats.
 
 ## Extension layers
 
