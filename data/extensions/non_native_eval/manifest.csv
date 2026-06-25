@@ -1,0 +1,21 @@
+clip_id,domain,switch_type,prompt,speaker_fluency,recording_status,review_status,notes
+nonnat_001,market,HIL+EN,"Pila ang total sang grocery namon nga duha ka bag?",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_002,market,HIL+TL,"Tingnan mo anay kung barato pa ang isda.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_003,transport,HIL+EN,"Mag-stop ka lang sa may terminal sa unahan.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_004,transport,HIL+TL+EN,"Puno na ang jeep, kaya mag-book na lang tayo sang ride.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_005,school_work,HIL+EN,"Na-submit mo na ang project file para sa klase?",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_006,school_work,HIL+TL,"Ang hirap mag-focus kung mahinay ang internet sa balay.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_007,family,HIL,"Diin mo ginbutang ang susi sang balay?",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_008,family,HIL+EN,"I-charge mo ang phone ni Nanay antes mag-gwa.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_009,health,HIL+TL,"Masakit ang ulo ko, magpahinga muna ako kadali.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_010,health,HIL+EN,"May appointment ako sa clinic next week.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_011,culture,HIL,"Matahum gid ang mga karosa sa parada.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_012,culture,HIL+EN,"Ready na ang costume namon para sa festival.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_013,everyday,HIL+TL+EN,"Hindi ko sure kung ready na siya mag-join sa call.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_014,everyday,HIL+EN,"Sige, message ka lang kung ara ka na.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_015,oral_tradition,HIL,"Ang sugidanon nagasaysay sang kabuhi sang una nga panahon.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_016,oral_tradition,HIL+TL,"Kailangan nating ituro sa bata ang kahalagahan sang kultura.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_017,market,HIL,"Indi pagbaklon ang hilaw nga prutas kay maaslom pa.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_018,transport,HIL+EN,"Kuwarta lang anay, ihatag ko ang change mo dayon.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_019,school_work,HIL+TL+EN,"May overtime ako mamaya, tapos may meeting pa bukas.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.
+nonnat_020,everyday,HIL,"Salamat gid sa imo nga pagbulig sa amon pamilya.",non_native,planned,seed_unverified,Record after consent; no public score until transcript reviewed.

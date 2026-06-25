@@ -24,7 +24,7 @@
   "provenance": {
     "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
     "license": "CC BY 4.0 (text); audio recorded by speaker",
-    "note": "Transcript and per-word language tags reviewed by the speaker; kept as a candidate second-speaker extension until baseline predictions are added."
+    "note": "Transcript and per-word language tags reviewed by the speaker; reported as a second-speaker extension with bundled Whisper baseline predictions."
   },
   "tokens": [
     {
