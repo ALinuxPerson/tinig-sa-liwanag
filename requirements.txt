@@ -3,5 +3,8 @@
 
 openai-whisper        # baseline ASR for scripts/run_whisper.py (optional)
 jiwer                 # optional cross-check of WER numbers
+TTS                   # optional Coqui TTS backend for scripts/tts_route.py
 
 # System tool (not pip): ffmpeg — required by scripts/convert_audio.sh
+# TTS PoC can instead use a HuggingFace model from RESOURCES.md
+# (e.g. multilingual-tts/F5-TTS-OpenBible-Hiligaynon).

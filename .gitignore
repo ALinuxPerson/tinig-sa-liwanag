@@ -19,5 +19,8 @@ Thumbs.db
 .vscode/
 .idea/
 
+# TTS PoC output
+out/
+
 # Keep folder structure but ignore large media if needed
 # data/audio/*.wav

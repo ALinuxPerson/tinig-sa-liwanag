@@ -1,0 +1,14 @@
+# Code-switched Hiligaynon-Tagalog-English sentences for the TTS PoC.
+# One sentence per line. Lines starting with '#' are ignored.
+# Feed to: python scripts/tts_route.py --infile data/tts_samples.txt
+
+Nag-grocery ko kahapon kay super traffic sa dalan.
+Maayong aga sa imo, online ang meeting karon.
+Indi ko kabalo kung diin ang load, naubos na siguro.
+Grabe ka late ko subong kay wala sang signal.
+Diretso lang sa tindahan, tapos balik ka diri.
+Kaina pa ko nagahulat, deadline na gani subong.
+Te, pahuway anay kita kay sobrang init.
+Damo gid trabaho, weekend pa lang na-meeting kami.
+Salamat gid sa imo help kahapon, okay na tanan.
+Kaon na ta kay gutom na ko, tara na.

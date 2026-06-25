@@ -1,35 +1,35 @@
-# 🇵🇭 Tinig sa Liwanag — CodeSwitch-HIL
+# 🇵🇭 Sugidanon — A Code-Switched Hiligaynon Speech Benchmark
 
-**A code-switched Hiligaynon–English–Tagalog speech evaluation benchmark.**
+**An open benchmark + tooling for code-switched Hiligaynon–Tagalog–English
+speech recognition, with a scoped Hiligaynon text-to-speech proof-of-concept.**
 
-An open benchmark for measuring how well speech-recognition (ASR) systems handle
-**code-switched Ilonggo speech** — the natural mix of Hiligaynon, English, and
-Tagalog the way people in Western Visayas actually talk
+*Sugidanon* is the Ilonggo word for the epic oral traditions of Panay — fitting
+for a project about preserving and recognizing how Ilonggos actually speak: a
+natural mix of Hiligaynon, Tagalog, and English
 (*"Nag-grocery ko kahapon kay wala sang ulutanon, tapos super traffic."*).
 
 Most ASR systems are tested only on "clean" monolingual speech, so nobody knows
-how badly they break at **language switch points**. This benchmark measures
-exactly that.
+how badly they break at **language switch points**. Sugidanon measures exactly
+that — and adds a TTS path that pronounces each language correctly.
 
 > **Track:** Inclusive Speech Technology for Philippine Languages (FTIC / GitHub).
-> Deliverable is a *reusable open resource* — a labeled test set + a scoring
-> harness — **not an application.**
+> Deliverable is a *reusable open resource* — a labeled test set, a scoring
+> harness, and a pipeline — **not an application.**
 
 ## Why this matters
 
 - The Philippines has 130+ languages; everyday speech is heavily code-switched —
-  yet there is **almost no open benchmark** that measures ASR performance *at the
-  switch points*, which is where systems fail most.
-- Hiligaynon (Ilonggo) is spoken by ~9M people and is **underserved** by speech
-  tech. Real Ilonggo speech also pulls in Tagalog and English, making it a true
-  three-way code-switching case.
-- Our contribution is **foundational infrastructure**: a labeled gold test set, a
-  documented annotation schema, and a scoring script. Future teams plug in any
-  model (Whisper, MMS, Google STT, …) and instantly see its switch-point WER.
+  yet there is **almost no open benchmark** measuring ASR *at the switch points*,
+  where systems fail most.
+- Hiligaynon (~9M speakers) is underserved by speech tech. Tagalog is spreading
+  into the Visayas, so **hil↔tl mixing is a live, growing phenomenon**. Because
+  `hil` and `tl` share vocabulary, clean labels are hard — that difficulty is our
+  contribution's value.
+- We ship **foundational infrastructure**: a labeled gold test set, a documented
+  annotation schema, a scoring script, and a TTS routing PoC. Future teams plug
+  in any model and instantly see its switch-point WER.
 
 ## Languages & tags
-
-Word-level language tags used in annotations:
 
 | Tag     | Language               |
 |---------|------------------------|
@@ -38,78 +38,114 @@ Word-level language tags used in annotations:
 | `en`    | English                |
 | `other` | proper nouns, ambiguous, or another PH language |
 
-Clip IDs are prefixed by the dominant pair, e.g. `hil_en_001`, `hil_tl_001`.
+Clip IDs are prefixed by the dominant pair: `hil_en_001`, `hil_tl_001`, `tl_en_001`.
 
 ## Repository structure
 
 ```
-tinig-sa-liwanag/
+tinig-sa-liwanag/                # repo (project name: Sugidanon)
 ├── README.md              # this file
-├── SCHEMA.md              # annotation format + tagging rules  (TODO)
-├── LICENSE                # CC BY 4.0 (data) + MIT (code)       (TODO)
+├── SCHEMA.md              # annotation format + hil/tl tagging rules
+├── RESOURCES.md           # external datasets + models we build on
+├── AI_DISCLOSURE.md       # how AI assistants were used
+├── LICENSE                # CC BY 4.0 (data) + MIT (code)
 ├── requirements.txt       # optional tooling deps (scorer needs none)
-├── score.py               # scoring harness, pure stdlib        (TODO)
+├── score.py               # scoring harness, pure stdlib
+├── g2p_hil/               # Hiligaynon grapheme→phoneme rules (TTS path)
+│   └── g2p.py
 ├── scripts/
-│   ├── convert_audio.sh   # normalize recordings -> 16 kHz mono wav  (TODO)
-│   ├── run_whisper.py     # baseline: audio -> predictions            (TODO)
-│   └── validate.py        # check annotations conform to SCHEMA.md    (TODO)
+│   ├── convert_audio.sh   # normalize recordings → 16 kHz mono wav
+│   ├── run_whisper.py     # baseline: audio → predictions (whisper optional)
+│   ├── validate.py        # check annotations conform to SCHEMA.md
+│   ├── tts_route.py       # per-word language router for code-switched TTS
+│   └── roundtrip_wer.py   # TTS quality via TTS→STT→WER
 ├── data/
-│   ├── audio/             # <clip_id>.wav  (16 kHz mono)
-│   ├── annotations/       # <clip_id>.json gold transcripts w/ per-word tags
-│   └── predictions/       # <clip_id>.json model hypotheses to score
+│   ├── audio/             # <clip_id>.wav (16 kHz mono)
+│   ├── annotations/       # gold transcripts w/ per-word language tags
+│   ├── predictions/       # model hypotheses to be scored
+│   └── tts_samples.txt    # code-switched sentences for the TTS PoC
 └── results/
-    └── baseline.md        # baseline model score table                (TODO)
+    └── baseline.md        # baseline score table
 ```
 
 ## The metric
 
 Headline number is the **switch penalty**: how much worse a model does on words
-near a language switch vs. monolingual words.
+near a language switch vs monolingual words.
 
-- **Overall WER** — word error rate across all words.
-- **Switch-region WER** — WER on words within ±1 token of a language switch.
-- **Monolingual WER** — WER on all other words.
+- **Overall WER** — across all words.
+- **Switch-region WER** — words within ±1 token of a language switch.
+- **Monolingual WER** — all other words.
 - **Switch penalty** = Switch-region WER − Monolingual WER.
 
-Large positive switch penalty = model struggles with code-switching. This single
-number is the contribution: it makes an invisible weakness measurable.
+`score.py` also breaks the switch-region WER down **per language pair**
+(hil↔tl, hil↔en, tl↔en), so you can see which kind of switch hurts most.
 
-## Setup
-
-The core scorer is **dependency-free** (Python 3.8+ stdlib). To score:
+## Quick start (no installs needed)
 
 ```bash
+# validate annotations (skip audio-file check for the worked example)
+python scripts/validate.py --no-audio-check
+
+# score the included worked example
 python score.py --ref data/annotations --hyp data/predictions
 ```
 
-Optional tooling (baseline ASR, WER cross-check):
+To benchmark a real model: record clips → `scripts/convert_audio.sh` → annotate
+into `data/annotations/` → `python scripts/run_whisper.py` → `score.py`.
+
+## TTS proof-of-concept
+
+We do **not** train a voice from scratch. Instead we route each word by language
+and pronounce it correctly:
+
+```bash
+# show routing + Hiligaynon phonemes for a sentence (no model needed)
+python scripts/tts_route.py "Nag-grocery ko kahapon kay super traffic"
+
+# Hiligaynon G2P smoke test
+python g2p_hil/g2p.py "Maayong aga sa imo"
+```
+
+- `g2p_hil/` — Hiligaynon grapheme→phoneme rules (the novel linguistic piece).
+- `scripts/tts_route.py` — sends hil/tl words down the Hiligaynon G2P path, en
+  words down an English TTS path. Backend (e.g. F5-TTS / VITS Hiligaynon from
+  `RESOURCES.md`) is optional and import-guarded.
+- **TTS metric:** round-trip WER (`scripts/roundtrip_wer.py`) — synthesize, run
+  back through STT, measure error — plus a quick human naturalness rating.
+
+## Setup
+
+Core scorer is **dependency-free** (Python 3.8+ stdlib). Optional tooling:
 
 ```bash
 python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt   # openai-whisper, jiwer
+pip install -r requirements.txt   # openai-whisper, jiwer, TTS
 # also needs system ffmpeg for scripts/convert_audio.sh
 ```
 
+See `RESOURCES.md` for the Hiligaynon datasets and models we build on.
+
 ## How we build it (the 1-day plan)
 
-1. **Schema first** (linguists) — agree on tag set + rules in `SCHEMA.md`.
-2. **Record** 30–60 short Hiligaynon-English-Tagalog clips, 4–10 s each, from 3+
-   speakers. Reading natural code-switched sentences aloud is fine.
+1. **Schema first** (linguists) — tag set + hil/tl rules in `SCHEMA.md`.
+2. **Record** 40–60 short hil-tl-en clips, 4–10 s, 3+ Ilonggo speakers.
 3. **Transcribe + tag** each clip at the word level into `data/annotations/`.
-4. **Double-annotate** ≥10 clips and report inter-annotator agreement.
-5. **Baseline** — run one off-the-shelf model (e.g. Whisper) to fill
-   `data/predictions/` and produce the first numbers with `score.py`.
+4. **Double-annotate** ≥10 clips; report inter-annotator agreement.
+5. **Baseline** — run Whisper to fill `data/predictions/`; first numbers via
+   `score.py` into `results/baseline.md`.
+6. **TTS PoC** — ~10 sentences through `tts_route.py`; report round-trip WER.
 
-## Roadmap
+## Roadmap (future work)
 
-- Grow to 1,000+ clips; per-speaker / per-region breakdowns.
-- Add more pairs (Waray-English, Ilocano-English).
-- Leaderboard of public ASR systems.
+- Demo app: record → STT → color-tagged transcript → native-speaker correct →
+  approve & archive (grows the open dataset).
+- LoRA fine-tune Whisper on Hiligaynon audio; trained Hiligaynon voice.
+- More pairs (Waray-English, Ilocano-English); public-model leaderboard.
 
 ## License
 
-Data under **CC BY 4.0**, code under **MIT** — so anyone can reuse and extend.
-Add a `LICENSE` file before submitting.
+Data under **CC BY 4.0**, code under **MIT**. See `LICENSE`.
 
 ## AI usage
 
