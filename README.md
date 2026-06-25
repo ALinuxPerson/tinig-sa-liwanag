@@ -278,23 +278,56 @@ python3 app/server.py
 
 Then open `http://localhost:8000`.
 
-## ASR dataset package
+## Code-switch ASR benchmark (speech MVP)
 
-The speech-test-set deliverables are:
+The speech deliverable is a code-switch-labeled corpus plus a switch-region WER
+benchmark. The distinctive measurement is the **switch penalty**: how much worse
+an ASR model does on words next to a Hiligaynon/Tagalog/English language switch
+versus monolingual words.
 
-- Hugging Face dataset card: `hf_dataset/README.md`
-- labeled test-set schema: `SCHEMA.md`
-- transcription rules: `docs/transcription_guidelines.md`
-- licensing details: `docs/licensing.md` and `LICENSE`
-- one-command Whisper/MMS WER reproduction:
+What ships:
+
+- **40 code-switch-labeled clips** in `data/annotations/` (`hil_cs_001`..`040`),
+  authored as a draft and **reviewed by a Hiligaynon speaker**, who also records
+  the audio. Eight domains (market, transport, school/work, family, health,
+  culture, everyday, oral tradition) and four switch types (`HIL`, `HIL+EN`,
+  `HIL+TL`, `HIL+TL+EN`). Reference text is `reviewed`; per-word `hil`/`tl`/`en`
+  tags are auto-seeded (`lang_tags_status: seed_unverified`) for the speaker to
+  confirm.
+- **`score.py`** — switch-region WER, monolingual WER, switch penalty, and a
+  per-language-pair breakdown (`hil<->tl`, `hil<->en`, `tl<->en`).
+- **Reproducible capture pipeline** — `scripts/build_codeswitch_set.py` emits the
+  annotation stubs from an elicitation set; `scripts/record.py` captures audio
+  and writes the matching annotation. See `docs/recording_kit.md`.
+- **Labeled test-set schema** (`SCHEMA.md`), transcription rules
+  (`docs/transcription_guidelines.md`), Hugging Face dataset card
+  (`hf_dataset/README.md`), and licensing (`docs/licensing.md`, `LICENSE`).
 
 ```bash
+# build / refresh the code-switch annotation stubs
+python3 scripts/build_codeswitch_set.py
+
+# validate the labeled clips (drop --no-audio-check once wavs exist)
+python3 scripts/validate.py --kind asr --dir data/annotations --no-audio-check
+
+# capture audio for one prompt
+python3 scripts/record.py --list
+python3 scripts/record.py --prompt 1 --seconds 8
+
+# run a Whisper baseline and score switch-region WER
+python3 scripts/run_whisper.py --model large-v3 --language tl
+python3 score.py --ref data/annotations --hyp data/predictions
+
+# one-command WER over data/predictions/asr/<model>/
 python3 scripts/eval_asr_baselines.py
 ```
 
-The included ASR predictions are worked examples. Replace
-`data/predictions/asr/<model>/*.json` with full Whisper/MMS outputs before
-claiming final model-level WER.
+Per-word language tags are `seed_unverified`: a qualified Hiligaynon speaker must
+review them before the clips are treated as gold. Audio is recorded by
+contributors (see the recording kit) — the repo does not redistribute
+third-party speech under CC BY 4.0. The bundled ASR predictions are worked
+examples; replace `data/predictions/asr/<model>/*.json` with full Whisper/MMS
+outputs before claiming final model-level WER.
 
 ## Next.js / Vercel app
 
@@ -480,18 +513,21 @@ or paragraph-level meaning.
 3. Add TTS output after translation quality and pronunciation resources are ready.
 4. Reuse the existing G2P, ASR, and TTS scripts as future infrastructure.
 
-## Legacy and future speech work
+## Speech tooling
 
-This repository still contains earlier speech-oriented utilities:
+Active speech components (see the code-switch ASR benchmark section above):
 
-- `score.py` for code-switched ASR switch-region WER
-- `scripts/run_whisper.py`
+- `score.py` — code-switch switch-region WER
+- `scripts/build_codeswitch_set.py` — emit code-switch annotation stubs
+- `scripts/record.py` — capture audio + matching annotation
+- `scripts/run_whisper.py` — Whisper ASR baseline
+- `scripts/eval_asr_baselines.py` — one-command WER over baseline predictions
+- `data/annotations/` — the code-switch-labeled corpus
+
+Reserved for the later TTS / speech-to-speech phase:
+
 - `scripts/tts_route.py`
 - `g2p_hil/`
-- `data/annotations/`
-
-These are not the v1 focus anymore. They remain useful for the later STT/TTS
-phase after the translation benchmark is credible.
 
 ## Hackathon pitch
 

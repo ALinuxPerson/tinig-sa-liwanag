@@ -26,18 +26,21 @@ size_categories:
 
 ## Dataset Summary
 
-Sugidanon is a small, open, labeled test-set scaffold for
-evaluating code-switched Hiligaynon, Filipino/Tagalog, and English speech
-recognition.
+Sugidanon is a small, open, labeled test set for evaluating code-switched
+Hiligaynon, Filipino/Tagalog, and English speech recognition.
 
-The dataset is designed to measure not only overall WER, but also WER near
-language switch points. This is important for Philippine speech technology
-because real speech often mixes regional languages, Filipino/Tagalog, and
+It is designed to measure not only overall WER, but also WER near language
+switch points — the switch penalty. This matters for Philippine speech
+technology because real speech mixes regional languages, Filipino/Tagalog, and
 English.
 
-Current repository status: worked-example scaffold. Replace or extend the sample
-annotation with consented audio and reviewed transcripts before treating this as
-a final benchmark release.
+**Contents:** 40 code-switch utterances (~3.1 min) recorded by one Hiligaynon
+speaker, across 8 domains (market, transport, school/work, family, health,
+culture, everyday, oral tradition) and 4 switch types (`HIL`, `HIL+EN`,
+`HIL+TL`, `HIL+TL+EN`). The reference transcripts were reviewed by the speaker;
+per-word language tags are auto-seeded and marked `lang_tags_status:
+seed_unverified` pending the speaker's confirmation. Single-speaker — expand
+before drawing model-level conclusions.
 
 ## Languages
 
@@ -78,17 +81,21 @@ Example:
 
 ```json
 {
-  "clip_id": "hil_en_001",
-  "audio_file": "audio/hil_en_001.wav",
-  "duration_sec": 6.4,
+  "clip_id": "hil_cs_001",
+  "audio_file": "audio/hil_cs_001.wav",
+  "duration_sec": 3.39,
+  "domain": "market",
+  "switch_type": "HIL+EN",
+  "transcript": "Pila ang grocery budget naton para sa weekend?",
   "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
   "tokens": [
-    { "idx": 0, "text": "Nag-grocery", "lang": "hil" },
-    { "idx": 1, "text": "ko", "lang": "hil" },
-    { "idx": 2, "text": "kahapon", "lang": "hil" },
-    { "idx": 3, "text": "kay", "lang": "hil" },
-    { "idx": 4, "text": "super", "lang": "tl" },
-    { "idx": 5, "text": "traffic", "lang": "en" }
+    { "idx": 0, "text": "Pila", "lang": "hil" },
+    { "idx": 1, "text": "ang", "lang": "hil" },
+    { "idx": 2, "text": "grocery", "lang": "en" },
+    { "idx": 3, "text": "budget", "lang": "en" },
+    { "idx": 4, "text": "naton", "lang": "hil" }
   ]
 }
 ```
@@ -162,9 +169,24 @@ LICENSE
 }
 ```
 
+## Baseline result
+
+Whisper small (`--language tl`) over the 40 clips:
+
+| Metric | WER |
+|--------|-----|
+| Overall | 61.4% |
+| Monolingual (Hiligaynon) | 69.2% |
+| Switch-region | 38.8% |
+| Switch penalty | −30.4% |
+
+The negative penalty is the finding: an off-the-shelf Tagalog model handles the
+borrowed English/Tagalog switch words but fails on the Hiligaynon matrix. See
+`docs/evaluation_report.md`. Preliminary (Whisper small, single speaker).
+
 ## Limitations
 
-- Current repository data is a scaffold and worked example.
-- Real audio requires consented speakers and reviewed transcripts.
-- The test set should be expanded before drawing model-level conclusions.
-- Per-token language labels require human review.
+- Single speaker — expand speakers before drawing model-level conclusions.
+- Per-word language tags are auto-seeded (`seed_unverified`); confirm with the
+  speaker before treating the switch/monolingual split as final.
+- Baseline uses Whisper small; rerun with large-v3 / MMS for stronger numbers.

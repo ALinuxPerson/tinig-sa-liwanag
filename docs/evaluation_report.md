@@ -1,5 +1,54 @@
 # Evaluation Report
 
+## Code-switch ASR benchmark (speech MVP)
+
+The speech deliverable: **40 native-recorded code-switch clips** (3.1 min total),
+one Hiligaynon speaker, 8 domains (market, transport, school/work, family,
+health, culture, everyday, oral tradition), 4 switch types (`HIL`=10, `HIL+EN`=15,
+`HIL+TL`=8, `HIL+TL+EN`=7). Reference text reviewed by the speaker; per-word
+language tags auto-seeded, pending speaker confirmation.
+
+### Baseline result — Whisper small, `--language tl`
+
+| Metric | WER |
+|--------|-----|
+| Overall | 61.4% |
+| Monolingual (pure Hiligaynon) | 69.2% |
+| Switch-region (next to a language switch) | 38.8% |
+| **Switch penalty** (switch − mono) | **−30.4%** |
+
+Switch-region WER by language pair: `hil↔en` 44.2%, `hil↔tl` 24.4%, `tl↔en` 6.2%.
+
+### Interpretation — the negative penalty is the finding
+
+An off-the-shelf Tagalog ASR model transcribes the **switch words better than the
+monolingual ones**. Switch regions carry the English/Tagalog loanwords
+(`traffic`, `meeting`, `grab`) the model already knows; the **Hiligaynon matrix**
+is what it fails on (69% WER, no Hiligaynon training). The failure scales with
+Hiligaynon involvement: `tl↔en` is near-solved (6%), `hil↔en` is worst (44%).
+
+This quantifies the exact gap Sugidanon exists to expose: **current speech tech
+catches the borrowed words and misses the Ilonggo.**
+
+### Caveats
+
+- Whisper **small** (not large-v3) — preliminary; a larger model lowers WER.
+- Per-word tags are `seed_unverified`; speaker confirmation firms up the
+  switch/monolingual split.
+- Single speaker — expand speakers before drawing model-level conclusions.
+
+### Reproduce
+
+```bash
+python3 scripts/validate.py --kind asr --dir data/annotations
+python3 scripts/run_whisper.py --model small --language tl   # or large-v3
+python3 score.py --ref data/annotations --hyp data/predictions
+```
+
+---
+
+## Translation benchmark
+
 ## Current status
 
 This hackathon version evaluates a **dictionary baseline** on a 30-row seed

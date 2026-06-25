@@ -1,10 +1,8 @@
 # Schema
 
-Sugidanon now uses a translation-first schema. The primary artifact is a
-JSONL benchmark for context-aware translation into Hiligaynon.
-
-Legacy code-switched ASR annotations are still supported for future speech work,
-but they are no longer the main v1 deliverable.
+Sugidanon ships two schemas. The speech MVP artifact is a code-switch-labeled
+ASR benchmark (per-word `hil` / `tl` / `en` tags) scored with switch-region WER.
+A JSONL translation benchmark supports the later STT -> translation pipeline.
 
 ## Primary benchmark path
 
@@ -122,15 +120,18 @@ For each reviewed example, record issue severity:
 - `major`
 - `meaning_changed`
 
-## Legacy ASR annotation schema
+## Code-switch ASR annotation schema
 
-The earlier speech benchmark used one JSON file per clip:
+The speech benchmark uses one JSON file per clip. Each clip is a code-switched
+Hiligaynon / Tagalog / English utterance with per-word language tags, which is
+what makes switch-region WER (`score.py`) possible.
 
 ```json
 {
-  "clip_id": "hil_en_001",
-  "audio_file": "audio/hil_en_001.wav",
+  "clip_id": "hil_cs_001",
+  "audio_file": "audio/hil_cs_001.wav",
   "duration_sec": 6.4,
+  "domain": "daily_life",
   "speaker": {
     "id": "spk01",
     "primary_language": "hil",
@@ -139,6 +140,12 @@ The earlier speech benchmark used one JSON file per clip:
     "gender": "F"
   },
   "matrix_language": "hil",
+  "review_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (original)",
+    "license": "CC BY 4.0 (text); audio under its own capture license",
+    "note": "SEED per-word language tags — native Hiligaynon speaker must review"
+  },
   "tokens": [
     { "idx": 0, "text": "Nag-grocery", "lang": "hil" },
     { "idx": 1, "text": "ko", "lang": "hil" },
@@ -150,9 +157,36 @@ The earlier speech benchmark used one JSON file per clip:
 }
 ```
 
-This remains supported by:
+### ASR fields
+
+| Field | Type | Rule |
+|-------|------|------|
+| `clip_id` | string | Unique stable ID, e.g. `hil_cs_001` (required) |
+| `audio_file` | string | Path relative to `data/`, e.g. `audio/hil_cs_001.wav` (required) |
+| `tokens` | list | Per-word `{idx, text, lang}`, `idx` contiguous from 0 (required) |
+| `domain` | string | Domain bucket (optional) |
+| `speaker` | object | `id`, `primary_language`, `region`, `age_band`, `gender` (optional) |
+| `matrix_language` | string | Base language of the utterance (optional) |
+| `review_status` | string | `seed_unverified`, `reviewed`, or `adjudicated` (optional) |
+| `provenance` | object | `source`, `license`, `note` for redistribution (optional) |
+
+Token `lang` is one of `hil`, `tl`, `en`, `other`.
+
+### Pipeline
 
 ```bash
+# generate / refresh the code-switch annotation stubs from the elicitation set
+python3 scripts/build_codeswitch_set.py
+
+# capture audio for one prompt + emit its annotation
+python3 scripts/record.py --prompt 1 --seconds 8
+
+# validate (drop --no-audio-check once wavs exist)
 python3 scripts/validate.py --kind asr --dir data/annotations --no-audio-check
+
+# score switch-region WER against ASR predictions
 python3 score.py --ref data/annotations --hyp data/predictions
 ```
+
+See `docs/recording_kit.md` for the full capture workflow. Seed language tags
+must be confirmed by a Hiligaynon speaker before the clip is treated as gold.
