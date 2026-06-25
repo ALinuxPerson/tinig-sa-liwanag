@@ -126,35 +126,32 @@ early-benchmark estimates, not large-sample statistics.*
 
 Live demos are linked at the top of this README.
 
-## Why this matters
+## ✦ Why this matters
 
-The Philippines has 130+ languages, yet most regional tongues stay invisible to
-modern speech technology. Hiligaynon (Ilonggo) — spoken by 9M+ people across
-Iloilo, Negros, Guimaras, and Panay, and carrier of a deep oral tradition (the
-*sugidanon* epic chants this project is named for) — is one of them.
-Off-the-shelf speech models are rarely even *measured* on Ilonggo, so no one had
-quantified where they fail.
+> **The Philippines has 130+ languages. Most are invisible to modern speech technology.**
 
-Sugidanon makes that failure measurable. Its core contribution is
-**switch-region WER**: instead of one blunt error rate, it separates errors on
-borrowed English/Tagalog words from errors on the Hiligaynon matrix language.
-The finding is sharp and reproducible — current models transcribe the borrowed
-words well but miss the Hiligaynon itself, a **negative switch penalty** that
-puts a number on exactly what gets erased.
+Hiligaynon (Ilonggo) — spoken by **9M+ people** across Iloilo, Negros, Guimaras, and Panay, and carrier of a deep oral tradition (the *sugidanon* epic chants this project is named for) — is one of them. Off-the-shelf speech models are rarely even *measured* on Ilonggo, so no one had quantified where they fail.
+
+**Sugidanon makes that failure measurable.** Its core contribution is **switch-region WER**: instead of one blunt error rate, it separates errors on borrowed English/Tagalog words from errors on the Hiligaynon matrix language. The finding is sharp and reproducible — current models transcribe the borrowed words well but miss the Hiligaynon itself, a **negative switch penalty (−30.1%)** that puts a number on exactly what gets erased.
 
 Measurement is the first act of inclusion:
 
-- Overall WER hides which language failed; switch-region WER exposes it.
-- An open, per-word-tagged corpus recorded and reviewed by native Ilonggo
-  speakers turns heritage speech — including an `oral_tradition` domain — into
-  reusable data, owned by the community (CC BY 4.0), not extracted from it.
-- A reproducible benchmark makes the gap fundable and fixable, and the same
-  clips and tags can later seed STT/TTS and speech-to-speech evaluation.
+- **Overall WER hides which language failed; switch-region WER exposes it.**
+- An open, per-word-tagged corpus recorded and reviewed by native Ilonggo speakers turns heritage speech — including an `oral_tradition` domain — into reusable data, **owned by the community (CC BY 4.0), not extracted from it.**
+- A reproducible benchmark makes the gap fundable and fixable, and the same clips and tags can later seed STT/TTS and speech-to-speech evaluation.
 
-Rather than a finished consumer product, Sugidanon is a building block — a
-measuring stick and an open corpus that future developers and researchers can
-extend into inclusive speech systems, so every Filipino voice gets a seat at the
-table before it disappears.
+> Rather than a finished consumer product, Sugidanon is a **building block** — a measuring stick and an open corpus that future developers and researchers can extend into inclusive speech systems, so every Filipino voice gets a seat at the table before it disappears.
+
+## UN Sustainable Development Goals
+
+Sugidanon directly supports:
+
+| SDG | Alignment |
+|-----|-----------|
+| **SDG 4 — Quality Education** | Open, reproducible tools for studying and teaching Philippine language technology. |
+| **SDG 9 — Industry, Innovation & Infrastructure** | Novel benchmark infrastructure (switch-region WER) that advances the state of code-switch ASR research. |
+| **SDG 10 — Reduced Inequalities** | Quantifies the gap that leaves Hiligaynon speakers underserved by mainstream speech AI; makes the gap fundable and fixable. |
+| **SDG 17 — Partnerships for the Goals** | CC BY 4.0 open dataset and MIT-licensed tooling designed for reuse by researchers, developers, and future community contributors worldwide. |
 
 ## Project case
 
@@ -476,6 +473,48 @@ Hiligaynon speakers.
 2. Evaluate translation quality with human adequacy, fluency, context, and
    terminology ratings.
 3. Add TTS only after transcription and translation quality are measurable.
+
+### Scalability
+
+Sugidanon is architected to scale without breaking its reproducibility guarantees.
+
+**Data scale**
+
+The annotation schema (`SCHEMA.md`), freeze gate (`freeze_benchmark.py`), and
+cohort ladder (`BENCHMARK.md`) are language-agnostic. Scaling to more speakers,
+more Philippine languages, or larger clip counts means adding files to
+`data/annotations/` and `data/audio/`, running the review CLI, and cutting a new
+frozen manifest version — no pipeline changes required.
+
+| Scale target | Mechanism |
+|---|---|
+| More speakers | New `spk_id` entries; speaker-disjoint cohorts enforced by schema |
+| More languages | New `lang` values (`ceb`, `war`, `ilo`, …); scorer already parameterized |
+| More clips | Add JSON + WAV; `freeze_benchmark.py` re-hashes; CI gate verifies |
+| Community contributions | `CONTRIBUTING.md` protocol + freeze gate prevent drift |
+
+**Model scale**
+
+`score.py` accepts any ASR system that outputs `{clip_id, text}` JSON — swap the
+model, re-run, get comparable numbers. Whisper large-v3, MMS, SeamlessM4T, and
+future Hiligaynon-tuned ASR models can all be benchmarked against the same frozen
+clip set.
+
+**Infrastructure scale**
+
+The core tooling is stdlib-only and runs anywhere Python 3 runs. The web explorer
+(Next.js / Vercel) updates by regenerating `public/benchmark.json`
+(`build_benchmark_web.py`) — a static JSON swap, no database. For larger datasets
+the same pipeline can publish to Hugging Face Datasets via the existing HF card,
+enabling community download and streaming without hosting costs.
+
+**Institutional scale**
+
+The benchmark is designed to be handed off: frozen, content-addressed, dual-licensed
+(MIT + CC BY 4.0), with speaker consent/withdrawal records and a contribution
+guide. A university lab, an NGO, or a government digitization project can fork
+the repo, record their own speakers, and produce a directly comparable score using
+the same scorer and schema.
 
 ## Speech tooling
 
