@@ -65,7 +65,8 @@ Hiligaynon — precisely what this dataset exists to expose.
 
 ## What's inside
 
-40 code-switch utterances (~3.1 min) recorded by a Hiligaynon speaker, across
+40 code-switch utterances (~3.1 min) recorded by **Aziel**, a Hiligaynon
+(Ilonggo) speaker who also reviewed the sentences, across
 **8 everyday domains** (market, transport, school/work, family, health, culture,
 everyday, oral tradition / heritage) and **4 switch types** (`HIL`, `HIL+EN`,
 `HIL+TL`, `HIL+TL+EN`). Every word carries a `hil`/`tl`/`en` tag, so the scorer
@@ -201,12 +202,19 @@ docs/licensing.md
 LICENSE
 ```
 
+## Acknowledgments
+
+This dataset exists thanks to **Aziel**, the Hiligaynon (Ilonggo) speaker who
+reviewed the elicitation sentences and recorded all 40 clips. The reference
+transcripts and audio are their voice and review.
+
 ## Citation
 
 ```bibtex
 @dataset{team_hague_sugidanon_2026,
   title = {Sugidanon: Code-switched Hiligaynon speech and translation benchmark scaffold},
   author = {{Team Hague}},
+  note = {Speech recorded and reviewed by Aziel (Hiligaynon speaker)},
   year = {2026},
   license = {CC BY 4.0}
 }
