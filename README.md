@@ -110,38 +110,6 @@ but fail on the Hiligaynon matrix language.
 
 Live demos are linked at the top of this README.
 
-## Features
-
-- **Code-switch ASR benchmark** — 40 frozen headline native clips with per-word
-  language tags and switch-region WER scoring (`score.py`).
-- **Switch-region WER scorer** — overall WER, monolingual Hiligaynon WER,
-  switch-region WER, switch penalty, and per-language-pair breakdown.
-- **Robustness breakdowns** — `scripts/analyze_asr_breakdowns.py` reports ASR
-  performance by speaker, domain, switch type, token language, and switch pair,
-  including the second-speaker extension.
-- **Non-native evaluation scaffold** — `data/extensions/non_native_eval/` has a
-  20-line recording manifest plus readiness validator; no fake or unlicensed
-  audio is counted.
-- **Reproducible baseline** — Whisper runner + one-click Colab over the public
-  Hugging Face dataset, zero local setup.
-- **Annotation schema** (`SCHEMA.md`) for reviewed code-switch references and
-  token language tags.
-- **Token-tag review CLI** — `scripts/review_annotations.py` for native-speaker
-  confirmation of seed tags.
-
-### Extension layers (not the primary judged artifact)
-
-The repository also carries text-translation and assistant layers that build on
-the benchmark and are kept for the later STT → translation → TTS phase:
-
-- **Context-aware translation benchmark** — JSONL examples labeled with domain,
-  context notes, phenomena, difficulty, and review status, plus an offline
-  dictionary baseline and automatic evaluator.
-- **Lexicon tooling** — curated `data/lexicon_hil.tsv` plus Kaikki/Wiktionary
-  en→hil and Tagalog→Hiligaynon bridge builders.
-- **Future speech utilities** — Hiligaynon G2P and TTS routing for the later
-  STT/TTS phase.
-
 ## Why this matters
 
 The Philippines has 130+ languages, yet most regional tongues stay invisible to
@@ -191,72 +159,6 @@ Our interpretation of the project case:
 - Make limitations explicit: the headline benchmark is one speaker and 40 clips;
   the second speaker is reported as an extension until a multi-speaker release
   decision is made.
-
-## What we developed
-
-During the hackathon, we narrowed the original STT/TTS idea into a realistic
-MVP: a focused Hiligaynon code-switch ASR benchmark that future speech systems
-can evaluate against.
-
-We developed:
-
-- 40 native-recorded Hiligaynon / Tagalog / English code-switch clips
-- 40 additional reviewed second-speaker extension clips kept outside the frozen
-  headline score
-- 20 planned non-native evaluation prompts kept outside scoring until consented
-  audio and reviewed annotations exist
-- per-word `hil` / `tl` / `en` language tags
-- a Hugging Face-style dataset card for the labeled ASR test set
-- a JSON annotation schema for clips, speaker metadata, transcripts, and token
-  language tags
-- a switch-region WER scorer with monolingual, switch-region, switch penalty,
-  and language-pair breakdowns
-- an ASR breakdown reporter for speaker, domain, switch type, and token-language
-  error analysis
-- a non-native evaluation scaffold with manifest, recording script, and readiness
-  validator
-- bundled Whisper baseline predictions and reproducible benchmark reports
-- a judge-facing release pipeline (`scripts/build_release.py`)
-- deterministic dataset split CSVs and release packaging
-- dataset integrity tests for audio shape, duplicates, prediction coverage, and
-  packaging
-- transcription guidelines and clear dataset/code licensing notes
-- a Next.js/Vercel benchmark explorer with audio playback and token-level error
-  visualization
-- an optional Tagalog-to-Hiligaynon phrase and lexicon layer for later
-  translation demos
-- a script for building a larger noisy Tagalog -> Hiligaynon bridge lexicon from
-  Kaikki/Wiktionary dictionaries
-- documentation for future native-speaker review, stronger ASR baselines, and
-  downstream STT/translation/TTS extension
-
-This is not yet a production ASR model. It is the benchmark and release scaffold
-that makes future Hiligaynon speech work measurable.
-
-## MVP
-
-The MVP is:
-
-> A reproducible Hiligaynon code-switch ASR benchmark with native-recorded
-> clips, per-word language tags, switch-region WER scoring, and a benchmark
-> explorer.
-
-The MVP demonstrates:
-
-- how code-switch speech clips are represented
-- how baseline ASR predictions are scored
-- where multilingual ASR fails on Hiligaynon compared with borrowed Tagalog and
-  English words
-- how future Hiligaynon reviewers can validate or correct token language tags
-- how another researcher can package and extend the dataset
-
-For demo quality, the deployed app includes:
-
-1. a landing page summarizing the benchmark finding
-2. an interactive benchmark explorer with audio playback
-3. a smaller translation demo kept as an extension layer
-
-The research artifact is the speech benchmark and evaluation pipeline.
 
 ## Technologies Used
 
@@ -323,6 +225,35 @@ sugidanon/
     ├── asr_score.txt
     └── baseline.md
 ```
+
+## Core pipeline
+
+Every arrow is a pure-stdlib script. `freeze_benchmark.py --verify` gates the
+whole chain against drift, so the headline numbers reproduce exactly or fail loud.
+
+```text
+ elicit / record          annotate                native review          FREEZE
+ (record.py)        →  tokens + hil/tl/en    →  (review_annotations)  →  MANIFEST.json
+                       (build_codeswitch_set)                            (sha256 + scorer pin)
+                                                                              │
+                                                                              ▼
+ ASR baseline       →   predictions/         →   score.py             →   breakdowns + CIs
+ (run_whisper.py)       {clip_id, text}          switch-region WER        (analyze_asr_breakdowns)
+                                                  + bootstrap CI              │
+                                                                              ▼
+                                                    web explorer   ·   release package
+                                                 (build_benchmark_web)  (build_release)
+```
+
+| Stage | Script | Output |
+|-------|--------|--------|
+| Annotate | `build_codeswitch_set.py`, `record.py` | `data/annotations`, `data/audio` |
+| Review | `review_annotations.py` | reviewed per-word `lang` tags |
+| Freeze | `freeze_benchmark.py` | `data/benchmark/MANIFEST.json` (drift gate) |
+| Baseline | `run_whisper.py` | `data/predictions` |
+| Score | `score.py --ci` | switch-region WER + 95% CIs |
+| Slice | `analyze_asr_breakdowns.py` | speaker/domain/switch/pair breakdowns |
+| Ship | `build_benchmark_web.py`, `build_release.py` | web JSON, release package |
 
 ## Quick start
 
@@ -423,85 +354,18 @@ Sugidanon's strongest distinction is not generic data cleanup. It measures
 failure at Hiligaynon/Tagalog/English switch points and connects that speech
 benchmark to Hiligaynon translation and live demos.
 
-## Next.js / Vercel app
+## Web app (demo)
 
-The hosted demo is a Next.js app with a serverless dictionary-baseline API route.
+The hosted Next.js explorer is the benchmark UI; the translation demo is an
+extension layer. Quick run:
 
 ```bash
 npm install
-npm run dev
+npm run dev   # http://localhost:3000
 ```
 
-Then open `http://localhost:3000`.
-
-Production build:
-
-```bash
-npm run build
-```
-
-Deploy on Vercel:
-
-1. Import this GitHub repository in Vercel.
-2. Keep the framework preset as `Next.js`.
-3. Use the default commands from `vercel.json`.
-4. Deploy.
-
-The Python app in `app/` remains as a local legacy demo; Vercel serves the
-Next.js app from `pages/`.
-
-### Tagalog coverage
-
-The local and hosted demos use layered fallback:
-
-1. exact seed benchmark prompt matches
-2. curated phrase matches for common English and Tagalog demo cases
-3. local Ollama context-aware translation, when available
-4. expanded Tagalog/Hiligaynon dictionary fallback
-
-### Local Ollama context backend
-
-The Next.js API route tries Ollama first when running locally. This is the
-context-aware path intended to avoid plain word-by-word translation.
-
-Install or start Ollama, then pull a model:
-
-```bash
-ollama serve
-ollama pull aya:8b
-```
-
-In another terminal:
-
-```bash
-OLLAMA_MODEL=aya:8b npm run dev
-```
-
-Then open:
-
-```text
-http://localhost:3000
-```
-
-The API uses this backend order:
-
-```text
-seed reference -> curated phrase -> Ollama context LLM -> dictionary fallback
-```
-
-Vercel cannot access a local Ollama daemon on your laptop, so the deployed site
-uses the fallback layers unless it is connected to a hosted LLM endpoint later.
-
-For future larger coverage, use:
-
-```bash
-python3 scripts/build_tl_hil_lexicon.py
-```
-
-That script builds a noisy Tagalog -> Hiligaynon bridge lexicon from
-Kaikki/Wiktionary machine-readable dictionaries by matching shared English
-glosses. Glosbe is documented in `RESOURCES.md` as a direct Tagalog-Hiligaynon
-manual reference source.
+Deployment, Tagalog-coverage fallback, and the local Ollama backend are in
+[`docs/web_app.md`](docs/web_app.md).
 
 ## Benchmark format
 
