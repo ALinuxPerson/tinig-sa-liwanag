@@ -6,31 +6,24 @@ worked-example test set.
 Run:
 
 ```bash
-python3 scripts/eval_asr_baselines.py
+python3 scripts/run_whisper.py --model small --language tl
+python3 score.py --ref data/annotations --hyp data/predictions
 ```
 
 Current output:
 
 | Model | Clips | Overall WER | Switch-region WER | Monolingual WER | Switch penalty |
 |-------|-------|-------------|-------------------|-----------------|----------------|
-| `mms-1b-all` | 1 | 25.0% | 0.0% | 33.3% | -33.3% |
-| `whisper-large-v3-tl` | 1 | 37.5% | 20.0% | 33.3% | -13.3% |
+| `whisper-small-tl` | 40 | 59.5% | 35.8% | 66.3% | -30.6% |
 
 ## Important limitation
 
-These are worked-example numbers over the included sample annotation and sample
-prediction files. They verify that the evaluation pipeline is reproducible.
-They are not final model-quality claims.
-
-To reproduce final reported Whisper/MMS WER, replace:
-
-```text
-data/predictions/asr/whisper-large-v3-tl/*.json
-data/predictions/asr/mms-1b-all/*.json
-```
-
-with real model outputs over the full labeled test set, then rerun:
+These are baseline numbers over the current 40-clip reviewed-text scaffold.
+Per-word language tags remain `seed_unverified`, so these are not final
+model-quality claims. Re-run after every audio, transcript, or language-tag
+change:
 
 ```bash
-python3 scripts/eval_asr_baselines.py
+python3 scripts/run_whisper.py --model small --language tl
+python3 score.py --ref data/annotations --hyp data/predictions
 ```
