@@ -52,7 +52,8 @@ def main():
     for wav in wavs:
         clip_id = os.path.splitext(wav)[0]
         path = os.path.join(args.audio_dir, wav)
-        result = model.transcribe(path, language=args.language)
+        use_fp16 = str(getattr(model, "device", "cpu")) != "cpu"
+        result = model.transcribe(path, language=args.language, fp16=use_fp16)
         text = result["text"].strip()
         out = {"clip_id": clip_id, "text": text}
         out_path = os.path.join(args.out_dir, f"{clip_id}.json")
