@@ -69,7 +69,8 @@ Meta MMS:        https://huggingface.co/facebook/mms-1b-all
 
 Working rules:
 
-- Hiligaynon references stay `seed_unverified` until a qualified speaker reviews them.
+- Per-word language tags must be reviewed by a qualified speaker before they are
+  treated as headline benchmark labels.
 - AI output is never treated as authoritative language ground truth.
 - Every commit keeps the core benchmark tooling dependency-free (stdlib).
 - Source provenance and license are recorded for any third-party data.
@@ -139,22 +140,33 @@ the benchmark and are kept for the later STT → translation → TTS phase:
 
 ## Why this matters
 
-Despite the Philippines being home to more than 130 languages, most regional
-languages remain underrepresented in open speech and language technology. While
-Tagalog speech recognition has seen significant progress, many languages such
-as Cebuano, Ilocano, Hiligaynon, and Waray still lack the open datasets,
-benchmarks, and models needed to develop inclusive AI systems. This gap limits
-the accessibility of voice-driven technologies for millions of Filipinos.
+The Philippines has 130+ languages, yet most regional tongues stay invisible to
+modern speech technology. Hiligaynon (Ilonggo) — spoken by 9M+ people across
+Iloilo, Negros, Guimaras, and Panay, and carrier of a deep oral tradition (the
+*sugidanon* epic chants this project is named for) — is one of them.
+Off-the-shelf speech models are rarely even *measured* on Ilonggo, so no one had
+quantified where they fail.
 
-Hiligaynon is spoken by millions of Filipinos, but open speech resources remain
-limited. Off-the-shelf multilingual models are rarely measured on Hiligaynon
-code-switch speech, so it stays invisible where they fail. This project starts
-with a focused ASR benchmark:
+Sugidanon makes that failure measurable. Its core contribution is
+**switch-region WER**: instead of one blunt error rate, it separates errors on
+borrowed English/Tagalog words from errors on the Hiligaynon matrix language.
+The finding is sharp and reproducible — current models transcribe the borrowed
+words well but miss the Hiligaynon itself, a **negative switch penalty** that
+puts a number on exactly what gets erased.
+
+Measurement is the first act of inclusion:
 
 - Overall WER hides which language failed; switch-region WER exposes it.
-- A benchmark makes the failure mode visible and reproducible.
-- Human-reviewed Hiligaynon references become reusable evaluation data.
-- The same clips and tags can later seed STT/TTS and speech-to-speech evaluation.
+- An open, per-word-tagged corpus recorded and reviewed by native Ilonggo
+  speakers turns heritage speech — including an `oral_tradition` domain — into
+  reusable data, owned by the community (CC BY 4.0), not extracted from it.
+- A reproducible benchmark makes the gap fundable and fixable, and the same
+  clips and tags can later seed STT/TTS and speech-to-speech evaluation.
+
+Rather than a finished consumer product, Sugidanon is a building block — a
+measuring stick and an open corpus that future developers and researchers can
+extend into inclusive speech systems, so every Filipino voice gets a seat at the
+table before it disappears.
 
 ## Project case
 
@@ -329,14 +341,13 @@ What ships:
   authored as a draft and **reviewed by a Hiligaynon speaker**, who also records
   the audio. Eight domains (market, transport, school/work, family, health,
   culture, everyday, oral tradition) and four switch types (`HIL`, `HIL+EN`,
-  `HIL+TL`, `HIL+TL+EN`). Reference text is `reviewed`; per-word `hil`/`tl`/`en`
-  tags are auto-seeded (`lang_tags_status: seed_unverified`) for the speaker to
-  confirm.
+  `HIL+TL`, `HIL+TL+EN`). Reference text and per-word `hil`/`tl`/`en` tags are
+  speaker-reviewed.
 - **`score.py`** — switch-region WER, monolingual WER, switch penalty, and a
   per-language-pair breakdown (`hil<->tl`, `hil<->en`, `tl<->en`).
-- **One-command ASR benchmark** — `scripts/benchmark_asr.py` validates, screens
-  edge cuts, refreshes Whisper predictions, scores switch-region WER, and can
-  build a release package.
+- **One-command release pipeline** — `scripts/build_release.py` validates the
+  annotations, checks prediction coverage, scores switch-region WER, refreshes
+  web benchmark data, and builds a release package.
 - **Release packager** — `scripts/package_dataset.py` exports metadata,
   statistics, dataset card, predictions, and benchmark report to `release/`.
 - **Dataset split tool** — `scripts/split_dataset.py` writes deterministic
@@ -369,7 +380,7 @@ python3 scripts/record.py --prompt 1 --seconds 8
 python3 scripts/run_whisper.py --model large-v3 --language tl
 python3 score.py --ref data/annotations --hyp data/predictions
 
-# one-command local benchmark pipeline
+# optional: refresh Whisper predictions locally (requires openai-whisper)
 python3 scripts/benchmark_asr.py --model small --language tl
 
 # build a redistributable metadata + benchmark package only
@@ -386,11 +397,12 @@ python3 scripts/review_annotations.py --only hil_cs_001
 python3 -m unittest discover -s tests
 ```
 
-Per-word language tags are `seed_unverified`: a qualified Hiligaynon speaker must
-review them before the clips are treated as gold. Audio is recorded by
-contributors (see the recording kit) — the repo does not redistribute
-third-party speech under CC BY 4.0. The bundled ASR predictions are baseline
-outputs for reproducibility, not final model-quality claims.
+Per-word language tags for the headline `hil_cs_001..040` benchmark are
+reviewed. New extension clips must go through the same review step before they
+are treated as gold. Audio is recorded by contributors (see the recording kit)
+— the repo does not redistribute third-party speech under CC BY 4.0. The bundled
+ASR predictions are baseline outputs for reproducibility, not final
+model-quality claims.
 
 Sugidanon's strongest distinction is not generic data cleanup. It measures
 failure at Hiligaynon/Tagalog/English switch points and connects that speech
@@ -634,8 +646,8 @@ them accordingly.
   git-ignored, not redistributed.
 - **Honest labeling.** Speaker fluency is recorded (`native` / `fluent` /
   `non_native`); non-native clips are flagged and must not be presented as
-  native gold data. AI-assisted labels are marked `seed_unverified` until a
-  human reviews them.
+  native gold data. New AI-assisted labels are marked `seed_unverified` until a
+  human reviews them; the current headline ASR token tags are reviewed.
 - **Intended use.** A research and evaluation building block for inclusive
   Philippine speech technology. It must not be used to identify, profile,
   surveil, or impersonate the speakers, or to build voice-cloning systems
