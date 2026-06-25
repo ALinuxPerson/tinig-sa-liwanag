@@ -34,7 +34,7 @@ function Bar({ label, wer, note }) {
       <div className="bartrack">
         <div className="barfill" style={{
           width: `${Math.min(100, (wer / CEIL) * 100)}%`,
-          background: `linear-gradient(90deg, ${werColor(wer)}aa, ${werColor(wer)})`,
+          background: werColor(wer),
         }} />
       </div>
       <span className="barnote">{note}</span>
@@ -149,7 +149,7 @@ python3 score.py --ref data/annotations --hyp data/predictions`}</Code>
           </ul>
         </section>
 
-        <section className="glass">
+        <section className="glass culture">
           <h2>Why this matters</h2>
           <p className="body">
             The Philippines has more than 130 languages. Tagalog speech
@@ -176,16 +176,17 @@ python3 score.py --ref data/annotations --hyp data/predictions`}</Code>
       </main>
 
       <style jsx>{`
-        .page {
-          min-height: 100vh; color: #f3f6fc;
-          background:
-            radial-gradient(80% 70% at 12% 0%, rgba(56,140,255,.30), transparent 55%),
-            radial-gradient(70% 60% at 100% 8%, rgba(150,110,255,.28), transparent 55%),
-            radial-gradient(80% 70% at 80% 100%, rgba(35,200,190,.22), transparent 55%),
-            #0a0e1c;
-          background-attachment: fixed;
+        .page { min-height: 100vh; position: relative; color: #f3f6fc; background: #0a0e1c; }
+        .page::before {
+          content: ""; position: fixed; inset: 0; z-index: 0;
+          background: url('/bg-festival.webp') center/cover no-repeat;
+          filter: blur(20px) brightness(.8); transform: scale(1.12);
         }
-        .wrap { max-width: 940px; margin: 0 auto; padding: 56px 20px 72px; display: flex; flex-direction: column; gap: 18px; }
+        .page::after {
+          content: ""; position: fixed; inset: 0; z-index: 0;
+          background: rgba(8,11,24,.66);
+        }
+        .wrap { position: relative; z-index: 1; max-width: 940px; margin: 0 auto; padding: 56px 20px 72px; display: flex; flex-direction: column; gap: 18px; }
 
         .glass {
           background: rgba(20,28,48,.55);
@@ -208,8 +209,7 @@ python3 score.py --ref data/annotations --hyp data/predictions`}</Code>
           transition: background .15s ease;
         }
         .pill:hover { background: rgba(255,255,255,.16); }
-        .pill.primary { border-color: transparent; color: #06121f;
-          background: linear-gradient(90deg,#73c8ff,#54e0c6); }
+        .pill.primary { border-color: transparent; color: #06121f; background: #5ad6c0; }
 
         h2 { font-size: 1.5rem; margin: 0 0 14px; letter-spacing: -.01em; color: #ffffff; }
         .eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; color: #7cc4ff; margin-bottom: 12px; font-weight: 600; }
@@ -242,6 +242,13 @@ python3 score.py --ref data/annotations --hyp data/predictions`}</Code>
 
         .list { margin: 0; padding-left: 20px; line-height: 1.7; color: #d4dcee; }
         .list li { margin: 6px 0; }
+
+        .culture { position: relative; overflow: hidden; isolation: isolate; background: rgba(12,16,32,.55); }
+        .culture::before {
+          content: ""; position: absolute; inset: 0; z-index: -1;
+          background: url('/bg-music.jpg') center/cover no-repeat;
+          filter: blur(6px) brightness(.4); transform: scale(1.12);
+        }
 
         .ilink { color: #7cc4ff; text-decoration: none; border-bottom: 1px solid rgba(124,196,255,.45); }
         .ilink:hover { border-color: #7cc4ff; }
