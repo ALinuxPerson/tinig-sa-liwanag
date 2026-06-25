@@ -110,9 +110,9 @@ export default function Home() {
       </section>
 
       <section className="notice">
-        <strong>Hackathon scope:</strong> translations are marked seed_unverified until
-        reviewed by native Hiligaynon speakers. This demo intentionally shows a weak
-        dictionary baseline so the context gap is visible.
+        <strong>Hackathon scope:</strong> local runs can use Ollama for context-aware
+        translation after seed and curated phrase checks. Vercel uses seed, phrase, and
+        dictionary baselines because it cannot access your machine's Ollama daemon.
       </section>
 
       <section className="translator" aria-label="Translation demo">
@@ -146,7 +146,7 @@ export default function Home() {
         <button type="button" onClick={() => translate()} disabled={!canTranslate}>
           Translate
         </button>
-        <span>Seed prompts return seed references; other text uses the expanded dictionary fallback.</span>
+        <span>Backend order: seed references, curated phrases, Ollama context LLM, dictionary fallback.</span>
       </div>
 
       <section className="samples" aria-label="Benchmark seed prompts">

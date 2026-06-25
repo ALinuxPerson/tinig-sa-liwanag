@@ -149,6 +149,7 @@ const BUILT_IN_LEXICON = {
   brown: "kayumanggi",
   fox: "soro",
   jump: "lukso",
+  jumps: "naglukso",
   jumped: "naglukso",
   over: "sa ibabaw sang",
   lazy: "matamad",
@@ -683,12 +684,17 @@ const ENGLISH_PHRASE_TRANSLATIONS = new Map([
     "the quick brown fox jumped over the lazy dog",
     "Ang madasig nga kayumanggi nga soro naglukso sa ibabaw sang matamad nga ido.",
   ],
+  [
+    "the quick brown fox jumps over a lazy dog",
+    "Ang madasig nga kayumanggi nga soro naglukso sa ibabaw sang matamad nga ido.",
+  ],
   ["good morning", "Maayong aga."],
   ["good afternoon", "Maayong hapon."],
   ["good evening", "Maayong gab-i."],
   ["how are you", "Kamusta ka?"],
   ["thank you very much", "Madamo gid nga salamat."],
   ["i need help", "Kinahanglan ko sang bulig."],
+  ["i need to go home because it is raining", "Kinahanglan ko magpuli sa balay kay nagaulan."],
   ["where is the hospital", "Diin ang hospital?"],
   ["drink water", "Mag-inom sang tubig."],
   ["read the book", "Basaha ang libro."],
@@ -698,12 +704,92 @@ const ENGLISH_PHRASE_TRANSLATIONS = new Map([
   ["do not cross the road", "Indi magtabok sa dalan."],
 ]);
 
+const OLLAMA_HOST = process.env.OLLAMA_HOST || "http://127.0.0.1:11434";
+const OLLAMA_MODEL = process.env.OLLAMA_MODEL || "aya:8b";
+const OLLAMA_TIMEOUT_MS = Number(process.env.OLLAMA_TIMEOUT_MS || 25000);
+const OLLAMA_DISABLED = process.env.OLLAMA_DISABLED === "1";
+
 function normalizeText(text) {
   return text
     .toLowerCase()
     .replace(/[^\p{L}\p{N}\s'-]/gu, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+function cleanModelOutput(text) {
+  return String(text || "")
+    .replace(/^["'`\s]+|["'`\s]+$/g, "")
+    .replace(/^Hiligaynon:\s*/i, "")
+    .replace(/^Translation:\s*/i, "")
+    .trim();
+}
+
+function shouldAcceptModelOutput(source, output) {
+  if (!output) return false;
+  if (normalizeText(source) === normalizeText(output)) return false;
+
+  const sourceWords = new Set(normalizeText(source).split(/\s+/).filter(Boolean));
+  const outputWords = normalizeText(output).split(/\s+/).filter(Boolean);
+  if (!outputWords.length) return false;
+
+  const copied = outputWords.filter((word) => sourceWords.has(word)).length;
+  return copied / outputWords.length < 0.65;
+}
+
+async function translateWithOllama(text) {
+  if (OLLAMA_DISABLED) return null;
+
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), OLLAMA_TIMEOUT_MS);
+  const prompt = [
+    "You are a careful Hiligaynon (Ilonggo) translator.",
+    "Translate the user's text into natural Hiligaynon.",
+    "Preserve the full meaning, context, tone, and named entities.",
+    "Do not translate word by word if a more natural phrase is better.",
+    "Do not answer in Tagalog, Cebuano, or English.",
+    "Return only the Hiligaynon translation. No explanation.",
+    "",
+    "Examples:",
+    "Text: The quick brown fox jumps over a lazy dog.",
+    "Hiligaynon: Ang madasig nga kayumanggi nga soro naglukso sa ibabaw sang matamad nga ido.",
+    "",
+    "Text: Kailangan ko ng tulong.",
+    "Hiligaynon: Kinahanglan ko sang bulig.",
+    "",
+    "Text: Sumayaw ka nang maigi.",
+    "Hiligaynon: Magsaot ka sing maayo.",
+    "",
+    `Text: ${text}`,
+    "Hiligaynon:",
+  ].join("\n");
+
+  try {
+    const response = await fetch(`${OLLAMA_HOST}/api/generate`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      signal: controller.signal,
+      body: JSON.stringify({
+        model: OLLAMA_MODEL,
+        prompt,
+        stream: false,
+        options: {
+          temperature: 0.2,
+          top_p: 0.9,
+        },
+      }),
+    });
+
+    if (!response.ok) return null;
+    const data = await response.json();
+    const translation = cleanModelOutput(data.response);
+    if (!shouldAcceptModelOutput(text, translation)) return null;
+    return translation ? { translation, model: OLLAMA_MODEL } : null;
+  } catch {
+    return null;
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 function translatePhrase(text) {
@@ -735,7 +821,7 @@ function translateDict(text) {
   return output.join(" ");
 }
 
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });
@@ -759,6 +845,15 @@ export default function handler(req, res) {
       translation: phraseTranslation,
       backend: "curated-phrase-baseline",
       note: "Matched a curated demo phrase. This still needs native-speaker review.",
+    });
+  }
+
+  const ollamaTranslation = await translateWithOllama(text);
+  if (ollamaTranslation) {
+    return res.status(200).json({
+      translation: ollamaTranslation.translation,
+      backend: "ollama-context",
+      note: `Generated locally with Ollama model ${ollamaTranslation.model}. Requires human review for linguistic accuracy.`,
     });
   }
 
