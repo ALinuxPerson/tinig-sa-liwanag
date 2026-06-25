@@ -1,0 +1,60 @@
+{
+  "clip_id": "hil_cs_019",
+  "audio_file": "audio/hil_cs_019.wav",
+  "duration_sec": 4.59,
+  "domain": "family",
+  "switch_type": "HIL",
+  "transcript": "Diin gintago mo ang yabi sang puwertahan?",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Diin",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "gintago",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "mo",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "yabi",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "sang",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "puwertahan",
+      "lang": "hil"
+    }
+  ]
+}

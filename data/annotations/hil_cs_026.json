@@ -1,0 +1,75 @@
+{
+  "clip_id": "hil_cs_026",
+  "audio_file": "audio/hil_cs_026.wav",
+  "duration_sec": 3.78,
+  "domain": "culture",
+  "switch_type": "HIL+EN",
+  "transcript": "Excited gid ako sa Dinagyang festival sa sunod nga semana.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Excited",
+      "lang": "en"
+    },
+    {
+      "idx": 1,
+      "text": "gid",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "ako",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "Dinagyang",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "festival",
+      "lang": "en"
+    },
+    {
+      "idx": 6,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "sunod",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "nga",
+      "lang": "hil"
+    },
+    {
+      "idx": 9,
+      "text": "semana",
+      "lang": "hil"
+    }
+  ]
+}

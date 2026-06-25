@@ -1,0 +1,80 @@
+{
+  "clip_id": "hil_cs_032",
+  "audio_file": "audio/hil_cs_032.wav",
+  "duration_sec": 3.96,
+  "domain": "everyday",
+  "switch_type": "HIL+TL+EN",
+  "transcript": "Ambot ah, basta i-message mo na lang sa group chat namin.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Ambot",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "ah",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "basta",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "i-message",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "mo",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "lang",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "group",
+      "lang": "en"
+    },
+    {
+      "idx": 9,
+      "text": "chat",
+      "lang": "en"
+    },
+    {
+      "idx": 10,
+      "text": "namin",
+      "lang": "tl"
+    }
+  ]
+}

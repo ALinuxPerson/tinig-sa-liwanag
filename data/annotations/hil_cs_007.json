@@ -1,0 +1,70 @@
+{
+  "clip_id": "hil_cs_007",
+  "audio_file": "audio/hil_cs_007.wav",
+  "duration_sec": 2.58,
+  "domain": "transport",
+  "switch_type": "HIL+TL",
+  "transcript": "Sakay na tayo kay ma-late pa ako sa trabaho.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Sakay",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "tayo",
+      "lang": "tl"
+    },
+    {
+      "idx": 3,
+      "text": "kay",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "ma-late",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "pa",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "ako",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "trabaho",
+      "lang": "hil"
+    }
+  ]
+}

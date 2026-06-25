@@ -1,0 +1,80 @@
+{
+  "clip_id": "hil_cs_012",
+  "audio_file": "audio/hil_cs_012.wav",
+  "duration_sec": 4.71,
+  "domain": "school_work",
+  "switch_type": "HIL+TL+EN",
+  "transcript": "May meeting kami sa Monday, tapos may deadline pa sang report.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "May",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "meeting",
+      "lang": "en"
+    },
+    {
+      "idx": 2,
+      "text": "kami",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "Monday",
+      "lang": "en"
+    },
+    {
+      "idx": 5,
+      "text": "tapos",
+      "lang": "tl"
+    },
+    {
+      "idx": 6,
+      "text": "may",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "deadline",
+      "lang": "en"
+    },
+    {
+      "idx": 8,
+      "text": "pa",
+      "lang": "hil"
+    },
+    {
+      "idx": 9,
+      "text": "sang",
+      "lang": "hil"
+    },
+    {
+      "idx": 10,
+      "text": "report",
+      "lang": "en"
+    }
+  ]
+}

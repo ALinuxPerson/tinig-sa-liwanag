@@ -1,0 +1,70 @@
+{
+  "clip_id": "hil_cs_006",
+  "audio_file": "audio/hil_cs_006.wav",
+  "duration_sec": 3.15,
+  "domain": "transport",
+  "switch_type": "HIL+EN",
+  "transcript": "Pwede ko mag-drop off sa may corner sang highway?",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Pwede",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "ko",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "mag-drop",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "off",
+      "lang": "en"
+    },
+    {
+      "idx": 4,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "may",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "corner",
+      "lang": "en"
+    },
+    {
+      "idx": 7,
+      "text": "sang",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "highway",
+      "lang": "en"
+    }
+  ]
+}

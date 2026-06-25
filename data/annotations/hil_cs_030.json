@@ -1,0 +1,60 @@
+{
+  "clip_id": "hil_cs_030",
+  "audio_file": "audio/hil_cs_030.wav",
+  "duration_sec": 3.81,
+  "domain": "culture",
+  "switch_type": "HIL+EN",
+  "transcript": "Mag-meet ta sa booth pagkatapos sang performance.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Mag-meet",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "ta",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "booth",
+      "lang": "en"
+    },
+    {
+      "idx": 4,
+      "text": "pagkatapos",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "sang",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "performance",
+      "lang": "en"
+    }
+  ]
+}

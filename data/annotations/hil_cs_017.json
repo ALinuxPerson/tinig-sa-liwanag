@@ -1,0 +1,70 @@
+{
+  "clip_id": "hil_cs_017",
+  "audio_file": "audio/hil_cs_017.wav",
+  "duration_sec": 3.54,
+  "domain": "family",
+  "switch_type": "HIL+EN",
+  "transcript": "Charge mo anay ang phone ko, lowbat na gid.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Charge",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "mo",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "anay",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "phone",
+      "lang": "en"
+    },
+    {
+      "idx": 5,
+      "text": "ko",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "lowbat",
+      "lang": "en"
+    },
+    {
+      "idx": 7,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "gid",
+      "lang": "hil"
+    }
+  ]
+}

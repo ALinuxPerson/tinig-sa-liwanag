@@ -1,0 +1,80 @@
+{
+  "clip_id": "hil_cs_008",
+  "audio_file": "audio/hil_cs_008.wav",
+  "duration_sec": 5.49,
+  "domain": "transport",
+  "switch_type": "HIL+TL+EN",
+  "transcript": "Traffic gid subong, kaya mag-grab na lang ako para mas mabakas.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Traffic",
+      "lang": "en"
+    },
+    {
+      "idx": 1,
+      "text": "gid",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "subong",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "kaya",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "mag-grab",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "lang",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "ako",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "para",
+      "lang": "hil"
+    },
+    {
+      "idx": 9,
+      "text": "mas",
+      "lang": "hil"
+    },
+    {
+      "idx": 10,
+      "text": "mabakas",
+      "lang": "hil"
+    }
+  ]
+}

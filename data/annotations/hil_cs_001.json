@@ -1,0 +1,65 @@
+{
+  "clip_id": "hil_cs_001",
+  "audio_file": "audio/hil_cs_001.wav",
+  "duration_sec": 3.39,
+  "domain": "market",
+  "switch_type": "HIL+EN",
+  "transcript": "Pila ang grocery budget naton para sa weekend?",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Pila",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "grocery",
+      "lang": "en"
+    },
+    {
+      "idx": 3,
+      "text": "budget",
+      "lang": "en"
+    },
+    {
+      "idx": 4,
+      "text": "naton",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "para",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "weekend",
+      "lang": "en"
+    }
+  ]
+}

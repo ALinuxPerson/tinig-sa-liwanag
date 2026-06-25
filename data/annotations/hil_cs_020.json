@@ -1,0 +1,70 @@
+{
+  "clip_id": "hil_cs_020",
+  "audio_file": "audio/hil_cs_020.wav",
+  "duration_sec": 4.23,
+  "domain": "family",
+  "switch_type": "HIL+EN",
+  "transcript": "Mag-video call ta kay Manong nga naa sa abroad.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Mag-video",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "call",
+      "lang": "en"
+    },
+    {
+      "idx": 2,
+      "text": "ta",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "kay",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "Manong",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "nga",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "naa",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "abroad",
+      "lang": "en"
+    }
+  ]
+}

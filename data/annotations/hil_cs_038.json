@@ -1,0 +1,70 @@
+{
+  "clip_id": "hil_cs_038",
+  "audio_file": "audio/hil_cs_038.wav",
+  "duration_sec": 4.56,
+  "domain": "oral_tradition",
+  "switch_type": "HIL+EN",
+  "transcript": "Importante gid i-preserve ang aton culture para sa palaabuton.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Importante",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "gid",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "i-preserve",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "aton",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "culture",
+      "lang": "en"
+    },
+    {
+      "idx": 6,
+      "text": "para",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "palaabuton",
+      "lang": "hil"
+    }
+  ]
+}

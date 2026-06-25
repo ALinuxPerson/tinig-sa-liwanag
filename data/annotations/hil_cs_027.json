@@ -1,0 +1,65 @@
+{
+  "clip_id": "hil_cs_027",
+  "audio_file": "audio/hil_cs_027.wav",
+  "duration_sec": 3.87,
+  "domain": "culture",
+  "switch_type": "HIL+TL",
+  "transcript": "Sayaw na tayo kay nagsugod na ang parada.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Sayaw",
+      "lang": "tl"
+    },
+    {
+      "idx": 1,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "tayo",
+      "lang": "tl"
+    },
+    {
+      "idx": 3,
+      "text": "kay",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "nagsugod",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "parada",
+      "lang": "hil"
+    }
+  ]
+}

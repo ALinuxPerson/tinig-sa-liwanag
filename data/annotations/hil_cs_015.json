@@ -1,0 +1,70 @@
+{
+  "clip_id": "hil_cs_015",
+  "audio_file": "audio/hil_cs_015.wav",
+  "duration_sec": 4.74,
+  "domain": "school_work",
+  "switch_type": "HIL",
+  "transcript": "Ginahimo ko pa ang akon project para sa klase.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Ginahimo",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "ko",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "pa",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "akon",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "project",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "para",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "sa",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "klase",
+      "lang": "hil"
+    }
+  ]
+}

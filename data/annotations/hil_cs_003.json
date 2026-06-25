@@ -1,0 +1,80 @@
+{
+  "clip_id": "hil_cs_003",
+  "audio_file": "audio/hil_cs_003.wav",
+  "duration_sec": 4.86,
+  "domain": "market",
+  "switch_type": "HIL+TL+EN",
+  "transcript": "Nag-discount gali ang tindahan, kaya bumili na lang tayo ng marami.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Nag-discount",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "gali",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "tindahan",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "kaya",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "bumili",
+      "lang": "tl"
+    },
+    {
+      "idx": 6,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "lang",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "tayo",
+      "lang": "tl"
+    },
+    {
+      "idx": 9,
+      "text": "ng",
+      "lang": "tl"
+    },
+    {
+      "idx": 10,
+      "text": "marami",
+      "lang": "tl"
+    }
+  ]
+}

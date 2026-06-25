@@ -1,0 +1,85 @@
+{
+  "clip_id": "hil_cs_018",
+  "audio_file": "audio/hil_cs_018.wav",
+  "duration_sec": 5.31,
+  "domain": "family",
+  "switch_type": "HIL+TL+EN",
+  "transcript": "Lipat ko gali i-off ang aircon, kaya ang taas ng bill namin.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Lipat",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "ko",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "gali",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "i-off",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "aircon",
+      "lang": "en"
+    },
+    {
+      "idx": 6,
+      "text": "kaya",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "taas",
+      "lang": "hil"
+    },
+    {
+      "idx": 9,
+      "text": "ng",
+      "lang": "tl"
+    },
+    {
+      "idx": 10,
+      "text": "bill",
+      "lang": "en"
+    },
+    {
+      "idx": 11,
+      "text": "namin",
+      "lang": "tl"
+    }
+  ]
+}

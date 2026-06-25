@@ -1,0 +1,65 @@
+{
+  "clip_id": "hil_cs_022",
+  "audio_file": "audio/hil_cs_022.wav",
+  "duration_sec": 4.23,
+  "domain": "health",
+  "switch_type": "HIL+TL",
+  "transcript": "Masakit ang ulo ko kaya magpahinga muna ako.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Masakit",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "ulo",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "ko",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "kaya",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "magpahinga",
+      "lang": "tl"
+    },
+    {
+      "idx": 6,
+      "text": "muna",
+      "lang": "tl"
+    },
+    {
+      "idx": 7,
+      "text": "ako",
+      "lang": "hil"
+    }
+  ]
+}

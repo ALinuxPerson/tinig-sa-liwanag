@@ -1,0 +1,65 @@
+{
+  "clip_id": "hil_cs_004",
+  "audio_file": "audio/hil_cs_004.wav",
+  "duration_sec": 3.51,
+  "domain": "market",
+  "switch_type": "HIL",
+  "transcript": "Tama na ina nga bugas, indi na magdugang.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Tama",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "ina",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "nga",
+      "lang": "hil"
+    },
+    {
+      "idx": 4,
+      "text": "bugas",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "indi",
+      "lang": "hil"
+    },
+    {
+      "idx": 6,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 7,
+      "text": "magdugang",
+      "lang": "hil"
+    }
+  ]
+}

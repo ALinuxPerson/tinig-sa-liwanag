@@ -1,0 +1,80 @@
+{
+  "clip_id": "hil_cs_005",
+  "audio_file": "audio/hil_cs_005.wav",
+  "duration_sec": 5.1,
+  "domain": "market",
+  "switch_type": "HIL+EN",
+  "transcript": "Wala na sang change ang vendor, so pabayloan ta sang bente.",
+  "speaker": {
+    "id": "spk01",
+    "primary_language": "hil",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "review_status": "reviewed",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "Team Hague elicitation set (draft, reviewed by a Hiligaynon speaker)",
+    "license": "CC BY 4.0 (text); audio recorded by the reviewing speaker",
+    "note": "Reference text reviewed. Per-word lang tags are AUTO-SEEDED — speaker confirms (SCHEMA.md)."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Wala",
+      "lang": "hil"
+    },
+    {
+      "idx": 1,
+      "text": "na",
+      "lang": "hil"
+    },
+    {
+      "idx": 2,
+      "text": "sang",
+      "lang": "hil"
+    },
+    {
+      "idx": 3,
+      "text": "change",
+      "lang": "en"
+    },
+    {
+      "idx": 4,
+      "text": "ang",
+      "lang": "hil"
+    },
+    {
+      "idx": 5,
+      "text": "vendor",
+      "lang": "en"
+    },
+    {
+      "idx": 6,
+      "text": "so",
+      "lang": "en"
+    },
+    {
+      "idx": 7,
+      "text": "pabayloan",
+      "lang": "hil"
+    },
+    {
+      "idx": 8,
+      "text": "ta",
+      "lang": "hil"
+    },
+    {
+      "idx": 9,
+      "text": "sang",
+      "lang": "hil"
+    },
+    {
+      "idx": 10,
+      "text": "bente",
+      "lang": "hil"
+    }
+  ]
+}
