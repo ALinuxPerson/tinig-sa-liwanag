@@ -1,7 +1,7 @@
 {
   "clip_id": "spk2_027",
   "audio_file": "audio/spk2_027.wav",
-  "duration_sec": 11.34,
+  "duration_sec": 4.31,
   "domain": "culture",
   "switch_type": "HIL+TL",
   "transcript": "Sayaw tayo sa kalye habang tumutugtog ang banda.",
@@ -68,5 +68,5 @@
       "lang": null
     }
   ],
-  "clip_quality": "needs_manual_cut"
+  "clip_quality": "ok"
 }

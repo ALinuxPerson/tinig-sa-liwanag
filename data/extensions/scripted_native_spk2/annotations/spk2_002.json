@@ -1,7 +1,7 @@
 {
   "clip_id": "spk2_002",
   "audio_file": "audio/spk2_002.wav",
-  "duration_sec": 11.46,
+  "duration_sec": 3.63,
   "domain": "market",
   "switch_type": "HIL+TL",
   "transcript": "Tingnan mo anay kung sariwa pa ang gulay.",
@@ -68,5 +68,5 @@
       "lang": null
     }
   ],
-  "clip_quality": "needs_manual_cut"
+  "clip_quality": "ok"
 }

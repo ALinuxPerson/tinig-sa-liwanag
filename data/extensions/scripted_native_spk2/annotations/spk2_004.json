@@ -1,7 +1,7 @@
 {
   "clip_id": "spk2_004",
   "audio_file": "audio/spk2_004.wav",
-  "duration_sec": 5.31,
+  "duration_sec": 1.51,
   "domain": "market",
   "switch_type": "HIL",
   "transcript": "Indi pagbaklon ang hilaw nga prutas kay maaslom pa.",
@@ -73,5 +73,5 @@
       "lang": null
     }
   ],
-  "clip_quality": "ok"
+  "clip_quality": "needs_manual_cut"
 }

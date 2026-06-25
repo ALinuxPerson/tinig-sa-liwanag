@@ -7,13 +7,18 @@ without a documented row here.
 See `docs/licensing.md` for the repository license structure and
 `SCHEMA.md` for the subset definitions.
 
-## Sources
+## Current release sources
 
 | Source ID | Title | URL | Rights | Subset | Clips | Notes |
 |-----------|-------|-----|--------|--------|-------|-------|
 | `src_scripted_01` | Team Hague elicitation set | local (`data/audio/`) | CC BY 4.0 (text); audio recorded by the reviewing speaker | `scripted_native` | 40 | Speaker consented; reference text reviewed; per-word tags `seed_unverified` |
-| `src_nonnative_01` | Ilongga Talks Podcast Episode 1 (saify TeeVee) | https://www.youtube.com/watch?v=EQuaPh4axGg | YouTube; rights confirmed by Team Hague | `non_native_eval` | 10 | Non-native speech (`podcast_*`); `not_native_gold`; Whisper-seeded; tags not set; robustness only |
-| `src_nonnative_02` | ilonggo (hiligaynon) only for a day (Nisa Nuggets) | https://www.youtube.com/watch?v=iMu7p4NvOlg | YouTube; rights confirmed by Team Hague | `non_native_eval` | 10 | Non-native speech (`vlog_*`); `not_native_gold`; exclude music clips (`vlog_001/003/010`) on review; robustness only |
+
+## Candidate future sources
+
+External podcast or vlog audio is not part of the current public benchmark
+release. Candidate sources must stay out of `data/audio/` and out of headline
+WER until redistribution rights, speaker status, transcript quality, and subset
+labels are documented.
 
 ## Required record per external source
 

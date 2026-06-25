@@ -1,7 +1,7 @@
 {
   "clip_id": "spk2_010",
   "audio_file": "audio/spk2_010.wav",
-  "duration_sec": 0.479,
+  "duration_sec": 2.67,
   "domain": "transport",
   "switch_type": "HIL+EN",
   "transcript": "Kuwarta lang anay, ihatag ko ang change mo dayon.",
@@ -73,5 +73,5 @@
       "lang": null
     }
   ],
-  "clip_quality": "needs_manual_cut"
+  "clip_quality": "ok"
 }

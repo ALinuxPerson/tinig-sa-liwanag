@@ -95,21 +95,21 @@ Use:
 ## Validation
 
 ```bash
-python3 scripts/validate.py --kind asr --dir data/annotations --no-audio-check
+python3 scripts/validate.py --kind asr --dir data/annotations
 ```
 
-Remove `--no-audio-check` when real audio files are present.
+Use `--no-audio-check` only while drafting annotation stubs before audio exists.
 
 ## Evaluation
 
-Run all included ASR baselines:
+Run the judge-facing release pipeline:
 
 ```bash
-python3 scripts/eval_asr_baselines.py
+python3 scripts/build_release.py --overwrite
 ```
 
 Run a single prediction directory with the lower-level scorer:
 
 ```bash
-python3 score.py --ref data/annotations --hyp data/predictions/asr/whisper-large-v3-tl
+python3 score.py --ref data/annotations --hyp data/predictions
 ```

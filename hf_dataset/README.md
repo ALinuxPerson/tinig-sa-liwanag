@@ -41,7 +41,8 @@ package the benchmark artifacts.
 ## Why it matters
 
 The Philippines has 130+ languages. Tagalog ASR has advanced; regional tongues
-like Hiligaynon have **no open speech datasets, benchmarks, or models**. Real
+like Hiligaynon still have **very few open speech datasets, benchmarks, or
+models**. Real
 Ilonggo speech constantly mixes Hiligaynon, Tagalog, and English — exactly where
 off-the-shelf systems break. Sugidanon makes that failure **measurable**, so the
 next developer has a building block instead of a blank page.

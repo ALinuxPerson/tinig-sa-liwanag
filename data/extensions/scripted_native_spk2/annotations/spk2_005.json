@@ -1,7 +1,7 @@
 {
   "clip_id": "spk2_005",
   "audio_file": "audio/spk2_005.wav",
-  "duration_sec": 0.569,
+  "duration_sec": 3.13,
   "domain": "market",
   "switch_type": "HIL+EN",
   "transcript": "Wala ka sang sukli? Pwede GCash na lang.",
@@ -68,5 +68,5 @@
       "lang": null
     }
   ],
-  "clip_quality": "needs_manual_cut"
+  "clip_quality": "ok"
 }

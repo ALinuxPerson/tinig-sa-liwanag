@@ -1,7 +1,7 @@
 {
   "clip_id": "spk2_003",
   "audio_file": "audio/spk2_003.wav",
-  "duration_sec": 5.88,
+  "duration_sec": 9.27,
   "domain": "market",
   "switch_type": "HIL+TL+EN",
   "transcript": "Sale daw subong, kaya bibili ako ng marami para sa stock.",
@@ -83,5 +83,5 @@
       "lang": null
     }
   ],
-  "clip_quality": "ok"
+  "clip_quality": "needs_manual_cut"
 }
