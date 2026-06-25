@@ -56,6 +56,11 @@ class Handler(BaseHTTPRequestHandler):
         if self.path in ("/", "/index.html"):
             with open(os.path.join(HERE, "index.html"), encoding="utf-8") as f:
                 self._send(200, f.read())
+        elif self.path == "/api/status":
+            self._send(200, json.dumps({
+                "backend": _BACKEND,
+                "model": _MODEL if (_BACKEND == "hf" and _HF_READY) else None,
+            }), "application/json")
         else:
             self._send(404, "not found", "text/plain")
 
