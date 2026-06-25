@@ -49,14 +49,16 @@ next developer has a building block instead of a blank page.
 
 Whisper small (`--language tl`) over the 40 clips:
 
-| Metric | WER |
-|--------|-----|
-| Overall | 59.5% |
-| Monolingual (Hiligaynon) | 66.3% |
-| Switch-region | 35.8% |
-| **Switch penalty** | **−30.6%** |
+| Metric | WER | 95% CI |
+|--------|-----|--------|
+| Overall | 59.5% | [50.7%, 68.7%] |
+| Monolingual (Hiligaynon) | 66.3% | [59.2%, 72.8%] |
+| Switch-region | 35.8% | [26.1%, 46.4%] |
+| **Switch penalty** | **−30.6%** | switch − mono |
 
-By pair: `hil↔en` 40.0%, `hil↔tl` 24.4%, `tl↔en` 6.2%.
+(Brackets = 95% clip-level bootstrap CIs from `score.py --ci`. Switch and
+monolingual intervals do not overlap, so the negative penalty is statistically
+meaningful.) By pair: `hil↔en` 40.0%, `hil↔tl` 24.4%, `tl↔en` 6.2%.
 
 **The negative penalty is the finding:** a Tagalog model nails the borrowed
 English/Tagalog words but fails on the Hiligaynon matrix it was never trained on.
@@ -168,11 +170,11 @@ Primary reproduction from the GitHub repo:
 python3 scripts/build_release.py --overwrite
 ```
 
-Minimal scoring:
+Minimal scoring (with confidence intervals):
 
 ```bash
 python3 scripts/validate.py --kind asr --dir data/annotations
-python3 score.py --ref data/annotations --hyp data/predictions
+python3 score.py --ref data/annotations --hyp data/predictions --ci
 ```
 
 The scorer reports:
@@ -181,6 +183,19 @@ The scorer reports:
 - switch-region WER
 - monolingual WER
 - switch penalty
+- 95% clip-level bootstrap confidence intervals (`--ci`)
+
+The benchmark is frozen and content-addressed (`data/benchmark/MANIFEST.json`,
+v1.0.0). Reproduce exactly or fail loudly:
+
+```bash
+python3 scripts/freeze_benchmark.py --verify
+```
+
+Cohorts are speaker-disjoint and never blended: the headline (spk01, 40 clips)
+is the frozen **test** set; spk02 (40 clips) is a separate **development**
+cohort that reproduces the negative switch penalty; `non_native_eval` is
+robustness only. Full protocol in `BENCHMARK.md` in the GitHub repo.
 
 ## Baselines
 

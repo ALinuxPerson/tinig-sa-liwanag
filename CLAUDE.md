@@ -43,18 +43,24 @@ A second comparison baseline (`whisper-small-auto`) lives in
   headline WER:
   - `scripted_native_spk2/` — Speaker 2 (Nimeesha De Guzman, `spk02`), 40 clips.
   - `non_native_eval/` — 20 podcast/vlog clips, `not_native_gold`, robustness only.
-- `pages/` — Next.js site: `index.js` (landing), `benchmark.js` (`/benchmark`
-  explorer), `demo.js` (translation extension). Build data: `public/benchmark.json`.
+- `pages/` — Next.js site: `index.js` is the live benchmark explorer (headline
+  metrics, cohort ladder, per-clip token diff; treeparse glass UI). `api/translate.js`
+  is the optional translation extension. Build data: `public/benchmark.json`.
 - `notebooks/sugidanon_colab.ipynb` — one-click judge-facing reproduction.
+- `BENCHMARK.md` — benchmark card: protocol, frozen split, cohorts, reproducibility.
+- `data/benchmark/MANIFEST.json` — frozen, content-addressed benchmark version (v1.0.0).
 - `docs/` — `evaluation_report.md`, `source_ledger.md`, `improvement_plan.md`.
 - `SCHEMA.md` — annotation + subset schema.
 
 ## Key scripts
 
+- `score.py` — `--ci` adds 95% clip-level bootstrap confidence intervals.
+- `scripts/freeze_benchmark.py` — writes `data/benchmark/MANIFEST.json`; `--verify`
+  is the drift gate (fails if any frozen annotation/audio/scorer hash changed).
 - `scripts/build_release.py` — canonical release builder (used by the Colab).
 - `scripts/package_dataset.py` — dataset/benchmark packaging + statistics.
 - `scripts/build_benchmark_web.py` — emits `public/benchmark.json` + copies clip
-  audio to `public/clips/` for the `/benchmark` page (reuses `score.py`).
+  audio to `public/clips/` for the explorer page (reuses `score.py`).
 - `scripts/run_whisper.py` — baseline ASR. `scripts/split_claps.py` — clap-split
   per-category recordings into per-phrase clips.
 - `scripts/validate.py` — annotation validation.

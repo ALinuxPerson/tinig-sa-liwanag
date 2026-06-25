@@ -547,8 +547,19 @@ The ASR evaluator reports:
 - switch-region WER
 - switch penalty (`switch WER - monolingual WER`)
 - switch-region WER by language pair (`hil<->tl`, `hil<->en`, `tl<->en`)
+- 95% clip-level bootstrap confidence intervals (`score.py --ci`)
 
-See `docs/evaluation_report.md` for the current benchmark result and caveats.
+The benchmark is **frozen and content-addressed**: `data/benchmark/MANIFEST.json`
+(version 1.0.0) hashes every annotation and audio file and pins the scorer, so
+results reproduce exactly or fail loudly:
+
+```bash
+python3 scripts/freeze_benchmark.py --verify   # drift gate
+python3 score.py --ref data/annotations --hyp data/predictions --ci
+```
+
+See **`BENCHMARK.md`** for the full protocol (task, metric, frozen split, cohort
+ladder, reproducibility) and `docs/evaluation_report.md` for caveats.
 
 ## Extension layers
 
