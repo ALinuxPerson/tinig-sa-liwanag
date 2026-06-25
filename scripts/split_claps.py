@@ -78,6 +78,8 @@ def main():
     ap.add_argument("--merge-gap", type=float, default=1.0, help="merge spikes within this many s")
     ap.add_argument("--guard", type=float, default=0.18, help="trim around each clap (s)")
     ap.add_argument("--per-cat", type=int, default=5, help="expected phrases/file")
+    ap.add_argument("--start-clip", type=int, default=1,
+                    help="first clip number (Script 2 = 41, Script 3 = 81)")
     ap.add_argument("--only", type=int, default=0, help="process only file N (1-based)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
@@ -101,7 +103,7 @@ def main():
             total_ok = False
         print(f"[{cat_idx+1}] {os.path.basename(f)[:26]:28} {dur:5.1f}s  "
               f"{len(claps)} claps -> {len(phrases)} phrases{flag}")
-        base = cat_idx * args.per_cat
+        base = (args.start_clip - 1) + cat_idx * args.per_cat
         for p_i, (a, b) in enumerate(phrases):
             clip_id = f"hil_cs_{base + p_i + 1:03d}"
             print(f"      {clip_id}  {a:6.2f}-{b:6.2f}s  ({b-a:.1f}s)")
