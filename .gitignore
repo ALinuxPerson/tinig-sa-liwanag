@@ -30,6 +30,9 @@ Thumbs.db
 # TTS PoC output
 tts-out/
 
+# Generated release package
+release/
+
 # Cloned external corpora (G2P-ASR, etc.) — keep out of our repo/license
 external/
 

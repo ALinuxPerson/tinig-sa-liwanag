@@ -268,6 +268,8 @@ sugidanon/
 │   ├── build_tl_hil_lexicon.py       # Kaikki/Wiktionary bridge lexicon builder
 │   ├── translate_hil.py              # dictionary or HF translation backend
 │   ├── validate.py                   # validates translation benchmark or ASR files
+│   ├── benchmark_asr.py              # one-command ASR validation + scoring
+│   ├── package_dataset.py            # release package builder
 │   └── ...                           # future speech/G2P utilities
 ├── data/
 │   ├── benchmark/
@@ -286,6 +288,7 @@ sugidanon/
 │   └── transcription_guidelines.md
 └── results/
     ├── asr_baselines.md
+    ├── asr_score.txt
     └── baseline.md
 ```
 
@@ -329,6 +332,11 @@ What ships:
   confirm.
 - **`score.py`** — switch-region WER, monolingual WER, switch penalty, and a
   per-language-pair breakdown (`hil<->tl`, `hil<->en`, `tl<->en`).
+- **One-command ASR benchmark** — `scripts/benchmark_asr.py` validates, screens
+  edge cuts, refreshes Whisper predictions, scores switch-region WER, and can
+  build a release package.
+- **Release packager** — `scripts/package_dataset.py` exports metadata,
+  statistics, dataset card, predictions, and benchmark report to `release/`.
 - **Reproducible capture pipeline** — `scripts/build_codeswitch_set.py` emits the
   annotation stubs from an elicitation set; `scripts/record.py` captures audio
   and writes the matching annotation. See `docs/recording_kit.md`.
@@ -351,16 +359,18 @@ python3 scripts/record.py --prompt 1 --seconds 8
 python3 scripts/run_whisper.py --model large-v3 --language tl
 python3 score.py --ref data/annotations --hyp data/predictions
 
-# one-command WER over data/predictions/asr/<model>/
-python3 scripts/eval_asr_baselines.py
+# one-command local benchmark pipeline
+python3 scripts/benchmark_asr.py --model small --language tl
+
+# build a redistributable metadata + benchmark package
+python3 scripts/benchmark_asr.py --skip-whisper --package
 ```
 
 Per-word language tags are `seed_unverified`: a qualified Hiligaynon speaker must
 review them before the clips are treated as gold. Audio is recorded by
 contributors (see the recording kit) — the repo does not redistribute
-third-party speech under CC BY 4.0. The bundled ASR predictions are worked
-examples; replace `data/predictions/asr/<model>/*.json` with full Whisper/MMS
-outputs before claiming final model-level WER.
+third-party speech under CC BY 4.0. The bundled ASR predictions are baseline
+outputs for reproducibility, not final model-quality claims.
 
 ## Next.js / Vercel app
 
