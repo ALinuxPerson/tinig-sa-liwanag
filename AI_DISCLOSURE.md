@@ -1,62 +1,52 @@
 # AI Usage Disclosure
 
-**Project:** Sugidanon — A Code-Switched Hiligaynon-Tagalog-English Speech
-Evaluation Benchmark
-**Track:** Inclusive Speech Technology for Philippine Languages (FTIC / GitHub)
-**Team:** Hague
-**Date:** June 25–26, 2026
+**Project:** Tinig sa Liwanag - Context-Aware Hiligaynon Translation Benchmark
 
-We used AI coding and writing assistants during this project. In the spirit of
-open and honest research, this document discloses which tools were used, for
-what, and what the team did itself.
+**Track:** Inclusive Speech Technology for Philippine Languages
+
+**Team:** Hague
+
+**Date:** June 25-26, 2026
+
+We used AI coding and writing assistants during this project. This document
+states what AI helped with and what must be reviewed by humans.
 
 ## Tools used
 
 | Tool | Provider | How we used it |
 |------|----------|----------------|
-| **Claude** (Claude Code / Claude.ai) | Anthropic | Project scoping, repo scaffolding, drafting `score.py` + scripts, schema design, Hiligaynon G2P rules, documentation. |
-| **Codex** (OpenAI / GitHub Copilot) | OpenAI | Editor code completion and small refactors; helper scripts. |
-| **Gemini** | Google | Cross-checking explanations, seed-sentence ideas, reviewing doc wording. |
+| Claude / Claude Code | Anthropic | Early scoping, repository scaffolding, draft scripts, and documentation. |
+| Codex | OpenAI | Repository revision, translation-first restructuring, evaluator scripting, and documentation edits. |
+| Gemini | Google | Cross-checking explanations and seed-example ideas. |
 
-> Edit the rows above to match what your team actually used. Remove any tool you
-> did not use. Do not claim a tool you didn't use.
+Edit this table before submission so it matches the tools the team actually
+used.
 
 ## What AI assisted with
 
-- Scaffolding the repository structure and configuration files.
-- Drafting and explaining the WER scoring logic and the switch-penalty metric
-  (overall / switch-region / monolingual, plus per-pair breakdown).
-- Drafting the Hiligaynon grapheme-to-phoneme rule set (reviewed by linguists).
-- Writing and editing documentation (README, SCHEMA, this disclosure).
-- Suggesting example/seed sentences and tagging-rule wording.
+- Drafting project scope and roadmap.
+- Scaffolding scripts and documentation.
+- Suggesting starter benchmark examples and metadata categories.
+- Drafting automatic evaluation logic.
+- Editing README, schema, resources, and baseline documentation.
 
-## What the team did ourselves (not AI)
+## What humans must do
 
-- **All audio recordings** — produced by human Hiligaynon (Ilonggo) speakers on
-  our team and from consenting volunteers.
-- **All language annotations** — every word-level `hil` / `tl` / `en` / `other`
-  tag was decided by human native speakers. AI did not assign linguistic labels.
-- **hil vs tl disambiguation** — judged by native Ilonggo/Tagalog speakers.
-- **Inter-annotator agreement** — verified by two human annotators.
-- **Final review** — all AI-generated code and text was read, tested, and
-  approved by the team. We take responsibility for the contents of this repo.
+- Produce or verify every Hiligaynon reference translation.
+- Decide whether each example is natural and culturally appropriate.
+- Review all examples marked `seed_unverified`.
+- Adjudicate disagreements between reviewers.
+- Approve any final dataset, model card, or benchmark claim before release.
 
-## Data, consent, and ethics
+## Data and ethics
 
-- Speakers gave informed consent for their voice recordings to be released under
-  an open license.
-- No personally identifying information beyond coarse speaker metadata
-  (region, age band, gender) is published.
-- Third-party datasets/models are used under their own licenses (see
-  `RESOURCES.md`).
-- The dataset is released under **CC BY 4.0** and the code under the **MIT**
-  license.
+- Do not treat AI-generated Hiligaynon as gold data.
+- Third-party datasets and models remain under their original licenses.
+- Any future speech recordings require informed consent.
+- Published speaker metadata should stay coarse and non-identifying.
 
-## Note on accuracy
+## Accuracy note
 
-AI tools can produce errors. We manually tested the scoring script and reviewed
-all generated content. Any remaining mistakes are the team's responsibility, not
-the tools'.
-
----
-*Signed: Team Hague*
+AI tools can produce incorrect Hiligaynon, invalid citations, or overconfident
+claims. The team is responsible for testing the code and validating all language
+content before submission.

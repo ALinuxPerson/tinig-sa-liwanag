@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
 """
-server.py — Local Google-Translate-style web app for Hiligaynon.
+server.py - Local Hiligaynon translation baseline demo.
 
-Two-pane UI (English/Tagalog on the left, Hiligaynon on the right). Runs on the
-Python standard library only, so it works with ZERO installs using the offline
-dictionary backend. If transformers + a Hiligaynon LLM are installed, start with
---backend hf for fluent neural translation.
+Two-pane UI for English / Filipino / code-switched input into Hiligaynon output.
+Runs on the Python standard library only with the offline dictionary backend.
+If transformers + a Hiligaynon LLM are installed, start with --backend hf for a
+neural baseline.
 
 Usage:
-    python app/server.py                 # dict backend, http://localhost:8000
-    python app/server.py --port 5000
-    python app/server.py --backend hf --model welyjesch/lfm25-sft-hiligaynon
+    python3 app/server.py                 # dict backend, http://127.0.0.1:8000
+    python3 app/server.py --port 5000
+    python3 app/server.py --backend hf --model welyjesch/lfm25-sft-hiligaynon
 
 Then open the printed URL in your browser.
 """
@@ -79,6 +79,7 @@ class Handler(BaseHTTPRequestHandler):
 def main():
     global _BACKEND, _MODEL, _HF_READY
     ap = argparse.ArgumentParser()
+    ap.add_argument("--host", default="127.0.0.1")
     ap.add_argument("--port", type=int, default=8000)
     ap.add_argument("--backend", choices=["dict", "hf"], default="dict")
     ap.add_argument("--model", default="welyjesch/lfm25-sft-hiligaynon")
@@ -104,8 +105,8 @@ def main():
             print("Falling back to dictionary backend.")
             _BACKEND = "dict"
 
-    srv = ThreadingHTTPServer(("0.0.0.0", args.port), Handler)
-    print(f"\nHiligaynon translator running:  http://localhost:{args.port}")
+    srv = ThreadingHTTPServer((args.host, args.port), Handler)
+    print(f"\nHiligaynon translation demo running:  http://{args.host}:{args.port}")
     print(f"Backend: {_BACKEND}.  Press Ctrl+C to stop.")
     try:
         srv.serve_forever()

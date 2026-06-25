@@ -1,213 +1,199 @@
-# 🇵🇭 Sugidanon — A Code-Switched Hiligaynon Speech Benchmark
+# Tinig sa Liwanag
 
-**An open benchmark + tooling for code-switched Hiligaynon–Tagalog–English
-speech recognition, with a scoped Hiligaynon text-to-speech proof-of-concept.**
+**A context-aware Hiligaynon text translation benchmark, baseline, and demo
+pipeline.**
 
-*Sugidanon* is the Ilonggo word for the epic oral traditions of Panay — fitting
-for a project about preserving and recognizing how Ilonggos actually speak: a
-natural mix of Hiligaynon, Tagalog, and English
-(*"Nag-grocery ko kahapon kay wala sang ulutanon, tapos super traffic."*).
+This repository is now scoped around one first question:
 
-Most ASR systems are tested only on "clean" monolingual speech, so nobody knows
-how badly they break at **language switch points**. Sugidanon measures exactly
-that — and adds a TTS path that pronounces each language correctly.
+> Can a system translate meaning into Hiligaynon accurately in context, instead
+> of only replacing the words it already knows?
 
-[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb)
+The current first milestone is not a full STT/TTS system. It is an open,
+reusable text translation resource that future teams can extend into speech:
+STT -> translation, translation -> TTS, and speech-to-speech translation.
 
-**Run it in your browser:** the Colab notebook clones this repo and runs the full
-benchmark + TTS demo with zero local setup (core cells need no installs).
+## Current deliverable
 
-> **Track:** Inclusive Speech Technology for Philippine Languages (FTIC / GitHub).
-> Deliverable is a *reusable open resource* — a labeled test set, a scoring
-> harness, and a pipeline — **not an application.**
+The repository targets the **Inclusive Speech Technology for Philippine
+Languages** challenge by shipping foundational infrastructure:
+
+- a Hiligaynon translation benchmark with domain and context labels
+- an annotation schema for reviewed translation examples
+- a baseline translation runner
+- an evaluation script for automatic metrics
+- a small local demo app
+- documentation for future STT/TTS extensions
+
+The primary task for v1 is:
+
+```text
+English / Filipino / code-switched text -> Hiligaynon text
+```
 
 ## Why this matters
 
-- The Philippines has 130+ languages; everyday speech is heavily code-switched —
-  yet there is **almost no open benchmark** measuring ASR *at the switch points*,
-  where systems fail most.
-- Hiligaynon (~9M speakers) is underserved by speech tech. Tagalog is spreading
-  into the Visayas, so **hil↔tl mixing is a live, growing phenomenon**. Because
-  `hil` and `tl` share vocabulary, clean labels are hard — that difficulty is our
-  contribution's value.
-- We ship **foundational infrastructure**: a labeled gold test set, a documented
-  annotation schema, a scoring script, and a TTS routing PoC. Future teams plug
-  in any model and instantly see its switch-point WER.
+Hiligaynon is spoken by millions of Filipinos, but open translation and speech
+resources remain limited. A speech model is only useful if the language layer
+understands meaning, context, and local usage. This project therefore starts
+with text translation before audio:
 
-## Languages & tags
-
-| Tag     | Language               |
-|---------|------------------------|
-| `hil`   | Hiligaynon (Ilonggo)   |
-| `tl`    | Tagalog / Filipino     |
-| `en`    | English                |
-| `other` | proper nouns, ambiguous, or another PH language |
-
-Clip IDs are prefixed by the dominant pair: `hil_en_001`, `hil_tl_001`, `tl_en_001`.
+- Word-by-word lookup is not enough for useful translation.
+- A benchmark makes failures visible and reproducible.
+- Human-reviewed Hiligaynon references become reusable data.
+- The same examples can later seed STT/TTS and speech-to-speech evaluation.
 
 ## Repository structure
 
-```
-tinig-sa-liwanag/                # repo (project name: Sugidanon)
-├── README.md              # this file
-├── SCHEMA.md              # annotation format + hil/tl tagging rules
-├── RESOURCES.md           # external datasets + models we build on
-├── AI_DISCLOSURE.md       # how AI assistants were used
-├── LICENSE                # CC BY 4.0 (data) + MIT (code)
-├── requirements.txt       # optional tooling deps (scorer needs none)
-├── score.py               # scoring harness, pure stdlib
-├── g2p_hil/               # Hiligaynon grapheme→phoneme rules (TTS path)
-│   └── g2p.py
+```text
+tinig-sa-liwanag/
+├── README.md
+├── SCHEMA.md
+├── RESOURCES.md
+├── AI_DISCLOSURE.md
+├── score.py                         # legacy ASR switch-point scorer
 ├── scripts/
-│   ├── convert_audio.sh   # normalize recordings → 16 kHz mono wav
-│   ├── run_whisper.py     # baseline: audio → predictions (whisper optional)
-│   ├── validate.py        # check annotations conform to SCHEMA.md
-│   ├── tts_route.py       # per-word language router for code-switched TTS
-│   └── roundtrip_wer.py   # TTS quality via TTS→STT→WER
+│   ├── evaluate_translation.py       # primary v1 evaluator
+│   ├── translate_hil.py              # dictionary or HF translation backend
+│   ├── validate.py                   # validates translation benchmark or ASR files
+│   └── ...                           # future speech/G2P utilities
 ├── data/
-│   ├── audio/             # <clip_id>.wav (16 kHz mono)
-│   ├── annotations/       # gold transcripts w/ per-word language tags
-│   ├── predictions/       # model hypotheses to be scored
-│   └── tts_samples.txt    # code-switched sentences for the TTS PoC
+│   ├── benchmark/
+│   │   └── hil_translation_v1.jsonl  # primary v1 benchmark
+│   ├── predictions/
+│   │   └── translation_baseline_dict.jsonl
+│   ├── annotations/                  # legacy/future ASR annotations
+│   └── lexicon_hil.tsv               # curated dictionary entries
+├── app/
+│   ├── server.py
+│   └── index.html
 └── results/
-    └── baseline.md        # baseline score table
+    └── baseline.md
 ```
 
-## The metric
+## Quick start
 
-Headline number is the **switch penalty**: how much worse a model does on words
-near a language switch vs monolingual words.
-
-- **Overall WER** — across all words.
-- **Switch-region WER** — words within ±1 token of a language switch.
-- **Monolingual WER** — all other words.
-- **Switch penalty** = Switch-region WER − Monolingual WER.
-
-`score.py` also breaks the switch-region WER down **per language pair**
-(hil↔tl, hil↔en, tl↔en), so you can see which kind of switch hurts most.
-
-## Quick start (no installs needed)
+No installs are required for the core benchmark tooling.
 
 ```bash
-# validate annotations (skip audio-file check for the worked example)
-python scripts/validate.py --no-audio-check
+# validate the translation benchmark
+python3 scripts/validate.py --kind translation --dir data/benchmark
 
-# score the included worked example
-python score.py --ref data/annotations --hyp data/predictions
+# evaluate the included dictionary baseline
+python3 scripts/evaluate_translation.py \
+  --refs data/benchmark/hil_translation_v1.jsonl \
+  --preds data/predictions/translation_baseline_dict.jsonl
+
+# run the local demo app
+python3 app/server.py
 ```
 
-To benchmark a real model: record clips → `scripts/convert_audio.sh` → annotate
-into `data/annotations/` → `python scripts/run_whisper.py` → `score.py`.
+Then open `http://localhost:8000`.
 
-### Pull real Hiligaynon audio (G2P-ASR)
+## Benchmark format
 
-```bash
-bash scripts/fetch_g2p_asr.sh                 # clone external/g2p-asr
-python scripts/ingest.py external/g2p-asr/data --prefix hil --limit 40
-# writes data/audio/*.wav + STUB annotations (all hil); humans then fix
-# per-word hil/tl/en tags by hand per SCHEMA.md, then validate + score.
+Each row in `data/benchmark/hil_translation_v1.jsonl` is one translation case:
+
+```json
+{
+  "id": "hil-tr-v1-001",
+  "source_lang": "en",
+  "target_lang": "hil",
+  "domain": "health",
+  "source_text": "Please call the doctor if the child has a fever tonight.",
+  "reference_translation": "Palihog tawga ang doktor kon may hilanat ang bata karon nga gab-i.",
+  "context": "The speaker is giving practical health advice to a family member.",
+  "phenomena": ["polite_request", "medical", "conditional"],
+  "difficulty": "medium",
+  "review_status": "seed_unverified"
+}
 ```
 
-See `RESOURCES.md` for G2P-ASR, PLD, and Bloom Library sources (and license
-caveats — ingested audio stays under its source license, not CC BY 4.0).
+`seed_unverified` means the example is a starter case that still needs native
+speaker review before it can be treated as gold data.
 
-## TTS proof-of-concept
+## Evaluation
 
-We do **not** train a voice from scratch. Instead we route each word by language
-and pronounce it correctly:
+The v1 evaluator reports:
 
-```bash
-# show routing + Hiligaynon phonemes for a sentence (no model needed)
-python scripts/tts_route.py "Nag-grocery ko kahapon kay super traffic"
+- coverage: how many benchmark IDs have predictions
+- exact match after normalization
+- token F1
+- chrF-style character n-gram F-score
+- per-domain metric averages
 
-# Hiligaynon G2P smoke test
-python g2p_hil/g2p.py "Maayong aga sa imo"
-```
+Automatic metrics are only a first pass. The final benchmark should include
+human ratings for:
 
-- `g2p_hil/` — Hiligaynon grapheme→phoneme rules (the novel linguistic piece).
-- `scripts/tts_route.py` — sends hil/tl words down the Hiligaynon G2P path, en
-  words down an English TTS path. Backend (e.g. F5-TTS / VITS Hiligaynon from
-  `RESOURCES.md`) is optional and import-guarded.
-- **TTS metric:** round-trip WER (`scripts/roundtrip_wer.py`) — synthesize, run
-  back through STT, measure error — plus a quick human naturalness rating.
+- adequacy: meaning is preserved
+- fluency: Hiligaynon sounds natural
+- context: ambiguous meaning is resolved correctly
+- terminology: domain words are appropriate
+- severity: minor issue, major issue, or meaning changed
 
-## Local translator app (Google-Translate style)
+## Baselines
 
-A two-pane web app — type English/Tagalog on the left, Hiligaynon on the right.
-Runs on the **Python stdlib only**, zero installs (dictionary backend):
+The included baseline is intentionally simple:
 
-```bash
-# one-time: build the big dictionary from Wiktionary (fewer "*word*" gaps)
-python scripts/build_dictionary.py        # -> data/lexicon_hil_auto.tsv
-python app/server.py                       # open http://localhost:8000
-```
+- `dict`: offline dictionary lookup from `scripts/translate_hil.py`
+- `hf`: optional Hugging Face model backend when `transformers` and `torch` are installed
 
-The app/CLI load `data/lexicon_hil_auto.tsv` (auto, ~thousands of words) plus the
-hand-curated `data/lexicon_hil.tsv` (which overrides it). Run `build_dictionary.py`
-once so the dictionary is large; without it only the ~80 curated words are known.
+The dictionary baseline is useful because it exposes the problem clearly: it can
+translate known words, but it cannot reliably handle grammar, context, idioms,
+or paragraph-level meaning.
 
-For fluent neural translation (needs `pip install transformers torch` + a model):
+## Proper plan
 
-```bash
-python app/server.py --backend hf --model welyjesch/lfm25-sft-hiligaynon
-```
+### Milestone 1: benchmark foundation
 
-## Translate text → Hiligaynon (CLI)
+1. Freeze the translation schema in `SCHEMA.md`.
+2. Write 300-500 English/Filipino/code-switched source examples.
+3. Group examples by domain: health, education, public service, daily life,
+   emergency, and code-switching.
+4. Add context notes and the expected linguistic phenomenon for each example.
+5. Have native Hiligaynon speakers produce and review reference translations.
 
-```bash
-# offline word-by-word demo (no installs)
-python scripts/translate_hil.py "Good morning, I went to the market yesterday"
-# -> Maayo aga, Ako nagkadto sa merkado kahapon
+### Milestone 2: baseline and error analysis
 
-# real neural translation (needs transformers + a Hiligaynon LLM)
-pip install transformers torch
-python scripts/translate_hil.py --backend hf \
-    --model welyjesch/lfm25-sft-hiligaynon "How are you today?"
-```
+1. Run the dictionary baseline and at least one neural baseline.
+2. Score every prediction with `scripts/evaluate_translation.py`.
+3. Add human ratings for a representative subset.
+4. Document common failure modes: literal translation, wrong pronoun, wrong
+   tense/aspect, missing implied meaning, and unnatural Hiligaynon.
 
-- **`dict`** backend (default): offline starter lexicon, `*word*` = no entry yet.
-  Demo aid — extend `LEXICON` in `scripts/translate_hil.py`. Not fluent MT.
-- **`hf`** backend: uses a Hiligaynon LLM from `RESOURCES.md`. Real translation,
-  needs model download + GPU recommended.
+### Milestone 3: model improvement
 
-[![Open Translator In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/translator_colab.ipynb)
-**One-click translator:** the Colab notebook runs the neural Hiligaynon model on
-a free GPU with an interactive text box (dictionary fallback if no GPU).
+1. Split reviewed data into train/dev/test.
+2. Fine-tune or adapt an open multilingual model when enough reviewed pairs are
+   available.
+3. Keep the test set fixed.
+4. Publish model cards and dataset cards.
 
-**Grow the dictionary:** add `source_word⇥hiligaynon⇥lang` lines to
-`data/lexicon_hil.tsv` (no code edit; native-speaker checked). Source material —
-Kaufmann KVED, Motus, pinoydictionary, ASJP — listed in `RESOURCES.md`. Open
-pronunciation lexicons (cmudict, WikiPron-tl) auto-fetch via
-`python scripts/build_lexicon.py --which all`.
+### Milestone 4: demo
 
-## Setup
+1. Keep the demo small: source text in, Hiligaynon text out.
+2. Include benchmark examples so judges can test difficult cases quickly.
+3. Show whether the backend is dictionary, neural baseline, or fine-tuned model.
+4. Avoid claiming production-level translation until human scores support it.
 
-Core scorer is **dependency-free** (Python 3.8+ stdlib). Optional tooling:
+### Milestone 5: speech extension
 
-```bash
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt   # openai-whisper, jiwer, TTS
-# also needs system ffmpeg for scripts/convert_audio.sh
-```
+1. Reuse the text benchmark as the translation component of a speech pipeline.
+2. Add STT input once text translation quality is measurable.
+3. Add TTS output after translation quality and pronunciation resources are ready.
+4. Reuse the existing G2P, ASR, and TTS scripts as future infrastructure.
 
-See `RESOURCES.md` for the Hiligaynon datasets and models we build on.
+## Legacy and future speech work
 
-## How we build it (the 1-day plan)
+This repository still contains earlier speech-oriented utilities:
 
-1. **Schema first** (linguists) — tag set + hil/tl rules in `SCHEMA.md`.
-2. **Record** 40–60 short hil-tl-en clips, 4–10 s, 3+ Ilonggo speakers.
-3. **Transcribe + tag** each clip at the word level into `data/annotations/`.
-4. **Double-annotate** ≥10 clips; report inter-annotator agreement.
-5. **Baseline** — run Whisper to fill `data/predictions/`; first numbers via
-   `score.py` into `results/baseline.md`.
-6. **TTS PoC** — ~10 sentences through `tts_route.py`; report round-trip WER.
+- `score.py` for code-switched ASR switch-region WER
+- `scripts/run_whisper.py`
+- `scripts/tts_route.py`
+- `g2p_hil/`
+- `data/annotations/`
 
-## Roadmap (future work)
-
-- Demo app: record → STT → color-tagged transcript → native-speaker correct →
-  approve & archive (grows the open dataset).
-- LoRA fine-tune Whisper on Hiligaynon audio; trained Hiligaynon voice.
-- More pairs (Waray-English, Ilocano-English); public-model leaderboard.
+These are not the v1 focus anymore. They remain useful for the later STT/TTS
+phase after the translation benchmark is credible.
 
 ## License
 
@@ -215,5 +201,6 @@ Data under **CC BY 4.0**, code under **MIT**. See `LICENSE`.
 
 ## AI usage
 
-AI assistants helped scaffold and document this repo. All recordings and
-linguistic labels are human-made. See `AI_DISCLOSURE.md`.
+AI assistants helped scaffold and revise this project. Hiligaynon reference
+translations and gold labels must be reviewed by humans before release. See
+`AI_DISCLOSURE.md`.

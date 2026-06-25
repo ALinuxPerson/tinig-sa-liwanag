@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-translate_hil.py — Translate English / Tagalog text INTO Hiligaynon.
+translate_hil.py - Translate English / Filipino / Tagalog text into Hiligaynon.
 
 Two backends:
 
@@ -8,18 +8,18 @@ Two backends:
                    Word-by-word lookup — a DEMO stub, NOT fluent translation.
                    Unknown words pass through unchanged (marked with *).
 
-  --backend hf     Real neural translation using a Hiligaynon LLM from
+  --backend hf     Neural baseline using a Hiligaynon LLM from
                    RESOURCES.md (e.g. welyjesch/lfm25-sft-hiligaynon or
                    PLTAT/hiligaynon_llama_3.1_finetuned_lora). Needs:
                        pip install transformers torch
                    and downloads the model on first run (GPU recommended).
 
 The dict backend exists so the feature is demonstrable immediately; swap to hf
-for quality once a model is installed.
+                   for a stronger baseline once a model is installed.
 
 Usage:
-    python scripts/translate_hil.py "Good morning, how are you?"
-    python scripts/translate_hil.py --backend hf --model welyjesch/lfm25-sft-hiligaynon \
+    python3 scripts/translate_hil.py "Good morning, how are you?"
+    python3 scripts/translate_hil.py --backend hf --model welyjesch/lfm25-sft-hiligaynon \
         "I went to the market yesterday"
 """
 

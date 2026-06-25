@@ -1,16 +1,13 @@
 #!/usr/bin/env python3
 """
-validate.py — Check every annotation file conforms to SCHEMA.md.
+validate.py - Check benchmark files against SCHEMA.md.
 
-Pure standard library. Verifies for each data/annotations/*.json:
-  - required top-level keys present
-  - valid `lang` values (hil | tl | en | other)
-  - `idx` contiguous from 0
-  - referenced audio_file exists on disk
+Primary v1 mode validates translation benchmark JSONL files in data/benchmark.
+Legacy ASR mode still validates data/annotations/*.json for future speech work.
 
 Usage:
-    python scripts/validate.py
-    python scripts/validate.py --dir data/annotations --audio-root data
+    python3 scripts/validate.py --kind translation --dir data/benchmark
+    python3 scripts/validate.py --kind asr --dir data/annotations --no-audio-check
 """
 
 import argparse
@@ -19,11 +16,77 @@ import os
 import sys
 
 VALID_LANGS = {"hil", "tl", "en", "other"}
-REQUIRED_KEYS = {"clip_id", "audio_file", "tokens"}
+VALID_SOURCE_LANGS = {"en", "fil", "tl", "hil", "mixed"}
+VALID_DIFFICULTY = {"easy", "medium", "hard"}
+VALID_REVIEW_STATUS = {"seed_unverified", "reviewed", "adjudicated"}
+REQUIRED_TRANSLATION_KEYS = {
+    "id",
+    "source_lang",
+    "target_lang",
+    "domain",
+    "source_text",
+    "reference_translation",
+    "context",
+    "phenomena",
+    "difficulty",
+    "review_status",
+}
+REQUIRED_ASR_KEYS = {"clip_id", "audio_file", "tokens"}
 REQUIRED_TOKEN_KEYS = {"idx", "text", "lang"}
 
 
-def validate_file(path, audio_root):
+def validate_translation_file(path):
+    """Return a list of error strings for a translation JSONL file."""
+    errors = []
+    seen_ids = set()
+    try:
+        with open(path, encoding="utf-8") as f:
+            for lineno, line in enumerate(f, 1):
+                line = line.strip()
+                if not line:
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError as e:
+                    errors.append(f"line {lineno}: invalid JSON: {e}")
+                    continue
+
+                missing = REQUIRED_TRANSLATION_KEYS - row.keys()
+                if missing:
+                    errors.append(f"line {lineno}: missing keys: {sorted(missing)}")
+                    continue
+
+                rid = row["id"]
+                if not isinstance(rid, str) or not rid:
+                    errors.append(f"line {lineno}: id must be a non-empty string")
+                elif rid in seen_ids:
+                    errors.append(f"line {lineno}: duplicate id {rid!r}")
+                else:
+                    seen_ids.add(rid)
+
+                if row["source_lang"] not in VALID_SOURCE_LANGS:
+                    errors.append(f"line {lineno}: bad source_lang {row['source_lang']!r}")
+                if row["target_lang"] != "hil":
+                    errors.append(f"line {lineno}: target_lang must be 'hil'")
+                if row["difficulty"] not in VALID_DIFFICULTY:
+                    errors.append(f"line {lineno}: bad difficulty {row['difficulty']!r}")
+                if row["review_status"] not in VALID_REVIEW_STATUS:
+                    errors.append(f"line {lineno}: bad review_status {row['review_status']!r}")
+                if not isinstance(row["phenomena"], list) or not row["phenomena"]:
+                    errors.append(f"line {lineno}: phenomena must be a non-empty list")
+
+                for key in ("domain", "source_text", "reference_translation", "context"):
+                    if not isinstance(row[key], str) or not row[key].strip():
+                        errors.append(f"line {lineno}: {key} must be a non-empty string")
+    except OSError as e:
+        return [f"cannot read: {e}"]
+
+    if not seen_ids and not errors:
+        errors.append("file has no JSONL rows")
+    return errors
+
+
+def validate_asr_file(path, audio_root):
     """Return a list of error strings (empty = file is valid)."""
     errors = []
     try:
@@ -32,7 +95,7 @@ def validate_file(path, audio_root):
     except (json.JSONDecodeError, OSError) as e:
         return [f"cannot read/parse: {e}"]
 
-    missing = REQUIRED_KEYS - data.keys()
+    missing = REQUIRED_ASR_KEYS - data.keys()
     if missing:
         errors.append(f"missing keys: {sorted(missing)}")
 
@@ -62,31 +125,39 @@ def validate_file(path, audio_root):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--dir", default="data/annotations",
-                    help="directory of annotation JSON files")
+    ap.add_argument("--kind", choices=["translation", "asr"], default="translation",
+                    help="schema to validate")
+    ap.add_argument("--dir", default=None,
+                    help="directory of benchmark JSONL files or ASR annotation JSON files")
     ap.add_argument("--audio-root", default="data",
                     help="root that audio_file paths are relative to")
     ap.add_argument("--no-audio-check", action="store_true",
                     help="skip the audio_file existence check")
     args = ap.parse_args()
 
+    if args.dir is None:
+        args.dir = "data/benchmark" if args.kind == "translation" else "data/annotations"
+
     if not os.path.isdir(args.dir):
         sys.exit(f"Not a directory: {args.dir}")
 
-    files = sorted(f for f in os.listdir(args.dir) if f.endswith(".json"))
+    suffix = ".jsonl" if args.kind == "translation" else ".json"
+    files = sorted(f for f in os.listdir(args.dir) if f.endswith(suffix))
     if not files:
-        sys.exit(f"No .json annotation files in {args.dir}")
+        sys.exit(f"No {suffix} files in {args.dir}")
 
     audio_root = os.devnull if args.no_audio_check else args.audio_root
     total_fail = 0
     for fn in files:
         path = os.path.join(args.dir, fn)
-        if args.no_audio_check:
+        if args.kind == "translation":
+            errs = validate_translation_file(path)
+        elif args.no_audio_check:
             # validate without touching disk for audio
-            errs = [e for e in validate_file(path, args.audio_root)
+            errs = [e for e in validate_asr_file(path, args.audio_root)
                     if "audio_file not found" not in e]
         else:
-            errs = validate_file(path, audio_root)
+            errs = validate_asr_file(path, audio_root)
         if errs:
             total_fail += 1
             print(f"FAIL {fn}")

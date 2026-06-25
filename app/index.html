@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sugidanon — Hiligaynon Translator</title>
+<title>Tinig sa Liwanag - Hiligaynon Translation Demo</title>
 <style>
   :root { --accent:#1a73e8; --bg:#f5f6f8; --card:#fff; --line:#dadce0; }
   * { box-sizing:border-box; }
@@ -34,26 +34,26 @@
 </head>
 <body>
 <header>
-  <h1>🇵🇭 Sugidanon — Hiligaynon Translator</h1>
-  <span>English / Tagalog → Hiligaynon (Ilonggo) · Team Hague</span>
+  <h1>Tinig sa Liwanag - Hiligaynon Translation Demo</h1>
+  <span>English / Filipino / code-switched text to Hiligaynon baseline</span>
 </header>
 
 <div class="wrap">
   <div class="panes">
     <div class="pane">
-      <label>Before — English / Tagalog</label>
-      <textarea id="src" placeholder="Type here..." autofocus></textarea>
+      <label>Source text</label>
+      <textarea id="src" placeholder="Type English, Filipino, or code-switched text..." autofocus></textarea>
     </div>
     <div class="pane">
-      <label>After — Hiligaynon</label>
+      <label>Hiligaynon output</label>
       <div id="out"><span class="ph">translation appears here</span></div>
     </div>
   </div>
 </div>
 
 <div class="bar">
-  <button id="go">Translate →</button>
-  <span class="hint" id="hint">Tip: Ctrl/Cmd+Enter to translate. <span class="star">*word*</span> = not in dictionary yet.</span>
+  <button id="go">Translate</button>
+  <span class="hint" id="hint">Baseline demo. Ctrl/Cmd+Enter to translate. <span class="star">*word*</span> = not in the dictionary backend.</span>
 </div>
 
 <script>
@@ -65,7 +65,7 @@ async function translate() {
   const text = src.value.trim();
   if (!text) { out.innerHTML = '<span class="ph">type something on the left</span>'; return; }
   go.disabled = true;
-  out.innerHTML = '<span class="ph">translating…</span>';
+  out.innerHTML = '<span class="ph">translating...</span>';
   try {
     const r = await fetch('/api/translate', {
       method:'POST', headers:{'Content-Type':'application/json'},

@@ -1,20 +1,130 @@
-# Annotation Schema — Sugidanon
+# Schema
 
-Sugidanon targets **code-switched Hiligaynon–Tagalog–English speech**. Each clip
-is annotated at the **word (token) level** so evaluation can measure how well a
-speech recognizer performs *specifically at language switch points*, which is
-where most ASR systems fail.
+Tinig sa Liwanag now uses a translation-first schema. The primary artifact is a
+JSONL benchmark for context-aware translation into Hiligaynon.
 
-## Files
+Legacy code-switched ASR annotations are still supported for future speech work,
+but they are no longer the main v1 deliverable.
 
-```
+## Primary benchmark path
+
+```text
 data/
-  audio/            # one .wav per clip (16 kHz mono recommended)
-  annotations/      # one .json per clip (the gold reference)
-  predictions/      # one .json per clip (a model's hypothesis, for scoring)
+  benchmark/
+    hil_translation_v1.jsonl
+  predictions/
+    translation_baseline_dict.jsonl
 ```
 
-## Annotation JSON (one file per clip)
+## Translation benchmark row
+
+Each line in `data/benchmark/*.jsonl` is one JSON object:
+
+```json
+{
+  "id": "hil-tr-v1-001",
+  "source_lang": "en",
+  "target_lang": "hil",
+  "domain": "health",
+  "source_text": "Please call the doctor if the child has a fever tonight.",
+  "reference_translation": "Palihog tawga ang doktor kon may hilanat ang bata karon nga gab-i.",
+  "context": "The speaker is giving practical health advice to a family member.",
+  "phenomena": ["polite_request", "medical", "conditional"],
+  "difficulty": "medium",
+  "review_status": "seed_unverified"
+}
+```
+
+### Required fields
+
+| Field | Type | Rule |
+|-------|------|------|
+| `id` | string | Unique stable ID, e.g. `hil-tr-v1-001` |
+| `source_lang` | string | `en`, `fil`, `tl`, `hil`, or `mixed` |
+| `target_lang` | string | Must be `hil` for v1 |
+| `domain` | string | Domain bucket such as `health`, `education`, `daily_life` |
+| `source_text` | string | Text to translate |
+| `reference_translation` | string | Human reference translation into Hiligaynon |
+| `context` | string | Extra context needed to preserve meaning |
+| `phenomena` | list[string] | What the example tests |
+| `difficulty` | string | `easy`, `medium`, or `hard` |
+| `review_status` | string | `seed_unverified`, `reviewed`, or `adjudicated` |
+
+### Language codes
+
+| Code | Meaning |
+|------|---------|
+| `hil` | Hiligaynon / Ilonggo |
+| `en` | English |
+| `fil` | Filipino |
+| `tl` | Tagalog |
+| `mixed` | Code-switched input |
+
+Use `fil` for Filipino as a national language label. Use `tl` only when the
+example is specifically Tagalog.
+
+### Recommended domains
+
+- `daily_life`
+- `health`
+- `education`
+- `public_service`
+- `emergency`
+- `agriculture`
+- `workplace`
+- `code_switching`
+
+### Recommended phenomena labels
+
+- `context_required`
+- `paragraph_context`
+- `polite_request`
+- `conditional`
+- `pronoun_reference`
+- `tense_aspect`
+- `idiom`
+- `local_expression`
+- `domain_term`
+- `code_switching`
+- `negation`
+- `ambiguity`
+
+## Prediction row
+
+Each line in `data/predictions/translation_*.jsonl` should be:
+
+```json
+{
+  "id": "hil-tr-v1-001",
+  "model": "dict-baseline",
+  "prediction": "Palihog tawga ang doktor kon may hilanat ang bata karon nga gab-i."
+}
+```
+
+`scripts/evaluate_translation.py` joins predictions to references by `id`.
+
+## Human evaluation rubric
+
+Automatic metrics are not enough for Hiligaynon. Use this rubric for reviewed
+examples:
+
+| Dimension | 5 | 3 | 1 |
+|-----------|---|---|---|
+| Adequacy | Meaning fully preserved | Main idea present but details lost | Meaning changed |
+| Fluency | Natural Hiligaynon | Understandable but awkward | Unnatural or broken |
+| Context | Ambiguity resolved correctly | Partly resolved | Context ignored |
+| Terminology | Domain words appropriate | Some questionable choices | Wrong terms |
+
+For each reviewed example, record issue severity:
+
+- `none`
+- `minor`
+- `major`
+- `meaning_changed`
+
+## Legacy ASR annotation schema
+
+The earlier speech benchmark used one JSON file per clip:
 
 ```json
 {
@@ -31,67 +141,18 @@ data/
   "matrix_language": "hil",
   "tokens": [
     { "idx": 0, "text": "Nag-grocery", "lang": "hil" },
-    { "idx": 1, "text": "ko",          "lang": "hil" },
-    { "idx": 2, "text": "kahapon",     "lang": "hil" },
-    { "idx": 3, "text": "kay",         "lang": "hil" },
-    { "idx": 4, "text": "super",       "lang": "tl"  },
-    { "idx": 5, "text": "traffic",     "lang": "en"  }
+    { "idx": 1, "text": "ko", "lang": "hil" },
+    { "idx": 2, "text": "kahapon", "lang": "hil" },
+    { "idx": 3, "text": "kay", "lang": "hil" },
+    { "idx": 4, "text": "super", "lang": "tl" },
+    { "idx": 5, "text": "traffic", "lang": "en" }
   ]
 }
 ```
 
-### Field rules
+This remains supported by:
 
-- **clip_id** — unique, prefixed by the dominant language pair:
-  `hil_en_`, `hil_tl_`, `tl_en_`.
-- **tokens** — the gold transcript, already tokenized (split on whitespace).
-  Keep punctuation OUT of tokens; normalize to lowercase only in scoring, not here.
-- **idx** — contiguous integers starting at 0 (validated).
-- **lang** — one of:
-  - `hil` Hiligaynon (Ilonggo)
-  - `tl`  Tagalog / Filipino
-  - `en`  English
-  - `other` proper nouns, brands, ambiguous, or another PH language
-- **matrix_language** — the dominant/base language of the utterance (the grammar
-  it follows). The *embedded* language is the one being inserted.
-
-### Switch points (derived, not hand-labeled)
-
-A **switch point** is any token whose `lang` differs from the previous token's
-`lang` (ignoring `other`). You do NOT label these by hand — `score.py` computes
-them from the `lang` sequence. A **switch-region word** is any token within a
-window of ±1 of a switch point; everything else is **monolingual**. This lets us
-report WER on switch regions vs monolingual regions separately, and by language
-pair (hil↔tl, hil↔en, tl↔en).
-
-## Tagging guidelines (for annotators)
-
-1. **Tag the word as the language it comes from**, not how it's pronounced.
-   "traffic" said with an Ilonggo accent is still `en`.
-2. **Borrowed/nativized words** standard in Ilonggo (e.g. "kompyuter",
-   "tindahan") → `hil`, not `en`.
-3. **Proper nouns** (names, brands, places) → `other`.
-4. **Fillers** ("uh", "ah", "ano", "te") → matrix language.
-5. **Numbers** → tag by the language actually spoken ("duha" = hil, "dalawa" = tl,
-   "two" = en).
-6. When two annotators disagree, record both and resolve by discussion; report
-   **inter-annotator agreement** (% token-level lang agreement) in the README.
-
-### hil vs tl disambiguation (the hard case)
-
-Hiligaynon and Tagalog share much vocabulary, so labels can collide. Rules:
-
-- **Tag by the form actually spoken**, not the meaning:
-  `ginahimo` → `hil`, `ginagawa` → `tl`; `indi` → `hil`, `hindi` → `tl`.
-- **Identical-in-both word** (same spelling, both languages) → tag by the
-  **sentence's matrix language** (usually `hil` in this corpus).
-- **Nativized loanwords** standard in Ilonggo → `hil`.
-- Affixes are decisive: Hiligaynon `nag-/ga-/mag-` patterns vs Tagalog
-  `nag-/um-/ma-` — tag by the affix system the word uses.
-
-## Recommended scale for a 1-day benchmark
-
-- Hiligaynon matrix throughout; partners Tagalog + English.
-- 40–60 clips, 4–10 seconds each.
-- 3+ speakers (Iloilo / Bacolod) for voice diversity.
-- Every clip transcribed AND a subset (≥10) double-annotated for agreement.
+```bash
+python3 scripts/validate.py --kind asr --dir data/annotations --no-audio-check
+python3 score.py --ref data/annotations --hyp data/predictions
+```
