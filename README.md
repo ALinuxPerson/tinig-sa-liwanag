@@ -3,12 +3,10 @@
 **ACM TechSprint Asteria Submission**  
 **Event dates:** June 25-27, 2026
 
-**Live demos:**
+**Live demo:**
 
 ```text
-https://tinig-sa-liwanag.vercel.app   # Sugidanon — project site & docs (translation demo at /demo)
-https://tinig-one.vercel.app          # Companion Demo: Tinig — AI assistant using Sugidanon's resources
-Tinig (companion demo repository): https://github.com/ALinuxPerson/tinig
+https://tinig-sa-liwanag.vercel.app   # Sugidanon — project site, benchmark & docs
 ```
 
 **Source code & deployment (GitHub):**
@@ -79,58 +77,65 @@ Working rules:
 
 # Sugidanon
 
-**A context-aware Hiligaynon text translation benchmark, baseline, and demo
-pipeline.**
+**An open Hiligaynon / Tagalog / English code-switch ASR benchmark.** It measures
+where multilingual speech models fail by separating ordinary WER from
+switch-region WER across Hiligaynon, Tagalog, and English tokens.
 
-This repository is now scoped around one first question:
+This repository is scoped around one question:
 
-> Can a system translate meaning into Hiligaynon accurately in context, instead
-> of only replacing the words it already knows?
+> Where does multilingual speech recognition break on Hiligaynon code-switch
+> speech — on the borrowed words, or on the Hiligaynon matrix language?
 
-The current first milestone is not a full STT/TTS system. It is an open,
-reusable text translation resource that future teams can extend into speech:
-STT -> translation, translation -> TTS, and speech-to-speech translation.
+Overall WER hides which language failed. Sugidanon separates errors on
+Hiligaynon matrix-language words from errors near Tagalog and English switch
+points, making code-switch ASR failure measurable.
 
 ## Current deliverable
 
 The repository targets the **Inclusive Speech Technology for Philippine
-Languages** challenge by shipping foundational infrastructure:
+Languages** challenge by shipping a focused benchmark:
 
-- a Hiligaynon translation benchmark with domain and context labels
-- an annotation schema for reviewed translation examples
-- a baseline translation runner
-- an evaluation script for automatic metrics
-- a small local demo app
-- documentation for future STT/TTS extensions
+- 40 native-recorded Hiligaynon/Tagalog/English code-switch clips with per-word
+  language tags
+- a switch-region WER scorer (overall WER, monolingual WER, switch penalty)
+- a reproducible Whisper baseline (one-click Colab)
+- an annotation schema for reviewed code-switch references
+- documentation, dataset card, and provenance records
 
-The primary task for v1 is:
+The headline finding:
 
 ```text
-English / Filipino / code-switched text -> Hiligaynon text
+Current multilingual models recognize borrowed English and Tagalog words,
+but fail on the Hiligaynon matrix language.
 ```
 
 Live demos are linked at the top of this README.
 
 ## Features
 
+- **Code-switch ASR benchmark** — 40 native clips with per-word language tags and
+  switch-region WER scoring (`score.py`).
+- **Switch-region WER scorer** — overall WER, monolingual Hiligaynon WER,
+  switch-region WER, switch penalty, and per-language-pair breakdown.
+- **Reproducible baseline** — Whisper runner + one-click Colab over the public
+  Hugging Face dataset, zero local setup.
+- **Annotation schema** (`SCHEMA.md`) for reviewed code-switch references and
+  token language tags.
+- **Token-tag review CLI** — `scripts/review_annotations.py` for native-speaker
+  confirmation of seed tags.
+
+### Extension layers (not the primary judged artifact)
+
+The repository also carries text-translation and assistant layers that build on
+the benchmark and are kept for the later STT → translation → TTS phase:
+
 - **Context-aware translation benchmark** — JSONL examples labeled with domain,
-  context notes, linguistic phenomena, difficulty, and review status.
-- **Annotation schema** (`SCHEMA.md`) for reviewed Hiligaynon translation examples.
-- **Baseline translation runner** — dictionary backend (offline, zero deps) plus
-  an optional Hugging Face neural backend.
-- **Automatic evaluator** — coverage, exact match, token F1, chrF, per-domain
-  summaries.
-- **Two demo apps** — a stdlib local Python app (`app/`) and a Next.js/Vercel app
-  (`pages/`), both with layered phrase + dictionary fallback.
-- **Tinig — AI assistant demo** — a multilingual (Hiligaynon / Tagalog / English)
-  assistant built on the translation layer, with an on-page context section to
-  ground the conversation.
-- **Lexicon tooling** — curated `data/lexicon_hil.tsv`, plus builders that mine
-  Kaikki/Wiktionary for en→hil and Tagalog→Hiligaynon bridge entries.
-- **Sample prompts** across health, education, emergency, public service, daily
-  life, and code-switching for quick demoing.
-- **Future-ready speech utilities** — code-switched ASR scorer, Whisper runner,
-  Hiligaynon G2P, and TTS routing kept for the later STT/TTS phase.
+  context notes, phenomena, difficulty, and review status, plus an offline
+  dictionary baseline and automatic evaluator.
+- **Lexicon tooling** — curated `data/lexicon_hil.tsv` plus Kaikki/Wiktionary
+  en→hil and Tagalog→Hiligaynon bridge builders.
+- **Future speech utilities** — Hiligaynon G2P and TTS routing for the later
+  STT/TTS phase.
 
 ## Why this matters
 
@@ -141,15 +146,15 @@ as Cebuano, Ilocano, Hiligaynon, and Waray still lack the open datasets,
 benchmarks, and models needed to develop inclusive AI systems. This gap limits
 the accessibility of voice-driven technologies for millions of Filipinos.
 
-Hiligaynon is spoken by millions of Filipinos, but open translation and speech
-resources remain limited. A speech system is only useful if the language layer
-understands meaning, context, and local usage. This project therefore starts
-with text translation before audio:
+Hiligaynon is spoken by millions of Filipinos, but open speech resources remain
+limited. Off-the-shelf multilingual models are rarely measured on Hiligaynon
+code-switch speech, so it stays invisible where they fail. This project starts
+with a focused ASR benchmark:
 
-- Word-by-word lookup is not enough for useful translation.
-- A benchmark makes failures visible and reproducible.
-- Human-reviewed Hiligaynon references become reusable data.
-- The same examples can later seed STT/TTS and speech-to-speech evaluation.
+- Overall WER hides which language failed; switch-region WER exposes it.
+- A benchmark makes the failure mode visible and reproducible.
+- Human-reviewed Hiligaynon references become reusable evaluation data.
+- The same clips and tags can later seed STT/TTS and speech-to-speech evaluation.
 
 ## Project case
 
@@ -166,7 +171,7 @@ Our interpretation of the project case:
 
 - Start with Hiligaynon because it is underrepresented compared with Tagalog.
 - Build a benchmark and reproducible pipeline before claiming a production model.
-- Use text translation as the foundation for later speech workflows.
+- Lead with the code-switch ASR benchmark; keep translation as an extension layer.
 - Make limitations explicit: current seed translations still need
   native-speaker review.
 
@@ -220,27 +225,6 @@ For demo quality, the deployed app uses three layers:
 
 The phrase and dictionary layers improve presentation, but the research artifact
 remains the benchmark/evaluation pipeline.
-
-### Tinig — the AI assistant demo
-
-The MVP also includes a working demo app named **Tinig**: an AI assistant built
-on top of Sugidanon that can converse in **Hiligaynon, Tagalog, and
-English** (including code-switched input).
-
-How it works:
-
-- The user opens Tinig and is shown a **context section** — plain-language
-  background the user can understand — so the conversation has grounding instead
-  of starting cold.
-- The user types or speaks in any mix of Hiligaynon, Tagalog, and English.
-- Tinig replies using the translation layer, so responses come back in
-  Hiligaynon (or the user's chosen language), demonstrating the project's core
-  capability in a real assistant flow.
-
-Tinig is the user-facing proof that the benchmark and translation pipeline are
-useful in practice: the same Hiligaynon language layer that the benchmark
-measures is what powers the assistant's understanding and replies. The benchmark
-remains the research artifact; Tinig shows what it enables.
 
 ## Technologies Used
 

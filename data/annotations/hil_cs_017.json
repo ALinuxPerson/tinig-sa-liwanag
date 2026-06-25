@@ -15,6 +15,10 @@
     "gender": ""
   },
   "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
   "review_status": "reviewed",
   "lang_tags_status": "seed_unverified",
   "provenance": {

@@ -12,20 +12,20 @@ language tags auto-seeded, pending speaker confirmation.
 
 | Metric | WER |
 |--------|-----|
-| Overall | 61.4% |
-| Monolingual (pure Hiligaynon) | 69.2% |
-| Switch-region (next to a language switch) | 38.8% |
-| **Switch penalty** (switch − mono) | **−30.4%** |
+| Overall | 59.5% |
+| Monolingual (pure Hiligaynon) | 66.3% |
+| Switch-region (next to a language switch) | 35.8% |
+| **Switch penalty** (switch − mono) | **−30.6%** |
 
-Switch-region WER by language pair: `hil↔en` 44.2%, `hil↔tl` 24.4%, `tl↔en` 6.2%.
+Switch-region WER by language pair: `hil↔en` 40.0%, `hil↔tl` 24.4%, `tl↔en` 6.2%.
 
 ### Interpretation — the negative penalty is the finding
 
 An off-the-shelf Tagalog ASR model transcribes the **switch words better than the
 monolingual ones**. Switch regions carry the English/Tagalog loanwords
 (`traffic`, `meeting`, `grab`) the model already knows; the **Hiligaynon matrix**
-is what it fails on (69% WER, no Hiligaynon training). The failure scales with
-Hiligaynon involvement: `tl↔en` is near-solved (6%), `hil↔en` is worst (44%).
+is what it fails on (66% WER, no Hiligaynon training). The failure scales with
+Hiligaynon involvement: `tl↔en` is near-solved (6%), `hil↔en` is worst (40%).
 
 This quantifies the exact gap Sugidanon exists to expose: **current speech tech
 catches the borrowed words and misses the Ilonggo.**

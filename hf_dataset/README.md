@@ -51,16 +51,16 @@ Whisper small (`--language tl`) over the 40 clips:
 
 | Metric | WER |
 |--------|-----|
-| Overall | 59.8% |
+| Overall | 59.5% |
 | Monolingual (Hiligaynon) | 66.3% |
-| Switch-region | 36.4% |
-| **Switch penalty** | **−30.0%** |
+| Switch-region | 35.8% |
+| **Switch penalty** | **−30.6%** |
 
-By pair: `hil↔en` 40.8%, `hil↔tl` 24.4%, `tl↔en` 6.2%.
+By pair: `hil↔en` 40.0%, `hil↔tl` 24.4%, `tl↔en` 6.2%.
 
 **The negative penalty is the finding:** a Tagalog model nails the borrowed
 English/Tagalog words but fails on the Hiligaynon matrix it was never trained on.
-`tl↔en` is near-solved (6%); `hil↔en` is worst (41%). The gap scales with
+`tl↔en` is near-solved (6%); `hil↔en` is worst (40%). The gap scales with
 Hiligaynon — precisely what this dataset exists to expose.
 
 ## What's inside
@@ -248,10 +248,10 @@ Whisper small (`--language tl`) over the 40 clips:
 
 | Metric | WER |
 |--------|-----|
-| Overall | 61.4% |
-| Monolingual (Hiligaynon) | 69.2% |
-| Switch-region | 38.8% |
-| Switch penalty | −30.4% |
+| Overall | 59.5% |
+| Monolingual (Hiligaynon) | 66.3% |
+| Switch-region | 35.8% |
+| Switch penalty | −30.6% |
 
 The negative penalty is the finding: an off-the-shelf Tagalog model handles the
 borrowed English/Tagalog switch words but fails on the Hiligaynon matrix. See

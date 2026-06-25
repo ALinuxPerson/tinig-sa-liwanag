@@ -140,6 +140,10 @@ what makes switch-region WER (`score.py`) possible.
     "gender": "F"
   },
   "matrix_language": "hil",
+  "subset": "scripted_native",
+  "source_type": "prompted_code_switch",
+  "speech_style": "scripted",
+  "gold_status": "native_gold",
   "review_status": "seed_unverified",
   "provenance": {
     "source": "Team Hague elicitation set (original)",
@@ -168,10 +172,29 @@ what makes switch-region WER (`score.py`) possible.
 | `speaker` | object | `id`, `name`, `primary_language`, `fluency`, `region`, `age_band`, `gender` (optional) |
 | `speaker.fluency` | string | `native`, `fluent`, or `non_native` — Hiligaynon fluency. Do not present `non_native` clips as native gold data. |
 | `matrix_language` | string | Base language of the utterance (optional) |
+| `subset` | string | Benchmark subset — see below (optional) |
+| `source_type` | string | `prompted_code_switch`, `podcast`, `vlog`, `non_native_recording` (optional) |
+| `speech_style` | string | `scripted`, `conversational`, `interview`, `monologue`, `mixed` (optional) |
+| `gold_status` | string | `native_gold`, `reviewed_extension`, `seed_unverified`, `not_native_gold` (optional) |
 | `review_status` | string | `seed_unverified`, `reviewed`, or `adjudicated` (optional) |
 | `provenance` | object | `source`, `license`, `note` for redistribution (optional) |
 
 Token `lang` is one of `hil`, `tl`, `en`, `other`.
+
+### Benchmark subsets
+
+Keep each speech source separate. Do **not** blend subsets into one headline WER —
+report each separately, and never count non-native speech as native gold.
+
+| Subset | Speaker | Speech type | Use in reporting |
+|--------|---------|-------------|------------------|
+| `scripted_native` | Native | Prompted code-switch clips | Main headline benchmark |
+| `native_podcast` | Native | Natural long-form segments | Natural-speech extension |
+| `native_vlog` | Native | Everyday conversational speech | Everyday-speech extension |
+| `non_native_eval` | Non-native | Learner / non-native speech | Robustness / stress test only |
+
+For non-native clips set `subset: "non_native_eval"`, `gold_status:
+"not_native_gold"`, and `speaker.fluency: "non_native"`.
 
 ### Pipeline
 

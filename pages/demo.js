@@ -63,8 +63,8 @@ export default function Demo() {
           <p className="eyebrow"><Link href="/">← Back to Sugidanon</Link></p>
           <h1>Translation demo</h1>
           <p className="lede">
-            Context-aware English / Filipino / code-switched text into Hiligaynon. A
-            companion demo to the speech benchmark — not the research artifact.
+            Context-aware English / Filipino / code-switched text into Hiligaynon. An
+            extension layer on top of the speech benchmark — not the research artifact.
           </p>
         </div>
       </section>

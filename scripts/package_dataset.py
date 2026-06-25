@@ -72,6 +72,10 @@ def write_metadata_csv(rows, out_path):
         "domain",
         "switch_type",
         "matrix_language",
+        "subset",
+        "source_type",
+        "speech_style",
+        "gold_status",
         "review_status",
         "lang_tags_status",
         "duration_sec",
@@ -97,6 +101,10 @@ def write_metadata_csv(rows, out_path):
                 "domain": row.get("domain", ""),
                 "switch_type": row.get("switch_type", ""),
                 "matrix_language": row.get("matrix_language", ""),
+                "subset": row.get("subset", ""),
+                "source_type": row.get("source_type", ""),
+                "speech_style": row.get("speech_style", ""),
+                "gold_status": row.get("gold_status", ""),
                 "review_status": row.get("review_status", ""),
                 "lang_tags_status": row.get("lang_tags_status", ""),
                 "duration_sec": duration,
@@ -122,6 +130,10 @@ def write_metadata_jsonl(rows, out_path):
                 "domain": row.get("domain"),
                 "switch_type": row.get("switch_type"),
                 "matrix_language": row.get("matrix_language"),
+                "subset": row.get("subset"),
+                "source_type": row.get("source_type"),
+                "speech_style": row.get("speech_style"),
+                "gold_status": row.get("gold_status"),
                 "review_status": row.get("review_status"),
                 "lang_tags_status": row.get("lang_tags_status"),
                 "duration_sec": duration,
@@ -143,17 +155,31 @@ def compute_statistics(rows, audio_dir):
             flagged[row["clip_id"]] = flags
         token_langs.update(token["lang"] for token in row.get("tokens", []))
     total_duration = sum(durations)
+    speaker_ids = {
+        row.get("speaker", {}).get("id")
+        for row in rows
+        if row.get("speaker", {}).get("id")
+    }
+    provenance = Counter(
+        row.get("provenance", {}).get("license", "unspecified") for row in rows
+    )
     return {
         "clip_count": len(rows),
         "total_duration_sec": round(total_duration, 3),
         "average_duration_sec": round(total_duration / len(rows), 3) if rows else 0,
         "min_duration_sec": round(min(durations), 3) if durations else 0,
         "max_duration_sec": round(max(durations), 3) if durations else 0,
+        "speaker_count": len(speaker_ids),
+        "subsets": dict(Counter(row.get("subset") for row in rows)),
+        "source_types": dict(Counter(row.get("source_type") for row in rows)),
+        "speech_styles": dict(Counter(row.get("speech_style") for row in rows)),
+        "gold_status": dict(Counter(row.get("gold_status") for row in rows)),
         "domains": dict(Counter(row.get("domain") for row in rows)),
         "switch_types": dict(Counter(row.get("switch_type") for row in rows)),
         "review_status": dict(Counter(row.get("review_status") for row in rows)),
         "lang_tags_status": dict(Counter(row.get("lang_tags_status") for row in rows)),
         "token_languages": dict(token_langs),
+        "license_provenance": dict(provenance),
         "edge_flags": flagged,
     }
 
@@ -194,8 +220,14 @@ def write_dataset_card(rows, stats, out_path, include_audio):
         f.write(f"- Clips: {stats['clip_count']}\n")
         f.write(f"- Total duration: {stats['total_duration_sec']} seconds\n")
         f.write(f"- Audio included in this package: {'yes' if include_audio else 'no'}\n")
+        f.write(f"- Speakers: {stats['speaker_count']}\n")
         f.write(f"- Domains: {', '.join(sorted(stats['domains']))}\n")
         f.write(f"- Switch types: {', '.join(sorted(stats['switch_types']))}\n\n")
+        f.write("## Subsets\n\n")
+        f.write("Subsets are reported separately and never blended into one headline WER.\n\n")
+        for subset, count in sorted(stats["subsets"].items(), key=lambda kv: str(kv[0])):
+            f.write(f"- `{subset}`: {count} clips\n")
+        f.write("\n")
         f.write("## Review Status\n\n")
         f.write(f"- Transcript review: {stats['review_status']}\n")
         f.write(f"- Token language tags: {stats['lang_tags_status']}\n\n")
@@ -203,7 +235,9 @@ def write_dataset_card(rows, stats, out_path, include_audio):
         f.write("- Per-word language tags are still `seed_unverified` unless updated by a speaker.\n")
         if stats["edge_flags"]:
             f.write(f"- Edge QA flags remain: {stats['edge_flags']}.\n")
-        f.write("- Speaker metadata is intentionally coarse and may contain blank optional fields.\n\n")
+        f.write("- Speaker metadata is intentionally coarse and may contain blank optional fields.\n")
+        f.write("- Non-native clips are included only as a robustness subset (`non_native_eval`) "
+                "and should not be used as native Hiligaynon gold data.\n\n")
         f.write("## License\n\n")
         f.write("Dataset files created by Team Hague are released under CC BY 4.0.\n")
 
