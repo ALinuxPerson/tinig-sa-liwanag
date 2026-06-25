@@ -45,20 +45,7 @@ OpenAI Whisper:  https://github.com/openai/whisper
 Meta MMS:        https://huggingface.co/facebook/mms-1b-all
 ```
 
-## Members
-
-- **Legaspi, Jazztinn Kyle**
-- **Michael C. Baterna**
-- **Arwin Jeremy Bumpus**
-- **De Guzman, Nimeesha**
-
-## Acknowledgments
-
-- **Aziel Faith Agustin** — Hiligaynon (Ilonggo) speaker who reviewed the elicitation
-  sentences and recorded all 40 clips in the speech corpus. The dataset's
-  reference transcripts and audio exist thanks to their voice and review.
-
-## Team roles and rules
+## Team members, roles and rules
 
 | Member | Primary role |
 |--------|--------------|
@@ -66,6 +53,12 @@ Meta MMS:        https://huggingface.co/facebook/mms-1b-all
 | Michael C. Baterna | Benchmark data, schema, domain examples |
 | Arwin Jeremy Bumpus | Frontend / demo UI, documentation |
 | De Guzman, Nimeesha | Lexicon, Tagalog/Hiligaynon bridge, review coordination |
+
+## Acknowledgments
+
+- **Aziel Faith Agustin** — Hiligaynon (Ilonggo) speaker who reviewed the elicitation
+  sentences and recorded all 40 clips in the speech corpus. The dataset's
+  reference transcripts and audio exist thanks to their voice and review.
 
 Working rules:
 
