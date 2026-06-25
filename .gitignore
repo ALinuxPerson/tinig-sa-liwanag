@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Model caches (Whisper, HF, etc.)
+.cache/
+*.pt
+~/.cache/whisper/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Keep folder structure but ignore large media if needed
+# data/audio/*.wav

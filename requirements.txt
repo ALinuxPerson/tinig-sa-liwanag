@@ -1,0 +1,7 @@
+# Core scorer (score.py) needs NOTHING here — pure Python 3.8+ stdlib.
+# These are OPTIONAL tooling deps for building/baselining the benchmark.
+
+openai-whisper        # baseline ASR for scripts/run_whisper.py (optional)
+jiwer                 # optional cross-check of WER numbers
+
+# System tool (not pip): ffmpeg — required by scripts/convert_audio.sh
