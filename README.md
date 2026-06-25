@@ -20,12 +20,36 @@ https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch
 40 native-recorded code-switch Hiligaynon/Tagalog/English clips with per-word
 language tags and switch-region WER scoring. CC BY 4.0.
 
+**Reproduce the benchmark (one-click Google Colab):**
+
+[![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb)
+
+```text
+https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb
+```
+
+Downloads the dataset, runs the ASR baseline, and prints the switch penalty on a
+fresh machine — no local setup.
+
+**ASR model tested (baseline):**
+
+```text
+OpenAI Whisper:  https://github.com/openai/whisper
+Meta MMS:        https://huggingface.co/facebook/mms-1b-all
+```
+
 ## Members
 
 - **Legaspi, Jazztinn Kyle**
 - **Michael C. Baterna**
 - **Arwin Jeremy Bumpus**
 - **De Guzman, Nimeesha**
+
+## Acknowledgments
+
+- **Aziel** — Hiligaynon (Ilonggo) speaker who reviewed the elicitation
+  sentences and recorded all 40 clips in the speech corpus. The dataset's
+  reference transcripts and audio exist thanks to their voice and review.
 
 ## Team roles and rules
 
