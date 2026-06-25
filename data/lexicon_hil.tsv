@@ -1,0 +1,98 @@
+# Sugidanon translation lexicon  ->  Hiligaynon (Ilonggo)
+# Format:  source_word <TAB> hiligaynon <TAB> src_lang(en|tl)
+# Merged OVER the built-in lexicon in scripts/translate_hil.py at runtime.
+# GROW THIS FILE from open sources (see RESOURCES.md): Kaufmann KVED, Motus,
+# pinoydictionary, ASJP. Keep it human-checked — a native speaker should verify
+# each entry. Lines starting with '#' are ignored.
+#
+# --- numbers ---
+one	isa	en
+two	duha	en
+three	tatlo	en
+four	apat	en
+five	lima	en
+six	anom	en
+seven	pito	en
+eight	walo	en
+nine	siyam	en
+ten	napulo	en
+# --- time / days ---
+week	semana	en
+month	bulan	en
+year	tuig	en
+hour	oras	en
+now	subong	en
+later	karon	en
+always	pirme	en
+never	wala gid	en
+# --- family / people ---
+mother	nanay	en
+father	tatay	en
+brother	utod	en
+sister	utod	en
+woman	babae	en
+man	lalaki	en
+teacher	maestra	en
+student	estudyante	en
+# --- verbs ---
+work	trabaho	en
+walk	lakat	en
+run	dalagan	en
+read	basa	en
+write	sulat	en
+speak	hambal	en
+listen	pamati	en
+help	bulig	en
+give	hatag	en
+take	kuha	en
+wait	hulat	en
+cook	luto	en
+wash	hugas	en
+open	abri	en
+close	sira	en
+# --- adjectives / feelings ---
+good	maayo	en
+bad	malain	en
+new	bag-o	en
+old	tigulang	en
+near	malapit	en
+far	malayo	en
+easy	mahapos	en
+hard	mabudlay	en
+clean	matinlo	en
+dirty	mahigko	en
+angry	akig	en
+afraid	hadlok	en
+# --- places / things ---
+city	syudad	en
+town	banwa	en
+church	simbahan	en
+store	tindahan	en
+hospital	hospital	en
+car	salakyan	en
+book	libro	en
+work_place	opisina	en
+rice	kan-on	en
+fish	isda	en
+meat	karne	en
+fruit	prutas	en
+# --- function / connectors ---
+because	kay	en
+but	pero	en
+also	man	en
+here	diri	en
+there	didto	en
+this	ini	en
+that	ina	en
+all	tanan	en
+# --- Tagalog -> Hiligaynon (high frequency) ---
+maganda	matahum	tl
+mabilis	madasig	tl
+trabaho	trabaho	tl
+gabi	gab-i	tl
+araw	adlaw	tl
+pamilya	pamilya	tl
+kaibigan	abyan	tl
+pagkain	pagkaon	tl
+maganda	matahum	tl
+mahal	palangga	tl

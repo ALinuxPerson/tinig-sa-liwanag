@@ -44,6 +44,35 @@ python scripts/ingest.py external/g2p-asr/data --prefix hil --limit 40
 | └ 8B GGUF | quantized inference | https://huggingface.co/PLTAT/hiligaynon_llama_3.1_FT_8B_GGUF |
 | lfm25-sft-hiligaynon | Hiligaynon SFT model | https://huggingface.co/welyjesch/lfm25-sft-hiligaynon |
 
+## Lexicons & dictionaries
+
+**Translation pairs (en/tl → hil)** — curate by hand into `data/lexicon_hil.tsv`
+(a native speaker must verify). These bilingual dicts are the source material:
+
+| Resource | Use | Link |
+|----------|-----|------|
+| Kaufmann's Visayan-English Dictionary (KVED) | Largest Hiligaynon lexicon, 23,557 entries, searchable | https://bohol.ph/kved.php |
+| Motus, Hiligaynon Dictionary | Full dictionary, downloadable PDF | Internet Archive / UH ScholarSpace |
+| pinoydictionary (Hiligaynon) | Large queryable online Hiligaynon dictionary | https://hiligaynon.pinoydictionary.com |
+| ASJP Hiligaynon wordlist | Clean machine-readable (JSON/RDF) Swadesh wordlist | https://asjp.clld.org |
+
+**Pronunciation / G2P** — machine-readable, auto-fetchable via
+`scripts/build_lexicon.py` (feeds the TTS router, not translation):
+
+| Resource | Use | Link | License |
+|----------|-----|------|---------|
+| CMU Pronouncing Dictionary (cmudict) | English word→phonemes, ~134k; English G2P + wordlist | https://github.com/cmusphinx/cmudict | MIT-style |
+| WikiPron (tl) | Tagalog word→IPA; Tagalog G2P | https://github.com/CUNY-CL/wikipron | CC0/CC-BY |
+| G2P-ASR (Hiligaynon portion) | Hiligaynon words + gold phonetic transcriptions; best for hil G2P/TTS | https://github.com/AngelAquino/g2p-asr | research use |
+| PanLex / diksiyonaryo.ph (Tagalog) | Broader Tagalog word lists | https://panlex.org · https://diksiyonaryo.ph | varies |
+
+```bash
+python scripts/build_lexicon.py --which all   # -> data/cmudict.txt, wikipron_tl.tsv
+```
+
+> Scrape responsibly: respect each site's terms. KVED / Motus / pinoydictionary
+> are for building `lexicon_hil.tsv` by hand, not bulk redistribution.
+
 ## STT baseline
 
 - **OpenAI Whisper** (`scripts/run_whisper.py`) — no native `hil`; use Tagalog

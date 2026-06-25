@@ -149,6 +149,12 @@ python scripts/translate_hil.py --backend hf \
 - **`hf`** backend: uses a Hiligaynon LLM from `RESOURCES.md`. Real translation,
   needs model download + GPU recommended.
 
+**Grow the dictionary:** add `source_word⇥hiligaynon⇥lang` lines to
+`data/lexicon_hil.tsv` (no code edit; native-speaker checked). Source material —
+Kaufmann KVED, Motus, pinoydictionary, ASJP — listed in `RESOURCES.md`. Open
+pronunciation lexicons (cmudict, WikiPron-tl) auto-fetch via
+`python scripts/build_lexicon.py --which all`.
+
 ## Setup
 
 Core scorer is **dependency-free** (Python 3.8+ stdlib). Optional tooling:

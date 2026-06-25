@@ -24,6 +24,7 @@ Usage:
 """
 
 import argparse
+import os
 import re
 import sys
 
@@ -63,6 +64,32 @@ LEXICON = {
     "kanin": "kan-on", "umaga": "aga", "gabi": "gab-i", "ngayon": "subong",
     "bukas": "buas", "kahapon": "kahapon", "saan": "diin", "ano": "ano",
 }
+
+
+def load_lexicon_file(path):
+    """
+    Merge an external lexicon TSV over the built-in LEXICON.
+    Format per line:  source_word <TAB> hiligaynon <TAB> src_lang(en|tl)
+    Lines starting with '#' are ignored. src_lang is informational only.
+    Built so the team can grow coverage from Kaufmann/Motus/pinoydictionary/ASJP
+    exports (see RESOURCES.md) WITHOUT editing code.
+    """
+    if not path or not os.path.exists(path):
+        return 0
+    added = 0
+    with open(path, encoding="utf-8") as f:
+        for line in f:
+            line = line.rstrip("\n")
+            if not line or line.startswith("#"):
+                continue
+            parts = line.split("\t")
+            if len(parts) < 2:
+                continue
+            src, hil = parts[0].strip().lower(), parts[1].strip()
+            if src:
+                LEXICON[src] = hil
+                added += 1
+    return added
 
 
 def translate_dict(text):
@@ -115,9 +142,15 @@ def main():
     ap.add_argument("--backend", choices=["dict", "hf"], default="dict")
     ap.add_argument("--model", default="welyjesch/lfm25-sft-hiligaynon",
                     help="HF model id for --backend hf (see RESOURCES.md)")
+    ap.add_argument("--lexicon", default="data/lexicon_hil.tsv",
+                    help="external lexicon TSV merged over built-in (dict backend)")
     args = ap.parse_args()
 
     text = " ".join(args.text)
+    if args.backend == "dict":
+        n = load_lexicon_file(args.lexicon)
+        if n:
+            print(f"(loaded {n} entries from {args.lexicon})", file=sys.stderr)
     if args.backend == "hf":
         result = translate_hf(text, args.model)
     else:

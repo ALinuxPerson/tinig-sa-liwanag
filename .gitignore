@@ -25,5 +25,9 @@ out/
 # Cloned external corpora (G2P-ASR, etc.) — keep out of our repo/license
 external/
 
+# Fetched pronunciation lexicons (build_lexicon.py) — our lexicon_hil.tsv stays tracked
+data/cmudict.txt
+data/wikipron_tl.tsv
+
 # Keep folder structure but ignore large media if needed
 # data/audio/*.wav
