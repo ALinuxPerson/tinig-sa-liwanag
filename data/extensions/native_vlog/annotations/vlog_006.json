@@ -1,0 +1,126 @@
+{
+  "clip_id": "vlog_006",
+  "audio_file": "audio/vlog_006.wav",
+  "duration_sec": 5.99,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "Aay, hindi na beach. Pang sariling, ano po lang ni Ginya. Kahit dahom, Ginya. Pero toong dahom, Ginya go.",
+  "speaker": {
+    "id": "vlog_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_vlog",
+  "source_type": "vlog",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Aay,",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "hindi",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "na",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "beach.",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "Pang",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "sariling,",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "ano",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "po",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "lang",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "ni",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "Ginya.",
+      "lang": null
+    },
+    {
+      "idx": 11,
+      "text": "Kahit",
+      "lang": null
+    },
+    {
+      "idx": 12,
+      "text": "dahom,",
+      "lang": null
+    },
+    {
+      "idx": 13,
+      "text": "Ginya.",
+      "lang": null
+    },
+    {
+      "idx": 14,
+      "text": "Pero",
+      "lang": null
+    },
+    {
+      "idx": 15,
+      "text": "toong",
+      "lang": null
+    },
+    {
+      "idx": 16,
+      "text": "dahom,",
+      "lang": null
+    },
+    {
+      "idx": 17,
+      "text": "Ginya",
+      "lang": null
+    },
+    {
+      "idx": 18,
+      "text": "go.",
+      "lang": null
+    }
+  ]
+}

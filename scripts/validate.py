@@ -15,7 +15,7 @@ import json
 import os
 import sys
 
-VALID_LANGS = {"hil", "tl", "en", "other"}
+VALID_LANGS = {"hil", "tl", "en", "other", None}
 VALID_FLUENCY = {"native", "fluent", "non_native"}
 VALID_SOURCE_LANGS = {"en", "fil", "tl", "hil", "mixed"}
 VALID_DIFFICULTY = {"easy", "medium", "hard"}

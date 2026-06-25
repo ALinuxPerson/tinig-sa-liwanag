@@ -1,0 +1,176 @@
+{
+  "clip_id": "vlog_005",
+  "audio_file": "audio/vlog_005.wav",
+  "duration_sec": 8.44,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "Bala anta lang, gidnaan. Dasaan, daka beach vibes man di ako. Ari, tahong tahong, gidya. Graby ka tahong, doka bagay. Gidya sa ako ng estatic. So kakawa niya man.",
+  "speaker": {
+    "id": "vlog_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_vlog",
+  "source_type": "vlog",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Bala",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "anta",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "lang,",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "gidnaan.",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "Dasaan,",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "daka",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "beach",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "vibes",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "man",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "di",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "ako.",
+      "lang": null
+    },
+    {
+      "idx": 11,
+      "text": "Ari,",
+      "lang": null
+    },
+    {
+      "idx": 12,
+      "text": "tahong",
+      "lang": null
+    },
+    {
+      "idx": 13,
+      "text": "tahong,",
+      "lang": null
+    },
+    {
+      "idx": 14,
+      "text": "gidya.",
+      "lang": null
+    },
+    {
+      "idx": 15,
+      "text": "Graby",
+      "lang": null
+    },
+    {
+      "idx": 16,
+      "text": "ka",
+      "lang": null
+    },
+    {
+      "idx": 17,
+      "text": "tahong,",
+      "lang": null
+    },
+    {
+      "idx": 18,
+      "text": "doka",
+      "lang": null
+    },
+    {
+      "idx": 19,
+      "text": "bagay.",
+      "lang": null
+    },
+    {
+      "idx": 20,
+      "text": "Gidya",
+      "lang": null
+    },
+    {
+      "idx": 21,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 22,
+      "text": "ako",
+      "lang": null
+    },
+    {
+      "idx": 23,
+      "text": "ng",
+      "lang": null
+    },
+    {
+      "idx": 24,
+      "text": "estatic.",
+      "lang": null
+    },
+    {
+      "idx": 25,
+      "text": "So",
+      "lang": null
+    },
+    {
+      "idx": 26,
+      "text": "kakawa",
+      "lang": null
+    },
+    {
+      "idx": 27,
+      "text": "niya",
+      "lang": null
+    },
+    {
+      "idx": 28,
+      "text": "man.",
+      "lang": null
+    }
+  ]
+}

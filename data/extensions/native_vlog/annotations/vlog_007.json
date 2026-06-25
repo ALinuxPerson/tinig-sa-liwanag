@@ -1,0 +1,121 @@
+{
+  "clip_id": "vlog_007",
+  "audio_file": "audio/vlog_007.wav",
+  "duration_sec": 6.01,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "Bukawawa, hindi ba lang mga bag nila? Tahoom, ng design. As in, hala, nami-anigoy sa mga bag nila.",
+  "speaker": {
+    "id": "vlog_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_vlog",
+  "source_type": "vlog",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Bukawawa,",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "hindi",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "ba",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "lang",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "mga",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "bag",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "nila?",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "Tahoom,",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "ng",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "design.",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "As",
+      "lang": null
+    },
+    {
+      "idx": 11,
+      "text": "in,",
+      "lang": null
+    },
+    {
+      "idx": 12,
+      "text": "hala,",
+      "lang": null
+    },
+    {
+      "idx": 13,
+      "text": "nami-anigoy",
+      "lang": null
+    },
+    {
+      "idx": 14,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 15,
+      "text": "mga",
+      "lang": null
+    },
+    {
+      "idx": 16,
+      "text": "bag",
+      "lang": null
+    },
+    {
+      "idx": 17,
+      "text": "nila.",
+      "lang": null
+    }
+  ]
+}

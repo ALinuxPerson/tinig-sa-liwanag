@@ -1,0 +1,56 @@
+{
+  "clip_id": "vlog_001",
+  "audio_file": "audio/vlog_001.wav",
+  "duration_sec": 12.0,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "West high ground lounging town",
+  "speaker": {
+    "id": "vlog_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_vlog",
+  "source_type": "vlog",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "West",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "high",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "ground",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "lounging",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "town",
+      "lang": null
+    }
+  ]
+}

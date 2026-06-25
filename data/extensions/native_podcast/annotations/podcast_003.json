@@ -1,0 +1,56 @@
+{
+  "clip_id": "podcast_003",
+  "audio_file": "audio/podcast_003.wav",
+  "duration_sec": 5.5,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "podcast and longer talks yeah",
+  "speaker": {
+    "id": "podcast_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_podcast",
+  "source_type": "podcast",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "podcast",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "and",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "longer",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "talks",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "yeah",
+      "lang": null
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "clip_id": "podcast_004",
+  "audio_file": "audio/podcast_004.wav",
+  "duration_sec": 6.4,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "So... Dapat ula English. So sa sininga video...",
+  "speaker": {
+    "id": "podcast_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_podcast",
+  "source_type": "podcast",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "So...",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "Dapat",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "ula",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "English.",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "So",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "sininga",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "video...",
+      "lang": null
+    }
+  ]
+}

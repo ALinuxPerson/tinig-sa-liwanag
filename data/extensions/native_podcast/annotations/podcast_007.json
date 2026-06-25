@@ -1,0 +1,101 @@
+{
+  "clip_id": "podcast_007",
+  "audio_file": "audio/podcast_007.wav",
+  "duration_sec": 6.51,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "na nang-inspire sa ilong... sa ilong kayo. Ba' din, I-inspire ko sa podcast ng...",
+  "speaker": {
+    "id": "podcast_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_podcast",
+  "source_type": "podcast",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "na",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "nang-inspire",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "ilong...",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "ilong",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "kayo.",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "Ba'",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "din,",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "I-inspire",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "ko",
+      "lang": null
+    },
+    {
+      "idx": 11,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 12,
+      "text": "podcast",
+      "lang": null
+    },
+    {
+      "idx": 13,
+      "text": "ng...",
+      "lang": null
+    }
+  ]
+}

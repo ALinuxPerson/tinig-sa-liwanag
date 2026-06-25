@@ -1,0 +1,76 @@
+{
+  "clip_id": "podcast_006",
+  "audio_file": "audio/podcast_006.wav",
+  "duration_sec": 7.78,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "Kailigay noon. Okay. Kay podcast man inay, Bali... Na-inspire.",
+  "speaker": {
+    "id": "podcast_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_podcast",
+  "source_type": "podcast",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Kailigay",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "noon.",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "Okay.",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "Kay",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "podcast",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "man",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "inay,",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "Bali...",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "Na-inspire.",
+      "lang": null
+    }
+  ]
+}

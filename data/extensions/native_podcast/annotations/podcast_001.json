@@ -1,0 +1,141 @@
+{
+  "clip_id": "podcast_001",
+  "audio_file": "audio/podcast_001.wav",
+  "duration_sec": 6.82,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "Hello mga tuto, mga indahay, welcome sa ako n'y a YouTube channel. So ko nakita n'yong mandara sa aton n'y a YouTube.",
+  "speaker": {
+    "id": "podcast_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_podcast",
+  "source_type": "podcast",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Hello",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "mga",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "tuto,",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "mga",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "indahay,",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "welcome",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "ako",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "n'y",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "a",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "YouTube",
+      "lang": null
+    },
+    {
+      "idx": 11,
+      "text": "channel.",
+      "lang": null
+    },
+    {
+      "idx": 12,
+      "text": "So",
+      "lang": null
+    },
+    {
+      "idx": 13,
+      "text": "ko",
+      "lang": null
+    },
+    {
+      "idx": 14,
+      "text": "nakita",
+      "lang": null
+    },
+    {
+      "idx": 15,
+      "text": "n'yong",
+      "lang": null
+    },
+    {
+      "idx": 16,
+      "text": "mandara",
+      "lang": null
+    },
+    {
+      "idx": 17,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 18,
+      "text": "aton",
+      "lang": null
+    },
+    {
+      "idx": 19,
+      "text": "n'y",
+      "lang": null
+    },
+    {
+      "idx": 20,
+      "text": "a",
+      "lang": null
+    },
+    {
+      "idx": 21,
+      "text": "YouTube.",
+      "lang": null
+    }
+  ]
+}

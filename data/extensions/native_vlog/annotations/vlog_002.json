@@ -1,0 +1,136 @@
+{
+  "clip_id": "vlog_002",
+  "audio_file": "audio/vlog_002.wav",
+  "duration_sec": 12.0,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "Iconatora International Sa God sa God Take out yam mam Anong imoy ang BIGA, BIGA aka biga biga Kung mapailu-ilo kam",
+  "speaker": {
+    "id": "vlog_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_vlog",
+  "source_type": "vlog",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "Iconatora",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "International",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "Sa",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "God",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "God",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "Take",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "out",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "yam",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "mam",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "Anong",
+      "lang": null
+    },
+    {
+      "idx": 11,
+      "text": "imoy",
+      "lang": null
+    },
+    {
+      "idx": 12,
+      "text": "ang",
+      "lang": null
+    },
+    {
+      "idx": 13,
+      "text": "BIGA,",
+      "lang": null
+    },
+    {
+      "idx": 14,
+      "text": "BIGA",
+      "lang": null
+    },
+    {
+      "idx": 15,
+      "text": "aka",
+      "lang": null
+    },
+    {
+      "idx": 16,
+      "text": "biga",
+      "lang": null
+    },
+    {
+      "idx": 17,
+      "text": "biga",
+      "lang": null
+    },
+    {
+      "idx": 18,
+      "text": "Kung",
+      "lang": null
+    },
+    {
+      "idx": 19,
+      "text": "mapailu-ilo",
+      "lang": null
+    },
+    {
+      "idx": 20,
+      "text": "kam",
+      "lang": null
+    }
+  ]
+}

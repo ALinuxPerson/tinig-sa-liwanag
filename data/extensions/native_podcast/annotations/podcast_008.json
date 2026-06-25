@@ -1,0 +1,56 @@
+{
+  "clip_id": "podcast_008",
+  "audio_file": "audio/podcast_008.wav",
+  "duration_sec": 5.11,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "anti-melai ng mga bisaya sila.",
+  "speaker": {
+    "id": "podcast_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_podcast",
+  "source_type": "podcast",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "anti-melai",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "ng",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "mga",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "bisaya",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "sila.",
+      "lang": null
+    }
+  ]
+}

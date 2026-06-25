@@ -1,0 +1,246 @@
+{
+  "clip_id": "vlog_008",
+  "audio_file": "audio/vlog_008.wav",
+  "duration_sec": 12.0,
+  "domain": "everyday",
+  "switch_type": null,
+  "transcript": "kaya may bagu-rock na ko. Wala ko yung mga bag sa muna. Isalang gina yung dudang plain. Usubong kasad yaka dago sa kong pilihan. Desi nluwito, kina yata na niya. Dawa, nukasad yala. So, ama nakatolak mo sa luvito, search nyo luvito nisa.",
+  "speaker": {
+    "id": "vlog_spk",
+    "name": "",
+    "primary_language": "hil",
+    "fluency": "native",
+    "region": "",
+    "age_band": "",
+    "gender": ""
+  },
+  "matrix_language": "hil",
+  "subset": "native_vlog",
+  "source_type": "vlog",
+  "speech_style": "conversational",
+  "gold_status": "seed_unverified",
+  "review_status": "seed_unverified",
+  "lang_tags_status": "seed_unverified",
+  "provenance": {
+    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
+    "license": "see docs/source_ledger.md",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+  },
+  "tokens": [
+    {
+      "idx": 0,
+      "text": "kaya",
+      "lang": null
+    },
+    {
+      "idx": 1,
+      "text": "may",
+      "lang": null
+    },
+    {
+      "idx": 2,
+      "text": "bagu-rock",
+      "lang": null
+    },
+    {
+      "idx": 3,
+      "text": "na",
+      "lang": null
+    },
+    {
+      "idx": 4,
+      "text": "ko.",
+      "lang": null
+    },
+    {
+      "idx": 5,
+      "text": "Wala",
+      "lang": null
+    },
+    {
+      "idx": 6,
+      "text": "ko",
+      "lang": null
+    },
+    {
+      "idx": 7,
+      "text": "yung",
+      "lang": null
+    },
+    {
+      "idx": 8,
+      "text": "mga",
+      "lang": null
+    },
+    {
+      "idx": 9,
+      "text": "bag",
+      "lang": null
+    },
+    {
+      "idx": 10,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 11,
+      "text": "muna.",
+      "lang": null
+    },
+    {
+      "idx": 12,
+      "text": "Isalang",
+      "lang": null
+    },
+    {
+      "idx": 13,
+      "text": "gina",
+      "lang": null
+    },
+    {
+      "idx": 14,
+      "text": "yung",
+      "lang": null
+    },
+    {
+      "idx": 15,
+      "text": "dudang",
+      "lang": null
+    },
+    {
+      "idx": 16,
+      "text": "plain.",
+      "lang": null
+    },
+    {
+      "idx": 17,
+      "text": "Usubong",
+      "lang": null
+    },
+    {
+      "idx": 18,
+      "text": "kasad",
+      "lang": null
+    },
+    {
+      "idx": 19,
+      "text": "yaka",
+      "lang": null
+    },
+    {
+      "idx": 20,
+      "text": "dago",
+      "lang": null
+    },
+    {
+      "idx": 21,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 22,
+      "text": "kong",
+      "lang": null
+    },
+    {
+      "idx": 23,
+      "text": "pilihan.",
+      "lang": null
+    },
+    {
+      "idx": 24,
+      "text": "Desi",
+      "lang": null
+    },
+    {
+      "idx": 25,
+      "text": "nluwito,",
+      "lang": null
+    },
+    {
+      "idx": 26,
+      "text": "kina",
+      "lang": null
+    },
+    {
+      "idx": 27,
+      "text": "yata",
+      "lang": null
+    },
+    {
+      "idx": 28,
+      "text": "na",
+      "lang": null
+    },
+    {
+      "idx": 29,
+      "text": "niya.",
+      "lang": null
+    },
+    {
+      "idx": 30,
+      "text": "Dawa,",
+      "lang": null
+    },
+    {
+      "idx": 31,
+      "text": "nukasad",
+      "lang": null
+    },
+    {
+      "idx": 32,
+      "text": "yala.",
+      "lang": null
+    },
+    {
+      "idx": 33,
+      "text": "So,",
+      "lang": null
+    },
+    {
+      "idx": 34,
+      "text": "ama",
+      "lang": null
+    },
+    {
+      "idx": 35,
+      "text": "nakatolak",
+      "lang": null
+    },
+    {
+      "idx": 36,
+      "text": "mo",
+      "lang": null
+    },
+    {
+      "idx": 37,
+      "text": "sa",
+      "lang": null
+    },
+    {
+      "idx": 38,
+      "text": "luvito,",
+      "lang": null
+    },
+    {
+      "idx": 39,
+      "text": "search",
+      "lang": null
+    },
+    {
+      "idx": 40,
+      "text": "nyo",
+      "lang": null
+    },
+    {
+      "idx": 41,
+      "text": "luvito",
+      "lang": null
+    },
+    {
+      "idx": 42,
+      "text": "nisa.",
+      "lang": null
+    }
+  ]
+}
