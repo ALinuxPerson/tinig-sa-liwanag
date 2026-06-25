@@ -15,14 +15,11 @@ unchanged; merge into the headline only after a multi-speaker decision.
 
 ## Cut quality
 
+All **40** clips are `clip_quality: ok`.
+
 Clap loudness was inconsistent in market/transport/culture, so amplitude
-clap-splitting merged lines and left junk tails. Those three files were re-cut
+clap-splitting first merged lines and left junk tails. Those files were re-cut
 with Whisper word-timestamp alignment to the known script lines, which recovered
-clean boundaries for all but one.
-
-| Clip | Dur | Status |
-|------|-----|--------|
-| `spk2_003` | 9.3s | `needs_manual_cut` — Whisper mistranscribed line 4 ("Indi pagbaklon …"), so its words bucketed into line 3; 003 holds lines 3+4, 004 is truncated |
-| `spk2_004` | 1.5s | `needs_manual_cut` — truncated tail of line 4 |
-
-The other **38** clips are `clip_quality: ok`. Flags are recorded per annotation.
+clean boundaries for all but market lines 3–4 (Whisper mistranscribed line 4, so
+its words bucketed into line 3). The speaker re-recorded lines 3 and 4 as
+standalone clips, which replaced `spk2_003` / `spk2_004`.

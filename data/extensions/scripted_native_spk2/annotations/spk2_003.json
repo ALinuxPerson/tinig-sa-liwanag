@@ -1,7 +1,7 @@
 {
   "clip_id": "spk2_003",
   "audio_file": "audio/spk2_003.wav",
-  "duration_sec": 9.27,
+  "duration_sec": 5.979,
   "domain": "market",
   "switch_type": "HIL+TL+EN",
   "transcript": "Sale daw subong, kaya bibili ako ng marami para sa stock.",
@@ -24,7 +24,7 @@
   "provenance": {
     "source": "Team Hague elicitation Script 3 (Nimeesha De Guzman)",
     "license": "CC BY 4.0 (text); audio recorded by speaker",
-    "note": "Clap-split; transcript from script; per-word lang tags NOT set — native review required."
+    "note": "Re-recorded as standalone clip by speaker; transcript from script; per-word lang tags NOT set — native review required."
   },
   "tokens": [
     {
@@ -83,5 +83,5 @@
       "lang": null
     }
   ],
-  "clip_quality": "needs_manual_cut"
+  "clip_quality": "ok"
 }
