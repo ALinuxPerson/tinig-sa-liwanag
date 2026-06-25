@@ -12,8 +12,8 @@ See `docs/licensing.md` for the repository license structure and
 | Source ID | Title | URL | Rights | Subset | Clips | Notes |
 |-----------|-------|-----|--------|--------|-------|-------|
 | `src_scripted_01` | Team Hague elicitation set | local (`data/audio/`) | CC BY 4.0 (text); audio recorded by the reviewing speaker | `scripted_native` | 40 | Speaker consented; reference text reviewed; per-word tags `seed_unverified` |
-| `src_nonnative_01` | TBD (YouTube podcast) | TBD — fill exact URL | YouTube; rights confirmed by Team Hague | `non_native_eval` | 10 | Non-native speech (`podcast_*`); `not_native_gold`; Whisper-seeded; tags not set; robustness only |
-| `src_nonnative_02` | TBD (YouTube vlog) | TBD — fill exact URL | YouTube; rights confirmed by Team Hague | `non_native_eval` | 10 | Non-native speech (`vlog_*`); `not_native_gold`; exclude music clips (`vlog_001/003/010`) on review; robustness only |
+| `src_nonnative_01` | Ilongga Talks Podcast Episode 1 (saify TeeVee) | https://www.youtube.com/watch?v=EQuaPh4axGg | YouTube; rights confirmed by Team Hague | `non_native_eval` | 10 | Non-native speech (`podcast_*`); `not_native_gold`; Whisper-seeded; tags not set; robustness only |
+| `src_nonnative_02` | ilonggo (hiligaynon) only for a day (Nisa Nuggets) | https://www.youtube.com/watch?v=iMu7p4NvOlg | YouTube; rights confirmed by Team Hague | `non_native_eval` | 10 | Non-native speech (`vlog_*`); `not_native_gold`; exclude music clips (`vlog_001/003/010`) on review; robustness only |
 
 ## Required record per external source
 

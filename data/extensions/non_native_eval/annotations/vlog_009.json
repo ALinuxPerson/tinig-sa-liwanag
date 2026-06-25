@@ -22,9 +22,10 @@
   "review_status": "seed_unverified",
   "lang_tags_status": "seed_unverified",
   "provenance": {
-    "source": "YouTube (rights confirmed by Team Hague — fill exact URL in docs/source_ledger.md)",
-    "license": "see docs/source_ledger.md",
-    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold."
+    "source": "ilonggo (hiligaynon) only for a day (Nisa Nuggets)",
+    "license": "YouTube; rights confirmed by Team Hague",
+    "note": "Whisper-seeded transcript; per-word lang tags NOT set. Native review required before gold.",
+    "source_url": "https://www.youtube.com/watch?v=iMu7p4NvOlg"
   },
   "tokens": [
     {
