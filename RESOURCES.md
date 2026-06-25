@@ -6,10 +6,26 @@ assets stay under their original terms (see `AI_DISCLOSURE.md`).
 
 ## Audio / speech data
 
-| Resource | Use | Link |
-|----------|-----|------|
-| Hiligaynon Speech Audio Sets | Source audio + monolingual baseline material | https://speech-data.ai/datasets/hiligaynon/ |
-| Hiligaynon Text Samples (hilisenti-v1) | Sentence/text mining for code-switch prompts | https://huggingface.co/datasets/jjjardev/hilisenti-v1 |
+| Resource | Use | Link | Access |
+|----------|-----|------|--------|
+| **G2P-ASR** (AngelAquino) — **start here** | Real Hiligaynon audio + transcripts + pronunciation/phone data. Clone & ingest directly. | https://github.com/AngelAquino/g2p-asr | Public GitHub. **No license file** — research use; credit the authors (Aquino et al., ISMAC 2019). |
+| **Philippine Languages Database (PLD)** | Richest Hiligaynon source; 454+ hrs across PH languages. | https://aclanthology.org/2024.sigul-1.32.pdf | Request access; CC for research. |
+| **Bloom Library** "Talking Books" | Clean read-aloud Hiligaynon audio + aligned text; monolingual samples. | https://bloomlibrary.org | Free, openly licensed; check per-title license. |
+| Hiligaynon Speech Audio Sets | Source audio + monolingual baseline material | https://speech-data.ai/datasets/hiligaynon/ | Check terms |
+| Hiligaynon Text Samples (hilisenti-v1) | Sentence/text mining for code-switch prompts | https://huggingface.co/datasets/jjjardev/hilisenti-v1 | HF, check license |
+
+### How to pull G2P-ASR
+
+```bash
+bash scripts/fetch_g2p_asr.sh            # clones into external/g2p-asr
+python scripts/ingest.py external/g2p-asr/data --prefix hil --limit 40
+# -> writes data/audio/*.wav + STUB data/annotations/*.json (all hil)
+# then HUMANS fix code-switch tags per SCHEMA.md
+```
+
+> **Licensing note:** these are third-party corpora. Ingested audio stays under
+> its source license — do NOT relicense it CC BY 4.0. Only our own recordings
+> are CC BY 4.0. Keep provenance in each clip's annotation if redistributing.
 
 ## TTS models (for the TTS PoC — `scripts/tts_route.py`)
 
