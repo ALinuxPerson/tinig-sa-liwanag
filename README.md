@@ -59,10 +59,11 @@ The primary task for v1 is:
 English / Filipino / code-switched text -> Hiligaynon text
 ```
 
-Live demo:
+Live demos:
 
 ```text
-https://tinig-sa-liwanag.vercel.app
+https://tinig-sa-liwanag.vercel.app   # translation benchmark demo
+https://tinig-one.vercel.app          # Tinig — AI assistant using Tinig sa Liwanag's resources
 ```
 
 ## Features
