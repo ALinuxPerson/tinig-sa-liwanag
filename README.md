@@ -1,3 +1,15 @@
+# Team Hague
+
+**ACM TechSprint Asteria Submission**  
+**Event dates:** June 25-27, 2026
+
+## Members
+
+- **Legaspi, Jazztinn Kyle**
+- **De Guzman, Nimeesha Baterna**
+- **Bumpus, Michael**
+- **Arwin Jeremy**
+
 # Tinig sa Liwanag
 
 **A context-aware Hiligaynon text translation benchmark, baseline, and demo
@@ -30,10 +42,23 @@ The primary task for v1 is:
 English / Filipino / code-switched text -> Hiligaynon text
 ```
 
+Live demo:
+
+```text
+https://tinig-sa-liwanag.vercel.app
+```
+
 ## Why this matters
 
+Despite the Philippines being home to more than 130 languages, most regional
+languages remain underrepresented in open speech and language technology. While
+Tagalog speech recognition has seen significant progress, many languages such
+as Cebuano, Ilocano, Hiligaynon, and Waray still lack the open datasets,
+benchmarks, and models needed to develop inclusive AI systems. This gap limits
+the accessibility of voice-driven technologies for millions of Filipinos.
+
 Hiligaynon is spoken by millions of Filipinos, but open translation and speech
-resources remain limited. A speech model is only useful if the language layer
+resources remain limited. A speech system is only useful if the language layer
 understands meaning, context, and local usage. This project therefore starts
 with text translation before audio:
 
@@ -41,6 +66,76 @@ with text translation before audio:
 - A benchmark makes failures visible and reproducible.
 - Human-reviewed Hiligaynon references become reusable data.
 - The same examples can later seed STT/TTS and speech-to-speech evaluation.
+
+## Project case
+
+The challenge is to contribute a reusable, open-source artifact that advances
+speech technology for Philippine languages or code-switched speech. Teams are
+expected to build foundational infrastructure such as speech datasets,
+evaluation benchmarks, fine-tuned models, or reproducible data pipelines that
+future developers and researchers can extend.
+
+The focus is not simply to build an application. The focus is to create open
+resources that help bring every Filipino voice into the light.
+
+Our interpretation of the project case:
+
+- Start with Hiligaynon because it is underrepresented compared with Tagalog.
+- Build a benchmark and reproducible pipeline before claiming a production model.
+- Use text translation as the foundation for later speech workflows.
+- Make limitations explicit: current seed translations still need
+  native-speaker review.
+
+## What we developed
+
+During the hackathon, we narrowed the original STT/TTS idea into a realistic
+MVP: a context-aware Hiligaynon translation benchmark scaffold and demo.
+
+We developed:
+
+- a 30-row seed benchmark for English, Filipino, and code-switched input into
+  Hiligaynon
+- a Hugging Face-style dataset card for the labeled ASR test set
+- a JSONL schema for source text, context notes, reference translation,
+  phenomena labels, difficulty, and review status
+- a baseline prediction generator
+- an automatic evaluator with coverage, exact match, token F1, chrF, and
+  per-domain summaries
+- a one-command ASR baseline evaluator for Whisper/MMS-format predictions
+- transcription guidelines and clear dataset/code licensing notes
+- a Next.js/Vercel demo with phrase matching and dictionary fallback
+- a Tagalog-to-Hiligaynon phrase layer for common demo cases
+- a script for building a larger noisy Tagalog -> Hiligaynon bridge lexicon from
+  Kaikki/Wiktionary dictionaries
+- documentation for future native-speaker review, neural baselines, and STT/TTS
+  extension
+
+This is not yet a gold translation dataset or a production translation model.
+It is the scaffold that makes that next step reproducible.
+
+## MVP
+
+The MVP is:
+
+> A reproducible context-aware Hiligaynon translation benchmark scaffold with a
+> baseline web demo.
+
+The MVP demonstrates:
+
+- how benchmark examples are represented
+- how baseline predictions are generated
+- how translation outputs are evaluated
+- where dictionary and phrase-based translation fail
+- how future Hiligaynon reviewers can validate or correct the seed data
+
+For demo quality, the deployed app uses three layers:
+
+1. exact seed benchmark prompt matches
+2. curated phrase matches for common English and Tagalog demo cases
+3. expanded dictionary fallback for remaining text
+
+The phrase and dictionary layers improve presentation, but the research artifact
+remains the benchmark/evaluation pipeline.
 
 ## Repository structure
 
@@ -50,9 +145,19 @@ tinig-sa-liwanag/
 ├── SCHEMA.md
 ├── RESOURCES.md
 ├── AI_DISCLOSURE.md
+├── hf_dataset/
+│   └── README.md                    # Hugging Face dataset card
+├── package.json                     # Next.js/Vercel app
+├── pages/
+│   ├── index.js                     # hosted demo UI
+│   └── api/translate.js             # serverless translation baseline API
+├── styles/
+│   └── globals.css
 ├── score.py                         # legacy ASR switch-point scorer
 ├── scripts/
 │   ├── evaluate_translation.py       # primary v1 evaluator
+│   ├── generate_baseline_predictions.py
+│   ├── build_tl_hil_lexicon.py       # Kaikki/Wiktionary bridge lexicon builder
 │   ├── translate_hil.py              # dictionary or HF translation backend
 │   ├── validate.py                   # validates translation benchmark or ASR files
 │   └── ...                           # future speech/G2P utilities
@@ -65,8 +170,14 @@ tinig-sa-liwanag/
 │   └── lexicon_hil.tsv               # curated dictionary entries
 ├── app/
 │   ├── server.py
-│   └── index.html
+│   └── index.html                    # legacy local Python demo
+├── docs/
+│   ├── evaluation_report.md
+│   ├── licensing.md
+│   ├── submission_narrative.md
+│   └── transcription_guidelines.md
 └── results/
+    ├── asr_baselines.md
     └── baseline.md
 ```
 
@@ -91,6 +202,24 @@ python3 app/server.py
 ```
 
 Then open `http://localhost:8000`.
+
+## ASR dataset package
+
+The speech-test-set deliverables are:
+
+- Hugging Face dataset card: `hf_dataset/README.md`
+- labeled test-set schema: `SCHEMA.md`
+- transcription rules: `docs/transcription_guidelines.md`
+- licensing details: `docs/licensing.md` and `LICENSE`
+- one-command Whisper/MMS WER reproduction:
+
+```bash
+python3 scripts/eval_asr_baselines.py
+```
+
+The included ASR predictions are worked examples. Replace
+`data/predictions/asr/<model>/*.json` with full Whisper/MMS outputs before
+claiming final model-level WER.
 
 ## Next.js / Vercel app
 
@@ -121,11 +250,45 @@ Next.js app from `pages/`.
 
 ### Tagalog coverage
 
-The hosted demo uses three layers:
+The local and hosted demos use layered fallback:
 
 1. exact seed benchmark prompt matches
-2. curated Tagalog phrase matches for common hackathon demo cases
-3. expanded Tagalog/Hiligaynon dictionary fallback
+2. curated phrase matches for common English and Tagalog demo cases
+3. local Ollama context-aware translation, when available
+4. expanded Tagalog/Hiligaynon dictionary fallback
+
+### Local Ollama context backend
+
+The Next.js API route tries Ollama first when running locally. This is the
+context-aware path intended to avoid plain word-by-word translation.
+
+Install or start Ollama, then pull a model:
+
+```bash
+ollama serve
+ollama pull aya:8b
+```
+
+In another terminal:
+
+```bash
+OLLAMA_MODEL=aya:8b npm run dev
+```
+
+Then open:
+
+```text
+http://localhost:3000
+```
+
+The API uses this backend order:
+
+```text
+seed reference -> curated phrase -> Ollama context LLM -> dictionary fallback
+```
+
+Vercel cannot access a local Ollama daemon on your laptop, so the deployed site
+uses the fallback layers unless it is connected to a hosted LLM endpoint later.
 
 For future larger coverage, use:
 
@@ -259,12 +422,31 @@ phase after the translation benchmark is credible.
 
 See `docs/submission_narrative.md` for a concise project narrative.
 
+## AI disclosure
+
+Members of **Team Hague** used AI tools during ACM TechSprint Asteria,
+including **ChatGPT**, **Codex**, and **Claude**.
+
+These tools assisted with:
+
+- project scoping and narrowing the MVP from STT/TTS to a translation-first
+  benchmark scaffold
+- drafting and revising documentation
+- generating and editing code for the demo app, evaluation scripts, and helper
+  scripts
+- improving README structure and submission narrative
+- debugging local and Vercel deployment issues
+- suggesting benchmark categories, schema fields, and evaluation workflow
+
+All project claims, code, dataset entries, and Hiligaynon/Tagalog language
+content remain the responsibility of Team Hague. Hiligaynon translations and ASR
+labels must be reviewed by qualified human speakers before being treated as
+gold data.
+
+AI-generated content was not treated as authoritative linguistic ground truth.
+The current seed translations, phrase examples, and ASR labels are marked as
+requiring future human review where appropriate.
+
 ## License
 
 Data under **CC BY 4.0**, code under **MIT**. See `LICENSE`.
-
-## AI usage
-
-AI assistants helped scaffold and revise this project. Hiligaynon reference
-translations and gold labels must be reviewed by humans before release. See
-`AI_DISCLOSURE.md`.
