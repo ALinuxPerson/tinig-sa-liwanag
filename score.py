@@ -20,6 +20,7 @@ Usage:
 import argparse
 import json
 import os
+import random
 import re
 import sys
 
@@ -207,10 +208,50 @@ def score_clip(ref, langs, hyp, pair_buckets):
     return overall, switch, mono
 
 
+# ---------------------------------------------------------------------------
+# Bootstrap confidence intervals (clip-level resampling)
+# ---------------------------------------------------------------------------
+
+def bootstrap_ci(per_clip, key, resamples=2000, seed=1234, alpha=0.05):
+    """
+    Clip-level bootstrap 95% CI for a WER bucket.
+
+    per_clip: list of dicts with (errors, words) per bucket key.
+    key: bucket name, e.g. "overall" / "switch" / "mono".
+    Resamples whole clips with replacement so the interval reflects
+    between-clip variance, which is what matters for a small test set.
+    Returns (low, high) as fractions, or None if the bucket has no words.
+    """
+    items = [(c[key][0], c[key][1]) for c in per_clip]
+    if sum(w for _, w in items) == 0:
+        return None
+    rng = random.Random(seed)
+    n = len(items)
+    wers = []
+    for _ in range(resamples):
+        e = w = 0
+        for _ in range(n):
+            de, dw = items[rng.randrange(n)]
+            e += de
+            w += dw
+        if w:
+            wers.append(e / w)
+    if not wers:
+        return None
+    wers.sort()
+    lo = wers[int((alpha / 2) * len(wers))]
+    hi = wers[min(len(wers) - 1, int((1 - alpha / 2) * len(wers)))]
+    return lo, hi
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--ref", required=True, help="annotation file or directory")
     ap.add_argument("--hyp", required=True, help="prediction file or directory")
+    ap.add_argument("--ci", action="store_true",
+                    help="report 95%% bootstrap confidence intervals")
+    ap.add_argument("--resamples", type=int, default=2000,
+                    help="bootstrap resamples for --ci (default 2000)")
     args = ap.parse_args()
 
     pairs = []
@@ -228,6 +269,7 @@ def main():
 
     tot_o, tot_s, tot_m = Counts(), Counts(), Counts()
     pair_buckets = {}
+    per_clip = []
     print(f"{'clip':<16}{'overall':>10}{'switch':>10}{'mono':>10}")
     print("-" * 46)
     for ref_path, hyp_path in pairs:
@@ -237,6 +279,11 @@ def main():
         for agg, one in ((tot_o, o), (tot_s, s), (tot_m, m)):
             agg.errors += one.errors
             agg.words += one.words
+        per_clip.append({
+            "overall": (o.errors, o.words),
+            "switch": (s.errors, s.words),
+            "mono": (m.errors, m.words),
+        })
         cid = os.path.splitext(os.path.basename(ref_path))[0]
         print(f"{cid:<16}{o.wer():>9.1%}{s.wer():>10.1%}{m.wer():>10.1%}")
 
@@ -249,6 +296,16 @@ def main():
     if tot_m.words:
         gap = tot_s.wer() - tot_m.wer()
         print(f"Switch penalty    : {gap:+.1%} (switch WER minus monolingual WER)")
+
+    if args.ci:
+        print()
+        print(f"95% bootstrap CIs ({args.resamples} clip-level resamples):")
+        for label, key in (("Overall", "overall"),
+                           ("Switch-region", "switch"),
+                           ("Monolingual", "mono")):
+            ci = bootstrap_ci(per_clip, key, resamples=args.resamples)
+            if ci:
+                print(f"  {label:<14}: [{ci[0]:.1%}, {ci[1]:.1%}]")
 
     # Per-pair switch-region WER breakdown.
     if pair_buckets:

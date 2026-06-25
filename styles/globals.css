@@ -1,13 +1,26 @@
+@font-face {
+  font-family: "Borel";
+  src: url("/fonts/Borel-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
-  --bg: #f6f7f9;
-  --surface: #ffffff;
-  --text: #202124;
-  --muted: #5f6368;
-  --line: #d7dce2;
-  --accent: #1769e0;
-  --accent-strong: #0d4fb1;
-  --warning-bg: #fff7df;
-  --warning-line: #e4c765;
+  --bg: #fff7ed;
+  --bg-2: #ffedd5;
+  --surface: rgba(255, 255, 255, 0.55);
+  --surface-solid: #ffffff;
+  --text: #1a1a1a;
+  --muted: #6b5e54;
+  --line: rgba(124, 92, 60, 0.18);
+  --accent: #f97316;
+  --accent-strong: #ea580c;
+  --ok: #16a34a;
+  --ok-bg: #f0fdf4;
+  --err: #dc2626;
+  --err-bg: #fef2f2;
+  --switch: #f59e0b;
 }
 
 * {
@@ -18,230 +31,69 @@ html,
 body {
   margin: 0;
   min-height: 100%;
-  background: var(--bg);
   color: var(--text);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  font-family: system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  font-size: 15px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  background:
+    radial-gradient(1100px 600px at 85% -10%, var(--bg-2), transparent 60%),
+    radial-gradient(900px 500px at -10% 10%, #fde68a55, transparent 55%),
+    var(--bg);
+  background-attachment: fixed;
 }
 
 button,
+input,
+select,
 textarea {
   font: inherit;
 }
 
-.shell {
-  width: min(1120px, calc(100% - 32px));
-  margin: 0 auto;
-  padding: 28px 0 40px;
-}
-
-.hero {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 360px;
-  gap: 28px;
-  align-items: end;
-  margin-bottom: 18px;
-}
-
-.eyebrow {
-  margin: 0 0 10px;
-  color: var(--accent-strong);
-  font-size: 13px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0;
-}
-
-h1 {
-  margin: 0;
-  font-size: 42px;
-  line-height: 1.05;
-  letter-spacing: 0;
-}
-
-.lede {
-  max-width: 760px;
-  margin: 14px 0 0;
-  color: var(--muted);
-  font-size: 17px;
-  line-height: 1.55;
-}
-
-.statusPanel {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 10px;
-}
-
-.statusPanel div {
-  min-height: 82px;
+/* ---- glass primitives (transplanted from treeparse) ---- */
+.glass {
   background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 14px;
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 4px 24px rgba(124, 70, 20, 0.1);
+  border-radius: 16px;
 }
 
-.statusPanel span {
-  display: block;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.statusPanel strong {
-  display: block;
-  margin-top: 8px;
-  font-size: 24px;
-}
-
-.notice {
-  margin: 0 0 18px;
-  padding: 12px 14px;
-  background: var(--warning-bg);
-  border: 1px solid var(--warning-line);
-  border-radius: 8px;
-  color: #4d3b00;
-  line-height: 1.45;
-}
-
-.translator {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-}
-
-.pane {
-  min-height: 280px;
-  display: flex;
-  flex-direction: column;
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  padding: 16px;
-}
-
-.pane label {
-  margin-bottom: 10px;
-  color: var(--muted);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-textarea {
-  flex: 1;
-  min-height: 210px;
-  border: 0;
-  outline: 0;
-  resize: vertical;
+.glassBtn {
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px) saturate(160%);
+  -webkit-backdrop-filter: blur(10px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.65);
   color: var(--text);
-  background: transparent;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-.output {
-  flex: 1;
-  color: var(--text);
-  white-space: pre-wrap;
-  font-size: 18px;
-  line-height: 1.5;
-}
-
-.resultMeta {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-.resultMeta span {
-  display: inline-block;
-  color: var(--accent-strong);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-.resultMeta p {
-  margin: 6px 0 0;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.4;
-}
-
-.actions {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 16px;
-}
-
-.actions button {
-  min-width: 128px;
-  min-height: 44px;
-  border: 0;
-  border-radius: 8px;
-  color: #ffffff;
-  background: var(--accent);
-  font-weight: 700;
+  font-weight: 600;
+  border-radius: 999px;
+  padding: 7px 15px;
+  font-size: 0.82rem;
   cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.08s;
+  box-shadow: 0 2px 10px rgba(124, 70, 20, 0.07);
+}
+.glassBtn:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+.glassBtn:active {
+  transform: scale(0.97);
+}
+.glassBtn.active {
+  background: rgba(249, 115, 22, 0.92);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
-.actions button:hover:not(:disabled) {
-  background: var(--accent-strong);
-}
-
-.actions button:disabled {
-  opacity: 0.55;
-  cursor: default;
-}
-
-.actions span {
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.samples {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 18px;
-}
-
-.samples button {
-  min-height: 104px;
-  padding: 12px;
-  text-align: left;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  cursor: pointer;
-  line-height: 1.4;
-}
-
-.samples button:hover {
-  border-color: var(--accent);
-}
-
-.samples span {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--accent-strong);
-  font-size: 12px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
-
-@media (max-width: 860px) {
-  .hero,
-  .translator,
-  .samples {
-    grid-template-columns: 1fr;
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(255, 255, 255, 0.92);
   }
-
-  h1 {
-    font-size: 34px;
+  .glassBtn {
+    background: rgba(255, 255, 255, 0.92);
+  }
+  .glassBtn.active {
+    background: rgba(249, 115, 22, 0.95);
   }
 }

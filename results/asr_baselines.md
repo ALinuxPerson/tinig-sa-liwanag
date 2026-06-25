@@ -33,21 +33,20 @@ beats auto-detect across every metric, so it is the headline baseline.
 
 ### Extension subsets
 
-Not yet populated. Report separately when added; never count `non_native_eval`
-as native gold.
+Report separately; never count `non_native_eval` as native gold.
 
 | Subset | Model | Clips | Overall WER | Switch-region WER | Monolingual WER | Switch penalty |
 |--------|-------|-------|-------------|-------------------|-----------------|----------------|
-| `native_podcast` | TBD | TBD | TBD | TBD | TBD | TBD |
-| `native_vlog` | TBD | TBD | TBD | TBD | TBD | TBD |
-| `non_native_eval` | TBD | TBD | TBD | TBD | TBD | TBD |
+| `scripted_native_spk2` | `whisper-small-tl` | 40 | 34.4% | 28.6% | 38.8% | -10.2% |
+| `non_native_eval` | not scored | 20 planned | TBD | TBD | TBD | TBD |
 
 ## Important limitation
 
-These are baseline numbers over the current 40-clip reviewed-text scaffold.
-Per-word language tags remain `seed_unverified`, so these are not final
-model-quality claims. Re-run after every audio, transcript, or language-tag
-change:
+These are baseline numbers over reviewed headline tags and bundled prediction
+files. `scripted_native_spk2` is a second-speaker extension, not part of the
+frozen headline score. `non_native_eval` is planned-only until consented audio,
+reviewed transcripts, and reviewed token-language tags exist. Re-run after every
+audio, transcript, or language-tag change:
 
 ```bash
 python3 scripts/run_whisper.py --model small --language tl

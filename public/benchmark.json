@@ -1,5 +1,6 @@
 {
   "model": "whisper-small-tl",
+  "version": "1.0.0",
   "headline": {
     "overall": 59.5,
     "switch": 35.8,
@@ -11,6 +12,28 @@
       "tl_en": 6.2
     }
   },
+  "cohorts": [
+    {
+      "name": "headline",
+      "role": "test",
+      "speaker": "spk01",
+      "overall": 59.5,
+      "switch": 35.8,
+      "mono": 66.3,
+      "penalty": -30.6,
+      "n": 40
+    },
+    {
+      "name": "scripted_native_spk2",
+      "role": "development",
+      "speaker": "spk02",
+      "overall": 34.4,
+      "switch": 28.6,
+      "mono": 38.8,
+      "penalty": -10.2,
+      "n": 40
+    }
+  ],
   "clips": [
     {
       "clip_id": "hil_cs_001",

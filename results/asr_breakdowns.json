@@ -1,0 +1,431 @@
+{
+  "headline": {
+    "clip_count": 40,
+    "overall": {
+      "wer": 0.5951742627345844,
+      "errors": 222,
+      "words": 373
+    },
+    "switch_region": {
+      "wer": 0.3575757575757576,
+      "errors": 59,
+      "words": 165
+    },
+    "monolingual": {
+      "wer": 0.6634615384615384,
+      "errors": 138,
+      "words": 208
+    },
+    "switch_penalty": -0.30588578088578083,
+    "language_pairs": {
+      "hil<->en": {
+        "wer": 0.4,
+        "errors": 48,
+        "words": 120
+      },
+      "hil<->tl": {
+        "wer": 0.24444444444444444,
+        "errors": 11,
+        "words": 45
+      },
+      "tl<->en": {
+        "wer": 0.0625,
+        "errors": 1,
+        "words": 16
+      }
+    },
+    "by_speaker": {
+      "spk01": {
+        "wer": 0.5951742627345844,
+        "errors": 222,
+        "words": 373,
+        "clips": 40
+      }
+    },
+    "by_domain": {
+      "oral_tradition": {
+        "wer": 0.6,
+        "errors": 33,
+        "words": 55,
+        "clips": 5
+      },
+      "transport": {
+        "wer": 0.5510204081632653,
+        "errors": 27,
+        "words": 49,
+        "clips": 5
+      },
+      "family": {
+        "wer": 0.6170212765957447,
+        "errors": 29,
+        "words": 47,
+        "clips": 5
+      },
+      "market": {
+        "wer": 0.574468085106383,
+        "errors": 27,
+        "words": 47,
+        "clips": 5
+      },
+      "everyday": {
+        "wer": 0.4444444444444444,
+        "errors": 20,
+        "words": 45,
+        "clips": 5
+      },
+      "school_work": {
+        "wer": 0.6444444444444445,
+        "errors": 29,
+        "words": 45,
+        "clips": 5
+      },
+      "culture": {
+        "wer": 0.6744186046511628,
+        "errors": 29,
+        "words": 43,
+        "clips": 5
+      },
+      "health": {
+        "wer": 0.6666666666666666,
+        "errors": 28,
+        "words": 42,
+        "clips": 5
+      }
+    },
+    "by_switch_type": {
+      "HIL+EN": {
+        "wer": 0.5987261146496815,
+        "errors": 94,
+        "words": 157,
+        "clips": 17
+      },
+      "HIL": {
+        "wer": 0.75,
+        "errors": 75,
+        "words": 100,
+        "clips": 11
+      },
+      "HIL+TL": {
+        "wer": 0.6190476190476191,
+        "errors": 39,
+        "words": 63,
+        "clips": 7
+      },
+      "HIL+TL+EN": {
+        "wer": 0.2641509433962264,
+        "errors": 14,
+        "words": 53,
+        "clips": 5
+      }
+    },
+    "by_token_language": {
+      "hil": {
+        "wer": 0.5827814569536424,
+        "errors": 176,
+        "words": 302,
+        "clips": 40
+      },
+      "en": {
+        "wer": 0.2916666666666667,
+        "errors": 14,
+        "words": 48,
+        "clips": 22
+      },
+      "tl": {
+        "wer": 0.30434782608695654,
+        "errors": 7,
+        "words": 23,
+        "clips": 12
+      }
+    },
+    "unattributed_token_language_insertions": 25
+  },
+  "spk2": {
+    "clip_count": 40,
+    "overall": {
+      "wer": 0.34444444444444444,
+      "errors": 124,
+      "words": 360
+    },
+    "switch_region": {
+      "wer": 0.2857142857142857,
+      "errors": 52,
+      "words": 182
+    },
+    "monolingual": {
+      "wer": 0.38764044943820225,
+      "errors": 69,
+      "words": 178
+    },
+    "switch_penalty": -0.10192616372391655,
+    "language_pairs": {
+      "hil<->en": {
+        "wer": 0.2621359223300971,
+        "errors": 27,
+        "words": 103
+      },
+      "hil<->tl": {
+        "wer": 0.3275862068965517,
+        "errors": 19,
+        "words": 58
+      },
+      "tl<->en": {
+        "wer": 0.3157894736842105,
+        "errors": 12,
+        "words": 38
+      }
+    },
+    "by_speaker": {
+      "spk02": {
+        "wer": 0.34444444444444444,
+        "errors": 124,
+        "words": 360,
+        "clips": 40
+      }
+    },
+    "by_domain": {
+      "everyday": {
+        "wer": 0.3191489361702128,
+        "errors": 15,
+        "words": 47,
+        "clips": 5
+      },
+      "oral_tradition": {
+        "wer": 0.3191489361702128,
+        "errors": 15,
+        "words": 47,
+        "clips": 5
+      },
+      "school_work": {
+        "wer": 0.2127659574468085,
+        "errors": 10,
+        "words": 47,
+        "clips": 5
+      },
+      "market": {
+        "wer": 0.5,
+        "errors": 23,
+        "words": 46,
+        "clips": 5
+      },
+      "transport": {
+        "wer": 0.2608695652173913,
+        "errors": 12,
+        "words": 46,
+        "clips": 5
+      },
+      "health": {
+        "wer": 0.45454545454545453,
+        "errors": 20,
+        "words": 44,
+        "clips": 5
+      },
+      "culture": {
+        "wer": 0.3333333333333333,
+        "errors": 14,
+        "words": 42,
+        "clips": 5
+      },
+      "family": {
+        "wer": 0.36585365853658536,
+        "errors": 15,
+        "words": 41,
+        "clips": 5
+      }
+    },
+    "by_switch_type": {
+      "HIL+EN": {
+        "wer": 0.2932330827067669,
+        "errors": 39,
+        "words": 133,
+        "clips": 15
+      },
+      "HIL": {
+        "wer": 0.5,
+        "errors": 44,
+        "words": 88,
+        "clips": 10
+      },
+      "HIL+TL+EN": {
+        "wer": 0.3055555555555556,
+        "errors": 22,
+        "words": 72,
+        "clips": 7
+      },
+      "HIL+TL": {
+        "wer": 0.2835820895522388,
+        "errors": 19,
+        "words": 67,
+        "clips": 8
+      }
+    },
+    "by_token_language": {
+      "hil": {
+        "wer": 0.37264150943396224,
+        "errors": 79,
+        "words": 212,
+        "clips": 40
+      },
+      "tl": {
+        "wer": 0.2653061224489796,
+        "errors": 26,
+        "words": 98,
+        "clips": 15
+      },
+      "en": {
+        "wer": 0.32,
+        "errors": 16,
+        "words": 50,
+        "clips": 22
+      }
+    },
+    "unattributed_token_language_insertions": 3
+  },
+  "combined": {
+    "clip_count": 80,
+    "overall": {
+      "wer": 0.47203274215552526,
+      "errors": 346,
+      "words": 733
+    },
+    "switch_region": {
+      "wer": 0.31988472622478387,
+      "errors": 111,
+      "words": 347
+    },
+    "monolingual": {
+      "wer": 0.5362694300518135,
+      "errors": 207,
+      "words": 386
+    },
+    "switch_penalty": -0.21638470382702962,
+    "language_pairs": {
+      "hil<->en": {
+        "wer": 0.336322869955157,
+        "errors": 75,
+        "words": 223
+      },
+      "hil<->tl": {
+        "wer": 0.2912621359223301,
+        "errors": 30,
+        "words": 103
+      },
+      "tl<->en": {
+        "wer": 0.24074074074074073,
+        "errors": 13,
+        "words": 54
+      }
+    },
+    "by_speaker": {
+      "spk01": {
+        "wer": 0.5951742627345844,
+        "errors": 222,
+        "words": 373,
+        "clips": 40
+      },
+      "spk02": {
+        "wer": 0.34444444444444444,
+        "errors": 124,
+        "words": 360,
+        "clips": 40
+      }
+    },
+    "by_domain": {
+      "oral_tradition": {
+        "wer": 0.47058823529411764,
+        "errors": 48,
+        "words": 102,
+        "clips": 10
+      },
+      "transport": {
+        "wer": 0.4105263157894737,
+        "errors": 39,
+        "words": 95,
+        "clips": 10
+      },
+      "market": {
+        "wer": 0.5376344086021505,
+        "errors": 50,
+        "words": 93,
+        "clips": 10
+      },
+      "everyday": {
+        "wer": 0.3804347826086957,
+        "errors": 35,
+        "words": 92,
+        "clips": 10
+      },
+      "school_work": {
+        "wer": 0.42391304347826086,
+        "errors": 39,
+        "words": 92,
+        "clips": 10
+      },
+      "family": {
+        "wer": 0.5,
+        "errors": 44,
+        "words": 88,
+        "clips": 10
+      },
+      "health": {
+        "wer": 0.5581395348837209,
+        "errors": 48,
+        "words": 86,
+        "clips": 10
+      },
+      "culture": {
+        "wer": 0.5058823529411764,
+        "errors": 43,
+        "words": 85,
+        "clips": 10
+      }
+    },
+    "by_switch_type": {
+      "HIL+EN": {
+        "wer": 0.4586206896551724,
+        "errors": 133,
+        "words": 290,
+        "clips": 32
+      },
+      "HIL": {
+        "wer": 0.6329787234042553,
+        "errors": 119,
+        "words": 188,
+        "clips": 21
+      },
+      "HIL+TL": {
+        "wer": 0.4461538461538462,
+        "errors": 58,
+        "words": 130,
+        "clips": 15
+      },
+      "HIL+TL+EN": {
+        "wer": 0.288,
+        "errors": 36,
+        "words": 125,
+        "clips": 12
+      }
+    },
+    "by_token_language": {
+      "hil": {
+        "wer": 0.4961089494163424,
+        "errors": 255,
+        "words": 514,
+        "clips": 80
+      },
+      "tl": {
+        "wer": 0.2727272727272727,
+        "errors": 33,
+        "words": 121,
+        "clips": 27
+      },
+      "en": {
+        "wer": 0.30612244897959184,
+        "errors": 30,
+        "words": 98,
+        "clips": 44
+      }
+    },
+    "unattributed_token_language_insertions": 28
+  }
+}

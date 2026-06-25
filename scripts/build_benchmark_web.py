@@ -92,6 +92,43 @@ def clip_record(ref_path, hyp_path):
     }
 
 
+def cohort_summary(ann_dir, hyp_dir):
+    """Aggregate overall/switch/mono WER for a cohort by reusing score.py."""
+    tot_o = tot_s = tot_m = 0
+    err_o = err_s = err_m = 0
+    n = 0
+    pair_buckets = {}
+    if not os.path.isdir(ann_dir):
+        return None
+    for fn in sorted(os.listdir(ann_dir)):
+        if not fn.endswith(".json"):
+            continue
+        hp = os.path.join(hyp_dir, fn)
+        if not os.path.exists(hp):
+            continue
+        ref, langs = score.load_reference(os.path.join(ann_dir, fn))
+        hyp = score.load_hypothesis(hp)
+        o, s, m = score.score_clip(ref, langs, hyp, pair_buckets)
+        tot_o += o.words; err_o += o.errors
+        tot_s += s.words; err_s += s.errors
+        tot_m += m.words; err_m += m.errors
+        n += 1
+
+    def wer(e, w):
+        return round(100 * e / w, 1) if w else 0.0
+
+    if n == 0:
+        return None
+    overall, switch, mono = wer(err_o, tot_o), wer(err_s, tot_s), wer(err_m, tot_m)
+    return {
+        "overall": overall,
+        "switch": switch,
+        "mono": mono,
+        "penalty": round(switch - mono, 1),
+        "n": n,
+    }
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--annotations", default=ANNOTATION_DIR)
@@ -115,8 +152,29 @@ def main():
             shutil.copy2(src, os.path.join(PUBLIC_CLIPS, f"{rec['clip_id']}.wav"))
 
     n = len(clips)
+    spk2 = cohort_summary(
+        "data/extensions/scripted_native_spk2/annotations",
+        "data/extensions/scripted_native_spk2/predictions",
+    )
+    cohorts = [
+        {
+            "name": "headline",
+            "role": "test",
+            "speaker": "spk01",
+            "overall": 59.5, "switch": 35.8, "mono": 66.3, "penalty": -30.6,
+            "n": n,
+        },
+    ]
+    if spk2:
+        cohorts.append({
+            "name": "scripted_native_spk2",
+            "role": "development",
+            "speaker": "spk02",
+            **spk2,
+        })
     payload = {
         "model": args.model,
+        "version": "1.0.0",
         "headline": {
             "overall": 59.5,
             "switch": 35.8,
@@ -124,6 +182,7 @@ def main():
             "penalty": -30.6,
             "pairs": {"hil_en": 40.0, "hil_tl": 24.4, "tl_en": 6.2},
         },
+        "cohorts": cohorts,
         "clips": clips,
     }
     with open(OUT_JSON, "w", encoding="utf-8") as f:

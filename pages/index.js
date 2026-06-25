@@ -1,277 +1,599 @@
-import Link from "next/link";
+import Head from "next/head";
+import { useEffect, useMemo, useState } from "react";
 
-const HF = "https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch";
-const COLAB = "https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb";
-const GITHUB = "https://github.com/Jazztinn/tinig-sa-liwanag";
+const SWITCH_TYPES = ["HIL", "HIL+EN", "HIL+TL", "HIL+TL+EN"];
 
-// WER bars (higher = worse). Scaled against a 70% visual ceiling.
-const CEIL = 70;
-const breakdown = [
-  { label: "Monolingual Hiligaynon", wer: 66.3, note: "pure Ilonggo words" },
-  { label: "Overall", wer: 59.5, note: "whole utterance" },
-  { label: "Switch-region", wer: 35.8, note: "words next to a language switch" },
-];
-const pairs = [
-  { label: "tl ↔ en", wer: 6.2, note: "Tagalog–English: nearly solved" },
-  { label: "hil ↔ tl", wer: 24.4, note: "Hiligaynon–Tagalog" },
-  { label: "hil ↔ en", wer: 40.0, note: "Hiligaynon–English: worst" },
-];
-
-function werColor(wer) {
-  // green (low/good) -> amber -> red (high/bad)
-  if (wer < 20) return "#34d399";
-  if (wer < 40) return "#fbbf24";
-  return "#fb7185";
-}
-
-function Bar({ label, wer, note }) {
+function MetricCard({ label, value, suffix = "%", hint, strong }) {
   return (
-    <div className="bar">
-      <div className="barhead">
-        <span className="barlabel">{label}</span>
-        <span className="barval" style={{ color: werColor(wer) }}>{wer}%</span>
-      </div>
-      <div className="bartrack">
-        <div className="barfill" style={{
-          width: `${Math.min(100, (wer / CEIL) * 100)}%`,
-          background: werColor(wer),
-        }} />
-      </div>
-      <span className="barnote">{note}</span>
+    <div className={`glass metric ${strong ? "metricStrong" : ""}`}>
+      <span className="metricLabel">{label}</span>
+      <span className="metricValue">
+        {value}
+        <em>{suffix}</em>
+      </span>
+      {hint && <span className="metricHint">{hint}</span>}
     </div>
   );
 }
 
-function Code({ children }) {
-  return <pre className="code"><code>{children}</code></pre>;
+function Token({ t }) {
+  const cls = [
+    "tok",
+    t.switch ? "tokSwitch" : "",
+    t.error ? "tokErr" : "tokOk",
+  ].join(" ");
+  return (
+    <span
+      className={cls}
+      title={`${t.lang}${t.switch ? " · switch" : ""}${
+        t.error ? " · error" : " · correct"
+      }`}
+    >
+      {t.text}
+    </span>
+  );
+}
+
+function ClipRow({ clip, open, onToggle }) {
+  return (
+    <div className={`glass clip ${open ? "clipOpen" : ""}`}>
+      <button className="clipHead" onClick={onToggle}>
+        <span className="clipId">{clip.clip_id}</span>
+        <span className="chip chipDomain">{clip.domain}</span>
+        <span className="chip chipSwitch">{clip.switch_type}</span>
+        <span className="clipWer">
+          WER {clip.wer.overall}%
+          <em> · sw {clip.wer.switch}% · mono {clip.wer.mono}%</em>
+        </span>
+        <span className="caret">{open ? "▾" : "▸"}</span>
+      </button>
+
+      {open && (
+        <div className="clipBody">
+          <audio controls preload="none" src={`/${clip.audio}`} className="player" />
+
+          <div className="rowLabel">Reference — token diff</div>
+          <div className="tokens">
+            {clip.tokens.map((t, i) => (
+              <Token key={i} t={t} />
+            ))}
+          </div>
+
+          <div className="rowLabel">
+            Whisper prediction (forced <code>tl</code>)
+          </div>
+          <div className="pred">{clip.prediction}</div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function PairBar({ label, value }) {
+  return (
+    <div className="pairRow">
+      <span className="pairLabel">{label}</span>
+      <div className="track">
+        <div className="fill" style={{ width: `${value}%` }} />
+      </div>
+      <span className="pairVal">{value}%</span>
+      <style jsx>{`
+        .pairRow {
+          display: grid;
+          grid-template-columns: 90px 1fr 56px;
+          align-items: center;
+          gap: 12px;
+          margin: 7px 0;
+        }
+        .pairLabel {
+          font-size: 0.85rem;
+          color: var(--muted);
+        }
+        .track {
+          height: 10px;
+          border-radius: 999px;
+          background: rgba(124, 92, 60, 0.12);
+          overflow: hidden;
+        }
+        .fill {
+          height: 100%;
+          border-radius: 999px;
+          background: linear-gradient(90deg, #fbbf24, var(--accent-strong));
+        }
+        .pairVal {
+          text-align: right;
+          font-weight: 700;
+          font-size: 0.85rem;
+          color: var(--accent-strong);
+        }
+      `}</style>
+    </div>
+  );
 }
 
 export default function Home() {
+  const [data, setData] = useState(null);
+  const [openId, setOpenId] = useState(null);
+  const [fSwitch, setFSwitch] = useState("ALL");
+  const [fDomain, setFDomain] = useState("ALL");
+
+  useEffect(() => {
+    fetch("/benchmark.json")
+      .then((r) => r.json())
+      .then(setData)
+      .catch(() => setData({ error: true }));
+  }, []);
+
+  const domains = useMemo(() => {
+    if (!data?.clips) return [];
+    return [...new Set(data.clips.map((c) => c.domain))];
+  }, [data]);
+
+  const clips = useMemo(() => {
+    if (!data?.clips) return [];
+    return data.clips.filter(
+      (c) =>
+        (fSwitch === "ALL" || c.switch_type === fSwitch) &&
+        (fDomain === "ALL" || c.domain === fDomain)
+    );
+  }, [data, fSwitch, fDomain]);
+
+  if (!data) return <div className="loading">Loading benchmark…</div>;
+  if (data.error)
+    return <div className="loading">Could not load benchmark.json</div>;
+
+  const h = data.headline;
+
   return (
-    <div className="page">
-      <main className="wrap">
-        <header className="hero glass">
-          <p className="kicker">Open speech benchmark &middot; Hiligaynon (Ilonggo)</p>
-          <h1>Sugidanon</h1>
-          <p className="lede">
-            The first openly-licensed, code-switch-labeled speech benchmark for
-            Hiligaynon &mdash; a language spoken by over 9 million Filipinos, yet
-            nearly invisible to modern speech technology.
+    <>
+      <Head>
+        <title>Sugidanon — Code-Switch Hiligaynon ASR Benchmark</title>
+        <meta
+          name="description"
+          content="Switch-region WER benchmark for Hiligaynon code-switched speech."
+        />
+      </Head>
+
+      <main className="shell">
+        <header className="glass hero">
+          <h1 className="brand">Sugidanon</h1>
+          <p className="tagline">
+            An open <strong>code-switch ASR benchmark</strong> for Hiligaynon
+            (Ilonggo). We measure <strong>switch-region WER</strong> — separating
+            errors on the Hiligaynon matrix language from borrowed English/Tagalog
+            words near a language switch.
           </p>
-          <nav className="links">
-            <Link className="pill primary" href="/benchmark">Explore the benchmark</Link>
-            <a className="pill" href={COLAB} target="_blank" rel="noreferrer">Run it (Colab)</a>
-            <a className="pill" href={HF} target="_blank" rel="noreferrer">Dataset</a>
-            <a className="pill" href={GITHUB} target="_blank" rel="noreferrer">Source code</a>
-            <Link className="pill" href="/demo">Translation demo</Link>
-          </nav>
+          <p className="finding">
+            The finding: models transcribe the borrowed words well but miss the
+            Hiligaynon — a <strong>negative switch penalty</strong>.
+          </p>
+          <span className="modelTag">model · {data.model}</span>
         </header>
 
-        <section className="glass finding">
-          <span className="eyebrow">The finding</span>
-          <h2 className="punch">
-            Today&apos;s speech AI hears the English and Tagalog in Ilonggo speech
-            &mdash; but misses the Hiligaynon itself.
-          </h2>
-          <p className="plain">
-            When a Hiligaynon speaker mixes in an English or Tagalog word, an
-            off-the-shelf model transcribes it almost perfectly. The moment they
-            speak actual Hiligaynon, it fails roughly <strong>two of every three
-            words</strong>. We turned that blind spot into a measurable number.
-          </p>
+        <section className="metrics">
+          <MetricCard label="Overall WER" value={h.overall} hint="all clips" />
+          <MetricCard
+            label="Monolingual (Hiligaynon)"
+            value={h.mono}
+            hint="matrix language"
+          />
+          <MetricCard
+            label="Switch-region WER"
+            value={h.switch}
+            hint="borrowed words"
+          />
+          <MetricCard
+            label="Switch penalty"
+            value={h.penalty}
+            hint="switch − mono"
+            strong
+          />
+        </section>
 
-          <div className="bars">
-            <div className="barcol">
-              <h3>Word error rate by region</h3>
-              <p className="colsub">Higher is worse. The model does best exactly where it leans on borrowed words.</p>
-              {breakdown.map((b) => <Bar key={b.label} {...b} />)}
+        <section className="glass pairs">
+          <h2>Switch-pair WER</h2>
+          <PairBar label="hil ↔ en" value={h.pairs.hil_en} />
+          <PairBar label="hil ↔ tl" value={h.pairs.hil_tl} />
+          <PairBar label="tl ↔ en" value={h.pairs.tl_en} />
+        </section>
+
+        {data.cohorts && data.cohorts.length > 1 && (
+          <section className="glass cohorts">
+            <h2>Cohort ladder</h2>
+            <p className="cohortNote">
+              Speaker-disjoint. spk02 is a development cohort, reported separately —
+              never blended into the headline. The negative switch penalty replicates
+              across both speakers.
+            </p>
+            <div className="cohortTable">
+              <div className="cohortRow cohortHead">
+                <span>Cohort</span>
+                <span>Role</span>
+                <span>Overall</span>
+                <span>Switch</span>
+                <span>Mono</span>
+                <span>Penalty</span>
+              </div>
+              {data.cohorts.map((c) => (
+                <div className="cohortRow" key={c.name}>
+                  <span className="cohortName">
+                    {c.speaker} <em>· {c.n}</em>
+                  </span>
+                  <span className="cohortRole">{c.role}</span>
+                  <span>{c.overall}%</span>
+                  <span>{c.switch}%</span>
+                  <span>{c.mono}%</span>
+                  <span className="cohortPen">{c.penalty}%</span>
+                </div>
+              ))}
             </div>
-            <div className="barcol">
-              <h3>Error rate by switch pair</h3>
-              <p className="colsub">The more Hiligaynon is involved, the harder it gets.</p>
-              {pairs.map((b) => <Bar key={b.label} {...b} />)}
-            </div>
+          </section>
+        )}
+
+        <section className="filters">
+          <div className="filterGroup">
+            <span className="filterLabel">Switch</span>
+            <button
+              className={`glassBtn ${fSwitch === "ALL" ? "active" : ""}`}
+              onClick={() => setFSwitch("ALL")}
+            >
+              All
+            </button>
+            {SWITCH_TYPES.map((s) => (
+              <button
+                key={s}
+                className={`glassBtn ${fSwitch === s ? "active" : ""}`}
+                onClick={() => setFSwitch(s)}
+              >
+                {s}
+              </button>
+            ))}
           </div>
-
-          <div className="takeaway">
-            <strong>Why it matters:</strong> the failure scales with how much
-            Hiligaynon a sentence contains. Tagalog&ndash;English code-switching is
-            nearly solved (6% error); Hiligaynon&ndash;English is the worst (40%).
-            That gap is what Sugidanon measures &mdash; and it&apos;s the first open
-            dataset that lets anyone measure it.
-            <span className="fine">Baseline: OpenAI Whisper (small), single speaker. Preliminary.</span>
+          <div className="filterGroup">
+            <span className="filterLabel">Domain</span>
+            <button
+              className={`glassBtn ${fDomain === "ALL" ? "active" : ""}`}
+              onClick={() => setFDomain("ALL")}
+            >
+              All
+            </button>
+            {domains.map((d) => (
+              <button
+                key={d}
+                className={`glassBtn ${fDomain === d ? "active" : ""}`}
+                onClick={() => setFDomain(d)}
+              >
+                {d}
+              </button>
+            ))}
           </div>
         </section>
 
-        <section className="glass">
-          <h2>What&apos;s inside</h2>
-          <div className="chips">
-            <div className="chip"><strong>40</strong><span>code-switch clips (~3.1 min)</span></div>
-            <div className="chip"><strong>8</strong><span>everyday domains</span></div>
-            <div className="chip"><strong>4</strong><span>switch types</span></div>
-            <div className="chip"><strong>per-word</strong><span>hil / tl / en tags</span></div>
-          </div>
-          <p className="body">
-            Domains span market, transport, school/work, family, health, culture,
-            everyday talk, and oral tradition. Every word is tagged by language, so
-            the scorer can isolate exactly where errors happen. Transcripts were
-            reviewed by a native speaker; per-word tags are seed-labeled pending a
-            confirmation pass. Released under CC BY 4.0.
-          </p>
-        </section>
+        <div className="legend glass">
+          <span>
+            <i className="sw tokSwitch" /> switch region
+          </span>
+          <span>
+            <i className="sw tokErr" /> ASR error
+          </span>
+          <span>
+            <i className="sw tokOk" /> correct
+          </span>
+          <span className="count">{clips.length} clips</span>
+        </div>
 
-        <section className="glass">
-          <h2>Use it</h2>
-          <p className="body">Load the dataset in one line:</p>
-          <Code>{`from datasets import load_dataset
-
-ds = load_dataset("LauelKills/sugidanon-hil-codeswitch",
-                  data_dir="data/audio", split="train")
-print(ds[0]["transcript"], ds[0]["switch_type"])
-print(ds[0]["tokens"])   # per-word hil/tl/en tags`}</Code>
-          <p className="body">
-            Reproduce the whole benchmark with no local setup:&nbsp;
-            <a className="ilink" href={COLAB} target="_blank" rel="noreferrer">open the Colab</a> and
-            choose Runtime &rarr; Run all. Or run it locally:
-          </p>
-          <Code>{`python3 scripts/run_whisper.py --model small --language tl
-python3 score.py --ref data/annotations --hyp data/predictions`}</Code>
-        </section>
-
-        <section className="glass">
-          <h2>Build on it</h2>
-          <p className="body">Sugidanon is a building block, not a finished product. You can:</p>
-          <ul className="list">
-            <li>Benchmark another model (Whisper large-v3, Meta MMS) on the same clips and compare switch penalties.</li>
-            <li>Grow the corpus &mdash; add speakers and clips with the included capture and clap-splitting pipeline.</li>
-            <li>Confirm the per-word tags with a native speaker to harden the switch/monolingual split.</li>
-            <li>Fine-tune an open multilingual model toward Hiligaynon, keeping this set as a frozen test.</li>
-            <li>Extend it into a full speech-to-text, translation, and text-to-speech pipeline for Ilonggo.</li>
-          </ul>
-        </section>
-
-        <section className="glass culture">
-          <h2>Why this matters</h2>
-          <p className="body">
-            The Philippines has more than 130 languages. Tagalog speech
-            recognition has advanced; regional tongues like Hiligaynon, Cebuano,
-            and Waray still lack open datasets, benchmarks, and models. Real
-            Ilonggo speech constantly mixes Hiligaynon, Tagalog, and English &mdash;
-            exactly where generic systems break. Sugidanon turns that invisible
-            failure into a number the next developer can build against.
-          </p>
+        <section className="clips">
+          {clips.map((c) => (
+            <ClipRow
+              key={c.clip_id}
+              clip={c}
+              open={openId === c.clip_id}
+              onToggle={() => setOpenId(openId === c.clip_id ? null : c.clip_id)}
+            />
+          ))}
         </section>
 
         <footer className="foot">
-          <p>
-            Recorded and reviewed by <strong>Aziel Faith Agustin</strong>
-            (Hiligaynon speaker). Built by Team Hague for ACM TechSprint Asteria 2026.
-          </p>
-          <p className="fine">
-            Data: CC BY 4.0 &middot; Code: MIT &middot;{" "}
-            <a className="ilink" href={HF} target="_blank" rel="noreferrer">Hugging Face</a> &middot;{" "}
-            <a className="ilink" href={GITHUB} target="_blank" rel="noreferrer">GitHub</a> &middot;{" "}
-            <a className="ilink" href={COLAB} target="_blank" rel="noreferrer">Colab</a>
-          </p>
+          Headline set: <code>scripted_native</code>, Speaker 1. Extension subsets
+          (Speaker 2, non-native) excluded from this WER. UI transplanted from
+          TreeParse.
         </footer>
       </main>
 
       <style jsx>{`
-        .page { min-height: 100vh; position: relative; color: #f3f6fc; background: #0a0e1c; }
-        .page::before {
-          content: ""; position: fixed; inset: 0; z-index: 0;
-          background: url('/bg-festival.webp') center/cover no-repeat;
-          filter: blur(20px) brightness(.8); transform: scale(1.12);
+        .loading {
+          padding: 80px;
+          text-align: center;
+          color: var(--muted);
         }
-        .page::after {
-          content: ""; position: fixed; inset: 0; z-index: 0;
-          background: rgba(8,11,24,.66);
+        .shell {
+          width: min(1080px, calc(100% - 32px));
+          margin: 0 auto;
+          padding: 32px 0 64px;
+          display: flex;
+          flex-direction: column;
+          gap: 20px;
         }
-        .wrap { position: relative; z-index: 1; max-width: 940px; margin: 0 auto; padding: 56px 20px 72px; display: flex; flex-direction: column; gap: 18px; }
-
-        .glass {
-          background: rgba(20,28,48,.55);
-          backdrop-filter: blur(18px) saturate(140%);
-          -webkit-backdrop-filter: blur(18px) saturate(140%);
-          border: 1px solid rgba(255,255,255,.12);
-          border-radius: 20px;
-          padding: 30px 34px;
+        .hero {
+          padding: 30px 32px;
         }
-
-        .hero { text-align: left; }
-        .kicker { text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; color: #9fc0ff; margin: 0 0 12px; font-weight: 600; }
-        h1 { font-size: 2.9rem; margin: 0 0 14px; letter-spacing: -.02em; color: #ffffff; font-weight: 700; }
-        .lede { font-size: 1.16rem; line-height: 1.6; color: #dbe3f4; margin: 0 0 22px; max-width: 62ch; }
-        .links { display: flex; flex-wrap: wrap; gap: 12px; }
-        .pill {
-          display: inline-block; padding: 11px 18px; border-radius: 999px;
-          border: 1px solid rgba(255,255,255,.20); color: #f3f6fc; text-decoration: none;
-          font-weight: 600; font-size: .95rem; background: rgba(255,255,255,.08);
-          transition: background .15s ease;
+        .brand {
+          font-family: "Borel", cursive;
+          font-size: clamp(2.4rem, 6vw, 3.6rem);
+          margin: 0 0 6px;
+          color: var(--accent-strong);
+          line-height: 1.1;
         }
-        .pill:hover { background: rgba(255,255,255,.16); }
-        .pill.primary { border-color: transparent; color: #06121f; background: #5ad6c0; }
-
-        h2 { font-size: 1.5rem; margin: 0 0 14px; letter-spacing: -.01em; color: #ffffff; }
-        .eyebrow { display: inline-block; text-transform: uppercase; letter-spacing: .14em; font-size: .72rem; color: #7cc4ff; margin-bottom: 12px; font-weight: 600; }
-        .punch { font-size: 1.65rem; line-height: 1.35; margin: 0 0 16px; letter-spacing: -.01em; color: #ffffff; font-weight: 700; }
-        .plain { font-size: 1.05rem; line-height: 1.65; color: #dbe3f4; margin: 0 0 26px; max-width: 70ch; }
-        .plain strong, .punch strong { color: #ffffff; }
-        .body { font-size: 1rem; line-height: 1.65; color: #d4dcee; margin: 0 0 14px; max-width: 72ch; }
-
-        .bars { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 6px 0 24px; }
-        .barcol h3 { font-size: 1.02rem; margin: 0 0 4px; color: #ffffff; }
-        .colsub { font-size: .86rem; color: #aab8d4; margin: 0 0 18px; line-height: 1.45; }
-        .bar { margin: 0 0 16px; }
-        .barhead { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 6px; gap: 10px; }
-        .barlabel { font-size: .94rem; color: #eaf0fb; }
-        .barval { font-size: 1.02rem; font-weight: 700; white-space: nowrap; }
-        .bartrack { height: 12px; border-radius: 999px; background: rgba(255,255,255,.10); overflow: hidden; }
-        .barfill { height: 100%; border-radius: 999px; transition: width .6s ease; }
-        .barnote { display: block; font-size: .8rem; color: #9aa9c6; margin-top: 5px; }
-
-        .takeaway { font-size: 1rem; line-height: 1.62; color: #eef2fb; padding: 18px 20px;
-          border-radius: 14px; background: rgba(90,150,255,.14); border: 1px solid rgba(120,170,255,.28); }
-        .takeaway strong { color: #ffffff; }
-        .fine { display: block; margin-top: 8px; font-size: .82rem; color: #a6b3cf; }
-
-        .chips { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 18px; }
-        .chip { flex: 1 1 140px; border-radius: 14px; padding: 16px 18px;
-          background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); }
-        .chip strong { display: block; font-size: 1.5rem; color: #ffffff; }
-        .chip span { font-size: .82rem; color: #b6c2da; }
-
-        .list { margin: 0; padding-left: 20px; line-height: 1.7; color: #d4dcee; }
-        .list li { margin: 6px 0; }
-
-        .culture { position: relative; overflow: hidden; isolation: isolate; background: rgba(12,16,32,.55); }
-        .culture::before {
-          content: ""; position: absolute; inset: 0; z-index: -1;
-          background: url('/bg-music.jpg') center/cover no-repeat;
-          filter: blur(6px) brightness(.4); transform: scale(1.12);
+        .tagline {
+          margin: 0 0 8px;
+          max-width: 70ch;
+          color: #2a2320;
         }
-
-        .ilink { color: #7cc4ff; text-decoration: none; border-bottom: 1px solid rgba(124,196,255,.45); }
-        .ilink:hover { border-color: #7cc4ff; }
-
-        .code {
-          background: rgba(4,8,18,.72); border: 1px solid rgba(255,255,255,.10);
-          border-radius: 12px; padding: 16px 18px; overflow-x: auto;
-          font-size: .85rem; line-height: 1.55; color: #d7e6ff; margin: 0 0 14px;
+        .finding {
+          margin: 0;
+          max-width: 70ch;
+          color: var(--muted);
         }
-        .code code { background: none; }
-
-        .foot { padding: 6px 6px 0; color: #b6c2da; font-size: .95rem; line-height: 1.6; }
-        .foot a { color: #7cc4ff; }
-        .foot strong { color: #f3f6fc; }
-
+        .modelTag {
+          display: inline-block;
+          margin-top: 14px;
+          font-size: 0.72rem;
+          letter-spacing: 0.04em;
+          text-transform: uppercase;
+          color: var(--accent-strong);
+          background: rgba(249, 115, 22, 0.12);
+          padding: 4px 10px;
+          border-radius: 999px;
+        }
+        .metrics {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 14px;
+        }
+        :global(.metric) {
+          padding: 16px 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        :global(.metricStrong) {
+          background: rgba(249, 115, 22, 0.16);
+          border-color: rgba(249, 115, 22, 0.4);
+        }
+        :global(.metricLabel) {
+          font-size: 0.74rem;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+          color: var(--muted);
+        }
+        :global(.metricValue) {
+          font-size: 1.9rem;
+          font-weight: 700;
+          color: var(--accent-strong);
+        }
+        :global(.metricValue em) {
+          font-size: 1rem;
+          font-style: normal;
+          color: var(--muted);
+          margin-left: 2px;
+        }
+        :global(.metricHint) {
+          font-size: 0.74rem;
+          color: var(--muted);
+        }
+        .pairs {
+          padding: 18px 24px;
+        }
+        .pairs h2 {
+          margin: 0 0 12px;
+          font-size: 0.95rem;
+        }
+        .cohorts {
+          padding: 18px 24px;
+        }
+        .cohorts h2 {
+          margin: 0 0 6px;
+          font-size: 0.95rem;
+        }
+        .cohortNote {
+          margin: 0 0 14px;
+          font-size: 0.82rem;
+          color: var(--muted);
+          max-width: 72ch;
+        }
+        .cohortTable {
+          display: flex;
+          flex-direction: column;
+          gap: 2px;
+        }
+        .cohortRow {
+          display: grid;
+          grid-template-columns: 1.4fr 1.1fr repeat(4, 0.8fr);
+          align-items: center;
+          gap: 8px;
+          padding: 8px 10px;
+          border-radius: 8px;
+          font-variant-numeric: tabular-nums;
+          font-size: 0.88rem;
+        }
+        .cohortRow:nth-child(odd of .cohortRow:not(.cohortHead)) {
+          background: rgba(255, 255, 255, 0.4);
+        }
+        .cohortHead {
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+          color: var(--muted);
+          font-weight: 600;
+        }
+        .cohortName {
+          font-weight: 700;
+        }
+        .cohortName em,
+        .cohortRole {
+          font-style: normal;
+          font-weight: 400;
+          color: var(--muted);
+        }
+        .cohortPen {
+          font-weight: 700;
+          color: var(--accent-strong);
+        }
+        .filters {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .filterGroup {
+          display: flex;
+          flex-wrap: wrap;
+          align-items: center;
+          gap: 8px;
+        }
+        .filterLabel {
+          font-size: 0.74rem;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+          color: var(--muted);
+          width: 64px;
+        }
+        .legend {
+          display: flex;
+          gap: 18px;
+          align-items: center;
+          padding: 10px 18px;
+          font-size: 0.8rem;
+          color: var(--muted);
+          flex-wrap: wrap;
+        }
+        .legend .count {
+          margin-left: auto;
+          font-weight: 600;
+          color: var(--accent-strong);
+        }
+        .sw {
+          display: inline-block;
+          width: 14px;
+          height: 14px;
+          border-radius: 4px;
+          margin-right: 6px;
+          vertical-align: -2px;
+        }
+        .clips {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        :global(.clip) {
+          overflow: hidden;
+        }
+        :global(.clipHead) {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          padding: 13px 18px;
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          text-align: left;
+        }
+        :global(.clipId) {
+          font-weight: 700;
+          font-variant-numeric: tabular-nums;
+        }
+        :global(.chip) {
+          font-size: 0.7rem;
+          padding: 2px 9px;
+          border-radius: 999px;
+          font-weight: 600;
+          white-space: nowrap;
+        }
+        :global(.chipDomain) {
+          background: rgba(124, 92, 60, 0.12);
+          color: var(--muted);
+        }
+        :global(.chipSwitch) {
+          background: rgba(245, 158, 11, 0.2);
+          color: #92580a;
+        }
+        :global(.clipWer) {
+          margin-left: auto;
+          font-size: 0.82rem;
+          font-weight: 600;
+          color: var(--accent-strong);
+          white-space: nowrap;
+        }
+        :global(.clipWer em) {
+          font-style: normal;
+          font-weight: 400;
+          color: var(--muted);
+        }
+        :global(.caret) {
+          color: var(--muted);
+        }
+        :global(.clipBody) {
+          padding: 4px 18px 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+        }
+        :global(.player) {
+          width: 100%;
+          height: 38px;
+        }
+        :global(.rowLabel) {
+          font-size: 0.72rem;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+          color: var(--muted);
+          margin-top: 6px;
+        }
+        :global(.tokens) {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+        :global(.tok) {
+          padding: 3px 8px;
+          border-radius: 7px;
+          font-size: 0.95rem;
+        }
+        :global(.tokOk) {
+          background: var(--ok-bg);
+          color: #15803d;
+        }
+        :global(.tokErr) {
+          background: var(--err-bg);
+          color: var(--err);
+          text-decoration: line-through;
+          text-decoration-color: rgba(220, 38, 38, 0.5);
+        }
+        :global(.tokSwitch) {
+          box-shadow: inset 0 0 0 2px var(--switch);
+        }
+        :global(.pred) {
+          background: rgba(255, 255, 255, 0.5);
+          border: 1px dashed var(--line);
+          border-radius: 8px;
+          padding: 8px 12px;
+          font-size: 0.95rem;
+        }
+        .foot {
+          font-size: 0.78rem;
+          color: var(--muted);
+          text-align: center;
+          padding-top: 8px;
+        }
         @media (max-width: 720px) {
-          h1 { font-size: 2.1rem; }
-          .punch { font-size: 1.32rem; }
-          .bars { grid-template-columns: 1fr; gap: 20px; }
-          .glass { padding: 24px 20px; }
+          .metrics {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .clipWer em {
+            display: none;
+          }
         }
       `}</style>
-    </div>
+    </>
   );
 }
