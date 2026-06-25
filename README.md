@@ -131,6 +131,24 @@ python g2p_hil/g2p.py "Maayong aga sa imo"
 - **TTS metric:** round-trip WER (`scripts/roundtrip_wer.py`) — synthesize, run
   back through STT, measure error — plus a quick human naturalness rating.
 
+## Translate text → Hiligaynon
+
+```bash
+# offline word-by-word demo (no installs)
+python scripts/translate_hil.py "Good morning, I went to the market yesterday"
+# -> Maayo aga, Ako nagkadto sa merkado kahapon
+
+# real neural translation (needs transformers + a Hiligaynon LLM)
+pip install transformers torch
+python scripts/translate_hil.py --backend hf \
+    --model welyjesch/lfm25-sft-hiligaynon "How are you today?"
+```
+
+- **`dict`** backend (default): offline starter lexicon, `*word*` = no entry yet.
+  Demo aid — extend `LEXICON` in `scripts/translate_hil.py`. Not fluent MT.
+- **`hf`** backend: uses a Hiligaynon LLM from `RESOURCES.md`. Real translation,
+  needs model download + GPU recommended.
+
 ## Setup
 
 Core scorer is **dependency-free** (Python 3.8+ stdlib). Optional tooling:
