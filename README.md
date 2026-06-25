@@ -6,7 +6,7 @@
 **Live demos:**
 
 ```text
-https://sugidanon.vercel.app          # Translation benchmark demo
+https://tinig-sa-liwanag.vercel.app   # Sugidanon — project site & docs (translation demo at /demo)
 https://tinig-one.vercel.app          # Companion Demo: Tinig — AI assistant using Sugidanon's resources
 Tinig (companion demo repository): https://github.com/ALinuxPerson/tinig
 ```
