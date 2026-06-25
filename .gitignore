@@ -28,6 +28,8 @@ external/
 # Fetched pronunciation lexicons (build_lexicon.py) — our lexicon_hil.tsv stays tracked
 data/cmudict.txt
 data/wikipron_tl.tsv
+# Auto-built dictionary (kaikki/Wiktionary, CC BY-SA) — regenerate locally
+data/lexicon_hil_auto.tsv
 
 # Keep folder structure but ignore large media if needed
 # data/audio/*.wav

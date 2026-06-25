@@ -54,6 +54,15 @@ python scripts/ingest.py external/g2p-asr/data --prefix hil --limit 40
 | Kaufmann's Visayan-English Dictionary (KVED) | Largest Hiligaynon lexicon, 23,557 entries, searchable | https://bohol.ph/kved.php |
 | Motus, Hiligaynon Dictionary | Full dictionary, downloadable PDF | Internet Archive / UH ScholarSpace |
 | pinoydictionary (Hiligaynon) | Large queryable online Hiligaynon dictionary | https://hiligaynon.pinoydictionary.com |
+| **kaikki.org Hiligaynon** (Wiktionary) | Machine-readable JSONL, en glosses → hil words — **auto-built into the lexicon** | https://kaikki.org/dictionary/Hiligaynon/ |
+
+Build the large en→hil lexicon from Wiktionary in one command (CC BY-SA):
+
+```bash
+python scripts/build_dictionary.py            # fetch + write data/lexicon_hil_auto.tsv
+# offline? download the JSONL from kaikki.org and:
+python scripts/build_dictionary.py --infile kaikki-Hiligaynon.jsonl
+```
 | ASJP Hiligaynon wordlist | Clean machine-readable (JSON) Swadesh wordlist — **auto-importable** | https://asjp.clld.org |
 
 Import the ASJP wordlist straight into the translation lexicon:

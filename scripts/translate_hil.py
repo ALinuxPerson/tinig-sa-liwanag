@@ -148,9 +148,14 @@ def main():
 
     text = " ".join(args.text)
     if args.backend == "dict":
+        # Load the big auto-generated dictionary first, then the hand-curated
+        # file on top so manual entries override the auto ones.
+        auto = os.path.join(os.path.dirname(args.lexicon), "lexicon_hil_auto.tsv")
+        na = load_lexicon_file(auto)
         n = load_lexicon_file(args.lexicon)
-        if n:
-            print(f"(loaded {n} entries from {args.lexicon})", file=sys.stderr)
+        if na or n:
+            print(f"(loaded {na} auto + {n} curated lexicon entries)",
+                  file=sys.stderr)
     if args.backend == "hf":
         result = translate_hf(text, args.model)
     else:

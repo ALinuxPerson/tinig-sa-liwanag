@@ -85,8 +85,11 @@ def main():
     ap.add_argument("--lexicon", default=os.path.join(ROOT, "data", "lexicon_hil.tsv"))
     args = ap.parse_args()
 
+    # Auto-generated dictionary first, hand-curated file on top (manual wins).
+    auto = os.path.join(os.path.dirname(args.lexicon), "lexicon_hil_auto.tsv")
+    na = translate_hil.load_lexicon_file(auto)
     n = translate_hil.load_lexicon_file(args.lexicon)
-    print(f"Loaded {n} lexicon entries.")
+    print(f"Loaded {na} auto + {n} curated lexicon entries.")
 
     _BACKEND = args.backend
     _MODEL = args.model

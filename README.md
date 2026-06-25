@@ -137,8 +137,14 @@ A two-pane web app — type English/Tagalog on the left, Hiligaynon on the right
 Runs on the **Python stdlib only**, zero installs (dictionary backend):
 
 ```bash
-python app/server.py          # open http://localhost:8000
+# one-time: build the big dictionary from Wiktionary (fewer "*word*" gaps)
+python scripts/build_dictionary.py        # -> data/lexicon_hil_auto.tsv
+python app/server.py                       # open http://localhost:8000
 ```
+
+The app/CLI load `data/lexicon_hil_auto.tsv` (auto, ~thousands of words) plus the
+hand-curated `data/lexicon_hil.tsv` (which overrides it). Run `build_dictionary.py`
+once so the dictionary is large; without it only the ~80 curated words are known.
 
 For fluent neural translation (needs `pip install transformers torch` + a model):
 
