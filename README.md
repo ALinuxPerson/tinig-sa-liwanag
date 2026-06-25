@@ -146,12 +146,12 @@ Measurement is the first act of inclusion:
 
 Sugidanon directly supports:
 
-| SDG | Alignment |
-|-----|-----------|
-| **SDG 4 — Quality Education** | Open, reproducible tools for studying and teaching Philippine language technology. |
-| **SDG 9 — Industry, Innovation & Infrastructure** | Novel benchmark infrastructure (switch-region WER) that advances the state of code-switch ASR research. |
-| **SDG 10 — Reduced Inequalities** | Quantifies the gap that leaves Hiligaynon speakers underserved by mainstream speech AI; makes the gap fundable and fixable. |
-| **SDG 17 — Partnerships for the Goals** | CC BY 4.0 open dataset and MIT-licensed tooling designed for reuse by researchers, developers, and future community contributors worldwide. |
+| | |
+|:---:|:---:|
+| [![SDG 4 — Quality Education](https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Sustainable_Development_Goal_04QualityEducation.svg/200px-Sustainable_Development_Goal_04QualityEducation.svg.png)](https://sdgs.un.org/goals/goal4) | [![SDG 9 — Industry, Innovation & Infrastructure](https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Sustainable_Development_Goal_09IndustryInnovation.svg/200px-Sustainable_Development_Goal_09IndustryInnovation.svg.png)](https://sdgs.un.org/goals/goal9) |
+| **SDG 4 — Quality Education**<br>Open, reproducible tools for studying and teaching Philippine language technology. | **SDG 9 — Industry, Innovation & Infrastructure**<br>Novel benchmark infrastructure (switch-region WER) advancing code-switch ASR research. |
+| [![SDG 10 — Reduced Inequalities](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Sustainable_Development_Goal_10ReducedInequalities.svg/200px-Sustainable_Development_Goal_10ReducedInequalities.svg.png)](https://sdgs.un.org/goals/goal10) | [![SDG 17 — Partnerships for the Goals](https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Sustainable_Development_Goal_17Partnerships.svg/200px-Sustainable_Development_Goal_17Partnerships.svg.png)](https://sdgs.un.org/goals/goal17) |
+| **SDG 10 — Reduced Inequalities**<br>Quantifies the gap that leaves Hiligaynon speakers underserved by mainstream speech AI; makes the gap fundable and fixable. | **SDG 17 — Partnerships for the Goals**<br>CC BY 4.0 open dataset and MIT-licensed tooling for reuse by researchers, developers, and community contributors worldwide. |
 
 ## Project case
 
