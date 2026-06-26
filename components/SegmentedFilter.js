@@ -58,8 +58,6 @@ export default function SegmentedFilter({ options, value, onChange }) {
         background: "rgba(0,0,0,0.07)",
         boxShadow: "inset 0 2px 5px rgba(0,0,0,0.13), inset 0 -1px 0 rgba(255,255,255,0.6)",
         flexWrap: "nowrap",
-        width: "100%",
-        boxSizing: "border-box",
       }}
     >
       {/* base labels */}

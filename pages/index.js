@@ -491,7 +491,7 @@ export default function Home() {
           display: flex;
           flex-direction: column;
           gap: 0;
-          padding: 16px 20px 14px;
+          padding: 20px 24px 18px;
         }
         .segTrack {
           display: inline-flex;
@@ -526,25 +526,26 @@ export default function Home() {
         .filters {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 14px;
         }
         .filterDivider {
           height: 1px;
-          background: rgba(0, 0, 0, 0.07);
-          margin: 14px 0 12px;
+          background: rgba(0, 0, 0, 0.06);
+          margin: 16px 0 14px;
         }
         .filterGroup {
           display: flex;
-          flex-wrap: wrap;
           align-items: center;
-          gap: 8px;
+          gap: 14px;
         }
         .filterLabel {
-          font-size: 0.74rem;
+          font-size: 0.68rem;
+          font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.03em;
+          letter-spacing: 0.08em;
           color: var(--muted);
-          width: 64px;
+          width: 56px;
+          flex-shrink: 0;
         }
         .legend {
           display: flex;
@@ -607,7 +608,7 @@ export default function Home() {
           grid-template-columns: 120px 1fr auto auto;
           align-items: center;
           gap: 12px;
-          padding: 11px 18px;
+          padding: 13px 20px;
           background: transparent;
           border: none;
           cursor: pointer;
@@ -666,12 +667,14 @@ export default function Home() {
           display: grid;
           grid-template-columns: 120px 1fr auto auto;
           gap: 12px;
-          padding: 7px 18px;
-          font-size: 0.68rem;
+          padding: 10px 20px;
+          font-size: 0.65rem;
+          font-weight: 700;
           text-transform: uppercase;
-          letter-spacing: 0.05em;
+          letter-spacing: 0.08em;
           color: var(--muted);
-          border-bottom: 1px solid rgba(0,0,0,0.08);
+          border-bottom: 1px solid rgba(0,0,0,0.07);
+          background: rgba(0,0,0,0.018);
         }
         :global(.caret) {
           color: var(--muted);
