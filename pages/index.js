@@ -641,8 +641,9 @@ export default function Home() {
           box-shadow: inset 0 0 0 2px var(--switch);
         }
         :global(.pred) {
-          background: rgba(255, 255, 255, 0.5);
-          border: 1px dashed var(--line);
+          background: rgba(0, 0, 0, 0.04);
+          border: 1px solid rgba(0, 0, 0, 0.08);
+          box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.08), inset 0 1px 2px rgba(0, 0, 0, 0.06);
           border-radius: 8px;
           padding: 8px 12px;
           font-size: 0.95rem;
