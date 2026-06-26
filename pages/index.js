@@ -405,12 +405,12 @@ export default function Home() {
           color: var(--muted);
         }
         .shell {
-          width: min(1080px, calc(100% - 32px));
+          width: min(var(--content-w), calc(100% - var(--s7)));
           margin: 0 auto;
-          padding: 32px 0 64px;
+          padding: var(--s7) 0 var(--s8);
           display: flex;
           flex-direction: column;
-          gap: 20px;
+          gap: var(--s5);
         }
         .hero {
           padding: 30px 32px;
@@ -676,36 +676,6 @@ export default function Home() {
           flex-direction: column;
           gap: 0;
           padding: 20px 24px 18px;
-        }
-        .segTrack {
-          display: inline-flex;
-          padding: 4px;
-          border-radius: 999px;
-          background: rgba(0,0,0,0.07);
-          box-shadow: inset 0 2px 5px rgba(0,0,0,0.12), inset 0 -1px 0 rgba(255,255,255,0.55);
-          gap: 2px;
-          flex-wrap: wrap;
-        }
-        .segBtn {
-          padding: 5px 14px;
-          border-radius: 999px;
-          border: none;
-          background: transparent;
-          font-size: 0.78rem;
-          font-weight: 500;
-          color: rgba(0,0,0,0.45);
-          cursor: pointer;
-          transition: color 0.15s;
-          white-space: nowrap;
-        }
-        .segBtn:hover {
-          color: rgba(0,0,0,0.7);
-        }
-        .segActive {
-          background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(235,238,244,0.95));
-          box-shadow: inset 0 2px 2px rgba(255,255,255,1), inset 0 -2px 3px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.12);
-          color: rgba(0,0,0,0.85) !important;
-          font-weight: 700;
         }
         .filters {
           display: flex;
