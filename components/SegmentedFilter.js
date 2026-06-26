@@ -87,7 +87,7 @@ export default function SegmentedFilter({ options, value, onChange }) {
 
       {/* draggable liquid-glass pill */}
       {slotW > 0 && (
-        {/* outer motion handles drag/position only — no overflow or clip here */}
+        {/* outer motion handles drag/position only - no overflow or clip here */}
         <motion.div
           style={{
             position: "absolute",
