@@ -9,19 +9,6 @@ const SWITCH_TYPES = ["HIL", "HIL+EN", "HIL+TL", "HIL+TL+EN"];
 // "culture") but erases the Hiligaynon matrix around it.
 const FEATURED_CLIP = "hil_cs_038";
 
-function MetricCard({ label, value, suffix = "%", hint, strong }) {
-  return (
-    <div className={`glass metric ${strong ? "metricStrong" : ""}`}>
-      <span className="metricLabel">{label}</span>
-      <span className="metricValue">
-        {value}
-        <em>{suffix}</em>
-      </span>
-      {hint && <span className="metricHint">{hint}</span>}
-    </div>
-  );
-}
-
 function Token({ t }) {
   const [tip, setTip] = useState(null); // null | "above" | "below"
   const ref = useRef(null);
@@ -115,7 +102,7 @@ function ClipRow({ clip, open, onToggle }) {
 
               <div className="clipCols">
                 <div className="clipCol">
-                  <div className="rowLabel">Reference — token diff</div>
+                  <div className="rowLabel">What the speaker said</div>
                   <div className="tokens">
                     {clip.tokens.map((t, i) => (
                       <Token key={i} t={t} />
@@ -124,7 +111,7 @@ function ClipRow({ clip, open, onToggle }) {
                 </div>
                 <div className="clipColDivider" />
                 <div className="clipCol">
-                  <div className="rowLabel">Whisper prediction (forced <code>tl</code>)</div>
+                  <div className="rowLabel">What the AI heard</div>
                   <div className="pred">{clip.prediction}</div>
                 </div>
               </div>
@@ -230,81 +217,104 @@ export default function Home() {
         <header className="glass hero">
           <h1 className="brand">Sugidanon</h1>
           <p className="tagline">
-            An open <strong>code-switch ASR benchmark</strong> for Hiligaynon
-            (Ilonggo). We measure <strong>switch-region WER</strong> — separating
-            errors on the Hiligaynon matrix language from borrowed English/Tagalog
-            words near a language switch.
+            A test of how well speech-to-text AI understands{" "}
+            <strong>Hiligaynon (Ilonggo)</strong> — a Philippine language spoken
+            by about 9 million people.
           </p>
-          <p className="finding">
-            The finding: models transcribe the borrowed words well but miss the
-            Hiligaynon — a <strong>negative switch penalty</strong>.
+          <p className="subtitle">
+            Hiligaynon speakers naturally drop in English and Tagalog words
+            mid-sentence. We measured exactly where the AI breaks down — and
+            found it breaks on the home language, not the borrowed words.
           </p>
-          <span className="modelTag">model · {data.model}</span>
+          <span className="modelTag">tested model · {data.model}</span>
         </header>
 
-        {featured && (
-          <section className="glass featured">
-            <span className="featuredTag">▶ The finding, in one clip</span>
-            <p className="featuredCaption">
-              The model keeps the borrowed English — <strong>preserve</strong>,{" "}
-              <strong>culture</strong> — but erases the Hiligaynon around it. The
-              language the speaker owns is the language the machine drops.
-            </p>
-            <audio controls preload="none" src={`/${featured.audio}`} className="player" />
-            <div className="rowLabel">Reference — token diff</div>
-            <div className="tokens">
-              {featured.tokens.map((t, i) => (
-                <Token key={i} t={t} />
-              ))}
-            </div>
-            <div className="rowLabel">Whisper prediction (forced <code>tl</code>)</div>
-            <div className="pred">{featured.prediction}</div>
-          </section>
-        )}
+        {/* plain-language finding band — the whole story in three lines */}
+        <section className="glass story">
+          <span className="storyTag">The finding, in plain terms</span>
+          <p className="storyLead">
+            When a sentence mixes languages, the AI transcribes the borrowed{" "}
+            <strong>English and Tagalog words correctly</strong> — but drops the{" "}
+            <strong>Hiligaynon words</strong> right next to them. It hears the
+            foreign words, and loses the home language.
+          </p>
 
-        <section className="metrics">
-          <MetricCard label="Overall WER" value={h.overall} hint="all clips" />
-          <MetricCard
-            label="Monolingual (Hiligaynon)"
-            value={h.mono}
-            hint="matrix language"
-          />
-          <MetricCard
-            label="Switch-region WER"
-            value={h.switch}
-            hint="borrowed words"
-          />
-          <MetricCard
-            label="Switch penalty"
-            value={h.penalty}
-            hint="switch − mono"
-            strong
-          />
+          {featured && (
+            <div className="storyClip">
+              <span className="storyClipTag">▶ Hear it in one clip</span>
+              <audio controls preload="none" src={`/${featured.audio}`} className="player" />
+              <div className="storyGrid">
+                <div>
+                  <div className="rowLabel">What the speaker said</div>
+                  <div className="tokens">
+                    {featured.tokens.map((t, i) => (
+                      <Token key={i} t={t} />
+                    ))}
+                  </div>
+                </div>
+                <div>
+                  <div className="rowLabel">What the AI heard</div>
+                  <div className="pred">{featured.prediction}</div>
+                </div>
+              </div>
+              <p className="storyClipNote">
+                The AI kept the English — <strong>preserve</strong>,{" "}
+                <strong>culture</strong> — but erased the Hiligaynon around it.
+              </p>
+            </div>
+          )}
         </section>
 
+        {/* the contrast, as two big numbers — this IS the result */}
+        <section className="glass contrast">
+          <div className="contrastSide">
+            <span className="contrastLabel">Hiligaynon words</span>
+            <span className="contrastNum bad">{h.mono}<em>%</em></span>
+            <span className="contrastSub">wrong — the home language</span>
+          </div>
+          <div className="contrastVs">
+            <span className="contrastGap">{h.penalty}%</span>
+            <span className="contrastGapLabel">gap</span>
+          </div>
+          <div className="contrastSide">
+            <span className="contrastLabel">Borrowed En/Tl words</span>
+            <span className="contrastNum good">{h.switch}<em>%</em></span>
+            <span className="contrastSub">wrong — the easy words</span>
+          </div>
+        </section>
+
+        <p className="werNote">
+          These are <strong>word error rates</strong> — the share of words the AI
+          got wrong. Lower is better. Overall across every clip:{" "}
+          <strong>{h.overall}%</strong>.
+        </p>
+
         <section className="glass pairs">
-          <h2>Switch-pair WER</h2>
-          <PairBar label="hil ↔ en" value={h.pairs.hil_en} />
-          <PairBar label="hil ↔ tl" value={h.pairs.hil_tl} />
-          <PairBar label="tl ↔ en" value={h.pairs.tl_en} />
+          <h2>Which language mixes are hardest?</h2>
+          <p className="pairsNote">
+            Error rate on the words right around each kind of switch.
+          </p>
+          <PairBar label="Hil + English" value={h.pairs.hil_en} />
+          <PairBar label="Hil + Tagalog" value={h.pairs.hil_tl} />
+          <PairBar label="Tagalog + English" value={h.pairs.tl_en} />
         </section>
 
         {data.cohorts && data.cohorts.length > 1 && (
           <section className="glass cohorts">
-            <h2>Cohort ladder</h2>
+            <h2>Does it hold up with a second speaker?</h2>
             <p className="cohortNote">
-              Speaker-disjoint. spk02 is a development cohort, reported separately —
-              never blended into the headline. The negative switch penalty replicates
-              across both speakers.
+              Yes. We ran a second speaker (kept fully separate, never mixed into
+              the headline numbers). The same gap shows up — the AI drops the
+              Hiligaynon for both speakers.
             </p>
             <div className="cohortTable">
               <div className="cohortRow cohortHead">
-                <span>Cohort</span>
+                <span>Speaker</span>
                 <span>Role</span>
                 <span>Overall</span>
-                <span>Switch</span>
-                <span>Mono</span>
-                <span>Penalty</span>
+                <span>Borrowed</span>
+                <span>Hiligaynon</span>
+                <span>Gap</span>
               </div>
               {data.cohorts.map((c) => (
                 <div className="cohortRow" key={c.name}>
@@ -346,23 +356,30 @@ export default function Home() {
 
           <div className="legend">
             <span>
-              <i className="sw tokSwitch" /> switch region
+              <i className="sw tokSwitch" /> near a language switch
             </span>
             <span>
-              <i className="sw tokErr" /> ASR error
+              <i className="sw tokErr" /> AI got it wrong
             </span>
             <span>
-              <i className="sw tokOk" /> correct
+              <i className="sw tokOk" /> AI got it right
             </span>
             <span className="count">{clips.length} clips</span>
           </div>
         </div>
 
         <section className="clips glass">
+          <div className="clipsExplain">
+            <h2>Browse every clip</h2>
+            <p>
+              Click any row to play the audio and see, word by word, what the
+              speaker said versus what the AI heard.
+            </p>
+          </div>
           <div className="clipsHeader">
             <span>Clip</span>
             <span>Tags</span>
-            <span style={{textAlign:"right",gridColumn:"3/5"}}>WER · sw · mono</span>
+            <span style={{textAlign:"right",gridColumn:"3/5"}}>overall · borrowed · Hiligaynon</span>
           </div>
           {clips.map((c) => (
             <ClipRow
@@ -375,9 +392,9 @@ export default function Home() {
         </section>
 
         <footer className="foot">
-          Headline set: <code>scripted_native</code>, Speaker 1. Extension subsets
-          (Speaker 2, non-native) excluded from this WER. UI transplanted from
-          TreeParse.
+          Headline numbers come from 40 scripted clips by one native speaker.
+          The second speaker and non-native clips are kept separate and never
+          mixed into these numbers.
         </footer>
       </main>
 
@@ -407,12 +424,13 @@ export default function Home() {
         }
         .tagline {
           margin: 0 0 8px;
-          max-width: 70ch;
+          max-width: 68ch;
+          font-size: 1.08rem;
           color: #2a2320;
         }
-        .finding {
+        .subtitle {
           margin: 0;
-          max-width: 70ch;
+          max-width: 68ch;
           color: var(--muted);
         }
         .modelTag {
@@ -426,25 +444,138 @@ export default function Home() {
           padding: 4px 10px;
           border-radius: 999px;
         }
-        .featured {
-          padding: 22px 26px;
-          border-color: rgba(249, 115, 22, 0.45);
-          background: rgba(249, 115, 22, 0.1);
+        /* ---- plain-language story band ---- */
+        .story {
+          padding: 24px 28px;
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 14px;
         }
-        .featuredTag {
+        .storyTag {
           font-size: 0.74rem;
           font-weight: 700;
           letter-spacing: 0.04em;
           text-transform: uppercase;
           color: var(--accent-strong);
         }
-        .featuredCaption {
-          margin: 0 0 4px;
+        .storyLead {
+          margin: 0;
           max-width: 72ch;
+          font-size: 1.12rem;
+          line-height: 1.5;
           color: #2a2320;
+        }
+        .storyClip {
+          margin-top: 4px;
+          padding: 16px 18px;
+          border-radius: 12px;
+          background: rgba(249, 115, 22, 0.08);
+          border: 1px solid rgba(249, 115, 22, 0.28);
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+        .storyClipTag {
+          font-size: 0.74rem;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+          color: var(--accent-strong);
+        }
+        .storyGrid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 18px;
+          align-items: start;
+        }
+        .storyClipNote {
+          margin: 0;
+          font-size: 0.9rem;
+          color: var(--muted);
+        }
+        /* ---- the contrast (two big numbers) ---- */
+        .contrast {
+          padding: 22px 24px;
+          display: grid;
+          grid-template-columns: 1fr auto 1fr;
+          align-items: center;
+          gap: 12px;
+        }
+        .contrastSide {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          gap: 2px;
+        }
+        .contrastLabel {
+          font-size: 0.8rem;
+          font-weight: 700;
+          text-transform: uppercase;
+          letter-spacing: 0.03em;
+          color: var(--muted);
+        }
+        .contrastNum {
+          font-size: clamp(2.6rem, 8vw, 3.6rem);
+          font-weight: 800;
+          line-height: 1;
+          font-variant-numeric: tabular-nums;
+        }
+        .contrastNum em {
+          font-size: 1.4rem;
+          font-style: normal;
+          font-weight: 700;
+        }
+        .contrastNum.bad {
+          color: #dc2626;
+        }
+        .contrastNum.good {
+          color: #16a34a;
+        }
+        .contrastSub {
+          font-size: 0.82rem;
+          color: var(--muted);
+        }
+        .contrastVs {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          padding: 0 8px;
+        }
+        .contrastGap {
+          font-size: 1.6rem;
+          font-weight: 800;
+          color: var(--accent-strong);
+          font-variant-numeric: tabular-nums;
+        }
+        .contrastGapLabel {
+          font-size: 0.68rem;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--muted);
+        }
+        .werNote {
+          margin: -4px 4px 0;
+          font-size: 0.9rem;
+          color: var(--muted);
+          text-align: center;
+        }
+        .pairsNote {
+          margin: 0 0 12px;
+          font-size: 0.85rem;
+          color: var(--muted);
+        }
+        .clipsExplain {
+          padding: 18px 20px 4px;
+        }
+        .clipsExplain h2 {
+          margin: 0 0 4px;
+          font-size: 0.95rem;
+        }
+        .clipsExplain p {
+          margin: 0;
+          font-size: 0.85rem;
+          color: var(--muted);
+          max-width: 64ch;
         }
         .metrics {
           display: grid;
@@ -823,6 +954,17 @@ export default function Home() {
         @media (max-width: 720px) {
           .metrics {
             grid-template-columns: repeat(2, 1fr);
+          }
+          .storyGrid {
+            grid-template-columns: 1fr;
+          }
+          .contrast {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .contrastVs {
+            flex-direction: row;
+            gap: 8px;
           }
           .clipWer em {
             display: none;
