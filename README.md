@@ -31,7 +31,11 @@ https://tinig-sa-liwanag.vercel.app
 
 **Open dataset — built by Team Hague (Hugging Face):**
 
-[![Dataset on HuggingFace](https://img.shields.io/badge/🤗%20Hugging%20Face-Dataset-blue)](https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch)
+<p align="center">
+  <a href="https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch">
+    <img src="https://img.shields.io/badge/🤗%20Hugging%20Face-Dataset-blue?style=for-the-badge" alt="Dataset on HuggingFace"/>
+  </a>
+</p>
 
 ```text
 https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch
