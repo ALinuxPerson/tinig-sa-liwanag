@@ -81,8 +81,8 @@ function ClipRow({ clip, open, onToggle }) {
         </span>
         <span className="clipStats">
           <span className={`werVal ${werColor(clip.wer.overall)}`}>{clip.wer.overall}%</span>
-          <span className="werSub">sw {clip.wer.switch}%</span>
-          <span className="werSub">mono {clip.wer.mono}%</span>
+          <span className="werSub">borrowed {clip.wer.switch}%</span>
+          <span className="werSub">Hil {clip.wer.mono}%</span>
         </span>
         <span className="caret">{open ? "▾" : "▸"}</span>
       </button>
@@ -297,6 +297,55 @@ export default function Home() {
           <PairBar label="Hil + English" value={h.pairs.hil_en} />
           <PairBar label="Hil + Tagalog" value={h.pairs.hil_tl} />
           <PairBar label="Tagalog + English" value={h.pairs.tl_en} />
+        </section>
+
+        <section className="glass repro">
+          <h2 className="sectionTitle">Try it or reproduce the numbers</h2>
+          <p className="reproNote">
+            Everything is open. Run the exact benchmark in your browser, download
+            the dataset, or read the code.
+          </p>
+          <div className="reproGrid">
+            <a
+              className="reproCard"
+              href="https://colab.research.google.com/github/Jazztinn/tinig-sa-liwanag/blob/main/notebooks/sugidanon_colab.ipynb"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="reproIcon">▶</span>
+              <span className="reproName">Run in Google Colab</span>
+              <span className="reproDesc">
+                One click reproduces every number on this page. No setup.
+              </span>
+              <span className="reproLink">colab.research.google.com →</span>
+            </a>
+            <a
+              className="reproCard"
+              href="https://huggingface.co/datasets/LauelKills/sugidanon-hil-codeswitch"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="reproIcon">⬇</span>
+              <span className="reproName">Download the dataset</span>
+              <span className="reproDesc">
+                Audio, transcripts, and labels on Hugging Face.
+              </span>
+              <span className="reproLink">huggingface.co/datasets →</span>
+            </a>
+            <a
+              className="reproCard"
+              href="https://github.com/Jazztinn/tinig-sa-liwanag"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="reproIcon">{"{ }"}</span>
+              <span className="reproName">Read the code</span>
+              <span className="reproDesc">
+                Scorer, scripts, and benchmark card on GitHub.
+              </span>
+              <span className="reproLink">github.com →</span>
+            </a>
+          </div>
         </section>
 
         {data.cohorts && data.cohorts.length > 1 && (
@@ -564,6 +613,58 @@ export default function Home() {
           font-size: 0.85rem;
           color: var(--muted);
         }
+        .repro {
+          padding: var(--s5) var(--s6);
+        }
+        .reproNote {
+          margin: 0 0 var(--s4);
+          font-size: var(--fs-md);
+          color: var(--muted);
+          max-width: var(--measure);
+        }
+        .reproGrid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: var(--s3);
+        }
+        .reproCard {
+          display: flex;
+          flex-direction: column;
+          gap: var(--s1);
+          padding: var(--s4);
+          border-radius: var(--r-md);
+          background: rgba(255, 255, 255, 0.45);
+          border: 1px solid rgba(255, 255, 255, 0.7);
+          text-decoration: none;
+          color: var(--text);
+          transition: transform 0.12s var(--ease), background 0.15s,
+            border-color 0.15s;
+        }
+        .reproCard:hover {
+          transform: translateY(-2px);
+          background: rgba(255, 255, 255, 0.75);
+          border-color: var(--accent-tint-2);
+        }
+        .reproIcon {
+          font-size: 1.1rem;
+          font-weight: var(--fw-bold);
+          color: var(--accent-strong);
+        }
+        .reproName {
+          font-weight: var(--fw-bold);
+          font-size: var(--fs-base);
+        }
+        .reproDesc {
+          font-size: var(--fs-sm);
+          color: var(--muted);
+          flex: 1;
+        }
+        .reproLink {
+          margin-top: var(--s1);
+          font-size: var(--fs-xs);
+          font-weight: var(--fw-semibold);
+          color: var(--accent-strong);
+        }
         .clipsExplain {
           padding: 18px 20px 4px;
         }
@@ -758,7 +859,7 @@ export default function Home() {
           opacity: 0.45;
         }
         :global(.clipOpen) {
-          background: rgba(255,255,255,0.7) !important;
+          background: rgba(255,250,244,0.97) !important;
           backdrop-filter: blur(20px) saturate(180%);
           -webkit-backdrop-filter: blur(20px) saturate(180%);
           border-top: 1px solid rgba(255,255,255,0.9) !important;
@@ -815,7 +916,7 @@ export default function Home() {
         :global(.werSub) {
           color: var(--muted);
           font-weight: 400;
-          min-width: 68px;
+          min-width: 92px;
           text-align: right;
         }
         :global(.clipId) {
@@ -931,6 +1032,9 @@ export default function Home() {
           .contrast {
             grid-template-columns: 1fr;
             gap: 16px;
+          }
+          .reproGrid {
+            grid-template-columns: 1fr;
           }
           .contrastVs {
             flex-direction: row;
