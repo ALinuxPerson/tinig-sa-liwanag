@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import SegmentedFilter from "../components/SegmentedFilter";
 
 const SWITCH_TYPES = ["HIL", "HIL+EN", "HIL+TL", "HIL+TL+EN"];
@@ -47,7 +48,7 @@ function werColor(v) {
 
 function ClipRow({ clip, open, onToggle }) {
   return (
-    <div className={`glass clip ${open ? "clipOpen" : ""}`}>
+    <div className={`clip ${open ? "clipOpen" : ""}`}>
       <button className="clipHead" onClick={onToggle}>
         <span className="clipId">{clip.clip_id}</span>
         <span className="chipCol">
@@ -62,23 +63,34 @@ function ClipRow({ clip, open, onToggle }) {
         <span className="caret">{open ? "▾" : "▸"}</span>
       </button>
 
-      {open && (
-        <div className="clipBody">
-          <audio controls preload="none" src={`/${clip.audio}`} className="player" />
+      <AnimatePresence initial={false}>
+        {open && (
+          <motion.div
+            className="clipBody"
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: "auto", opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }}
+            style={{ overflow: "hidden" }}
+          >
+            <div className="clipBodyInner">
+              <audio controls preload="none" src={`/${clip.audio}`} className="player" />
 
-          <div className="rowLabel">Reference — token diff</div>
-          <div className="tokens">
-            {clip.tokens.map((t, i) => (
-              <Token key={i} t={t} />
-            ))}
-          </div>
+              <div className="rowLabel">Reference — token diff</div>
+              <div className="tokens">
+                {clip.tokens.map((t, i) => (
+                  <Token key={i} t={t} />
+                ))}
+              </div>
 
-          <div className="rowLabel">
-            Whisper prediction (forced <code>tl</code>)
-          </div>
-          <div className="pred">{clip.prediction}</div>
-        </div>
-      )}
+              <div className="rowLabel">
+                Whisper prediction (forced <code>tl</code>)
+              </div>
+              <div className="pred">{clip.prediction}</div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
@@ -588,19 +600,33 @@ export default function Home() {
           padding: 0;
         }
         :global(.clip) {
-          overflow: hidden;
           border-radius: 0;
           background: transparent;
           border: none;
           box-shadow: none;
           backdrop-filter: none;
           -webkit-backdrop-filter: none;
+          transition: opacity 0.18s ease;
         }
         :global(.clip + .clip) {
           border-top: 1px solid rgba(0, 0, 0, 0.07);
         }
+        /* dim siblings when one clip is open */
+        :global(.clips:has(.clipOpen) .clip:not(.clipOpen)) {
+          opacity: 0.45;
+        }
         :global(.clipOpen) {
-          background: rgba(0, 0, 0, 0.025) !important;
+          background: rgba(255,255,255,0.7) !important;
+          backdrop-filter: blur(20px) saturate(180%);
+          -webkit-backdrop-filter: blur(20px) saturate(180%);
+          border-top: 1px solid rgba(255,255,255,0.9) !important;
+          border-bottom: 1px solid rgba(0,0,0,0.06) !important;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.1), 0 1px 4px rgba(0,0,0,0.06) !important;
+          z-index: 2;
+          position: relative;
+          border-radius: 12px !important;
+          margin: 4px 0;
+          opacity: 1 !important;
         }
         :global(.clipHead) {
           width: 100%;
@@ -615,7 +641,13 @@ export default function Home() {
           text-align: left;
         }
         :global(.clipHead:hover) {
-          background: rgba(0, 0, 0, 0.03);
+          background: rgba(0, 0, 0, 0.025);
+        }
+        :global(.clipBodyInner) {
+          padding: 4px 20px 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
         }
         :global(.chipCol) {
           display: flex;
@@ -680,10 +712,7 @@ export default function Home() {
           color: var(--muted);
         }
         :global(.clipBody) {
-          padding: 4px 18px 18px;
-          display: flex;
-          flex-direction: column;
-          gap: 8px;
+          overflow: hidden;
         }
         :global(.player) {
           width: 100%;

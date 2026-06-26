@@ -1,14 +1,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { animate, motion, useMotionTemplate, useMotionValue, useTransform } from "framer-motion";
+import { animate, motion, useMotionValue, useTransform } from "framer-motion";
 
 const SPRING = { type: "spring", stiffness: 380, damping: 34 };
 const PAD = 4;
-const MAG = 1.18;
+const MAG = 1.16;
 
-/**
- * N-option segmented control — recessed track, draggable liquid-glass pill,
- * magnifying loupe lens. Ported from unit/components/ui/SegmentedToggle.
- */
 export default function SegmentedFilter({ options, value, onChange }) {
   const trackRef = useRef(null);
   const [trackW, setTrackW] = useState(0);
@@ -19,9 +15,8 @@ export default function SegmentedFilter({ options, value, onChange }) {
   const pillX = useMotionValue(0);
   const dragging = useRef(false);
 
+  // clone shifts left as pill moves right — keeps active label centered under pill
   const cloneX = useTransform(pillX, (v) => -v);
-  const originX = useTransform(pillX, (v) => v + slotW / 2);
-  const lensOrigin = useMotionTemplate`${originX}px center`;
 
   useLayoutEffect(() => {
     const el = trackRef.current;
@@ -41,7 +36,9 @@ export default function SegmentedFilter({ options, value, onChange }) {
 
   function handleDragEnd() {
     dragging.current = false;
-    const nearest = Math.round(Math.min(Math.max(pillX.get(), 0), (n - 1) * slotW) / slotW);
+    const nearest = Math.round(
+      Math.min(Math.max(pillX.get(), 0), (n - 1) * slotW) / slotW
+    );
     animate(pillX, nearest * slotW, SPRING);
     if (options[nearest].id !== value) onChange(options[nearest].id);
   }
@@ -56,11 +53,12 @@ export default function SegmentedFilter({ options, value, onChange }) {
         borderRadius: 999,
         padding: PAD,
         background: "rgba(0,0,0,0.07)",
-        boxShadow: "inset 0 2px 5px rgba(0,0,0,0.13), inset 0 -1px 0 rgba(255,255,255,0.6)",
+        boxShadow:
+          "inset 0 2px 5px rgba(0,0,0,0.13), inset 0 -1px 0 rgba(255,255,255,0.6)",
         flexWrap: "nowrap",
       }}
     >
-      {/* base labels */}
+      {/* base label row — sets track width, always rendered */}
       {options.map((opt) => (
         <button
           key={opt.id}
@@ -72,7 +70,7 @@ export default function SegmentedFilter({ options, value, onChange }) {
             border: "none",
             background: "transparent",
             borderRadius: 999,
-            padding: "5px 10px",
+            padding: "5px 14px",
             fontSize: "0.78rem",
             fontWeight: 500,
             color: "rgba(0,0,0,0.4)",
@@ -89,7 +87,7 @@ export default function SegmentedFilter({ options, value, onChange }) {
 
       {/* draggable liquid-glass pill */}
       {slotW > 0 && (
-        <motion.span
+        <motion.div
           style={{
             position: "absolute",
             top: PAD,
@@ -99,7 +97,8 @@ export default function SegmentedFilter({ options, value, onChange }) {
             x: pillX,
             zIndex: 20,
             borderRadius: 999,
-            overflow: "hidden",
+            // clip-path beats overflow:hidden for clipping transformed children
+            clipPath: "inset(0 round 999px)",
             cursor: "grab",
           }}
           drag="x"
@@ -111,26 +110,28 @@ export default function SegmentedFilter({ options, value, onChange }) {
           whileTap={{ cursor: "grabbing" }}
         >
           {/* glass surface */}
-          <span
+          <div
             aria-hidden
             style={{
               position: "absolute",
               inset: 0,
               borderRadius: 999,
-              background: "linear-gradient(to bottom, rgba(255,255,255,0.88), rgba(232,236,244,0.93))",
-              backdropFilter: "blur(16px) saturate(200%) brightness(1.12)",
-              WebkitBackdropFilter: "blur(16px) saturate(200%) brightness(1.12)",
+              background:
+                "linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(230,234,242,0.95))",
+              backdropFilter: "blur(18px) saturate(200%) brightness(1.1)",
+              WebkitBackdropFilter: "blur(18px) saturate(200%) brightness(1.1)",
               boxShadow:
-                "inset 0 2.5px 2px rgba(255,255,255,1), inset 0 -2.5px 3px rgba(0,0,0,0.1), inset 0 0 0 1.5px rgba(255,255,255,0.8), 0 1px 3px rgba(0,0,0,0.13)",
+                "inset 0 2.5px 2px rgba(255,255,255,1), inset 0 -2px 3px rgba(0,0,0,0.09), 0 1px 3px rgba(0,0,0,0.12)",
             }}
           />
-          {/* magnified clone row */}
+
+          {/* magnified clone — cloneX counter-translates so active label stays centered;
+              transformOrigin center keeps scale anchored to pill center */}
           <motion.div
             aria-hidden
             style={{
               pointerEvents: "none",
               position: "absolute",
-              inset: "0 auto",
               top: 0,
               bottom: 0,
               left: 0,
@@ -139,7 +140,7 @@ export default function SegmentedFilter({ options, value, onChange }) {
               alignItems: "center",
               x: cloneX,
               scale: MAG,
-              transformOrigin: lensOrigin,
+              transformOrigin: "center center",
               zIndex: 10,
             }}
           >
@@ -147,20 +148,21 @@ export default function SegmentedFilter({ options, value, onChange }) {
               <span
                 key={opt.id}
                 style={{
-                  flex: 1,
+                  width: slotW,
+                  flexShrink: 0,
                   textAlign: "center",
                   fontSize: "0.78rem",
                   fontWeight: 700,
                   color: "rgba(0,0,0,0.85)",
                   whiteSpace: "nowrap",
-                  padding: "5px 10px",
+                  padding: "5px 0",
                 }}
               >
                 {opt.label}
               </span>
             ))}
           </motion.div>
-        </motion.span>
+        </motion.div>
       )}
     </div>
   );
