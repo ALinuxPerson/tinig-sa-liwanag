@@ -1,9 +1,11 @@
 # Web app (demo) — Next.js / Vercel
 
-Deployment, Tagalog-coverage fallback, and the local Ollama backend for the
-translation **extension** demo. Not part of the judged speech benchmark.
+Deployment, local speech transcription, Tagalog-coverage fallback, and the
+local Ollama backend for the translation **extension** demo.
 
-The hosted demo is a Next.js app with a serverless dictionary-baseline API route.
+The hosted demo is a Next.js app. Live microphone transcription is local-only:
+`pages/api/transcribe.js` runs `ffmpeg` plus the local `whisper` CLI and does not
+call external transcription APIs.
 
 ```bash
 npm install
@@ -11,6 +13,24 @@ npm run dev
 ```
 
 Then open `http://localhost:3000`.
+
+### Local speech demo
+
+Install local tools and keep the Whisper model cached on the machine:
+
+```bash
+brew install ffmpeg openai-whisper
+whisper data/audio/hil_cs_001.wav --model small --language tl --output_format json --output_dir /tmp
+```
+
+Then run the web app:
+
+```bash
+LOCAL_WHISPER_MODEL=small LOCAL_WHISPER_LANGUAGE=tl npm run dev
+```
+
+The browser records audio, the API route converts it to 16 kHz mono WAV, and the
+local Whisper CLI transcribes it. No `OPENAI_API_KEY` is used.
 
 Production build:
 

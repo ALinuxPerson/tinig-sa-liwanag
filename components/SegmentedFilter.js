@@ -15,6 +15,7 @@ export default function SegmentedFilter({ options, value, onChange }) {
           </button>
         );
       })}
+      <span className="segTail" aria-hidden="true" />
     </div>
   );
 }
