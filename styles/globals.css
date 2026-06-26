@@ -873,13 +873,14 @@ a:focus-visible {
 
 .metricGauge {
   display: grid;
+  grid-template-rows: 44px 1fr;
   justify-items: center;
-  gap: 8px;
 }
 
 .gaugeTitle {
   width: 100%;
   display: grid;
+  align-items: center;
   justify-items: center;
   gap: 8px;
   color: var(--ink-strong);
@@ -892,6 +893,7 @@ a:focus-visible {
 .gaugeRing {
   width: 98px;
   aspect-ratio: 1;
+  align-self: center;
   display: grid;
   place-items: center;
   border: 4px dotted currentColor;
