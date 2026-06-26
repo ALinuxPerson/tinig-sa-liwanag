@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SegmentedFilter from "../components/SegmentedFilter";
 
@@ -23,15 +23,56 @@ function MetricCard({ label, value, suffix = "%", hint, strong }) {
 }
 
 function Token({ t }) {
+  const [tip, setTip] = useState(null); // null | "above" | "below"
+  const ref = useRef(null);
   const cls = ["tok", t.switch ? "tokSwitch" : "", t.error ? "tokErr" : "tokOk"].join(" ");
-  const tip = [
+  const label = [
     t.error ? "ASR error" : "correct",
     t.switch ? "switch region" : "monolingual",
     `lang: ${t.lang}`,
   ].join(" · ");
+
+  function handleEnter(e) {
+    const rect = ref.current.getBoundingClientRect();
+    const mid = rect.top + rect.height / 2;
+    setTip(e.clientY < mid ? "above" : "below");
+  }
+
   return (
-    <span className={`${cls} tokWrap`} data-tip={tip}>
+    <span
+      ref={ref}
+      className={cls}
+      style={{ position: "relative" }}
+      onMouseEnter={handleEnter}
+      onMouseLeave={() => setTip(null)}
+    >
       {t.text}
+      {tip && (
+        <span
+          style={{
+            position: "absolute",
+            [tip === "above" ? "bottom" : "top"]: "calc(100% + 7px)",
+            left: "50%",
+            transform: "translateX(clamp(-120px, -50%, 0px))",
+            background: "rgba(255,255,255,0.82)",
+            backdropFilter: "blur(24px) saturate(220%) brightness(1.08)",
+            WebkitBackdropFilter: "blur(24px) saturate(220%) brightness(1.08)",
+            border: "1px solid rgba(255,255,255,0.9)",
+            boxShadow: "0 4px 20px rgba(0,0,0,0.12), inset 0 1px 0 rgba(255,255,255,1)",
+            color: "rgba(0,0,0,0.8)",
+            fontSize: "0.68rem",
+            fontWeight: 600,
+            whiteSpace: "nowrap",
+            padding: "5px 10px",
+            borderRadius: 8,
+            pointerEvents: "none",
+            zIndex: 300,
+            letterSpacing: "0.02em",
+          }}
+        >
+          {label}
+        </span>
+      )}
     </span>
   );
 }
@@ -764,52 +805,6 @@ export default function Home() {
         }
         :global(.tokSwitch) {
           box-shadow: inset 0 0 0 2px var(--switch);
-        }
-        :global(.tokWrap) {
-          position: relative;
-        }
-        :global(.tokWrap::before) {
-          content: attr(data-tip);
-          position: absolute;
-          top: calc(100% + 8px);
-          left: 50%;
-          transform: translateX(clamp(-120px, -50%, 0px)) translateY(-4px);
-          background: rgba(255,255,255,0.35);
-          backdrop-filter: blur(20px) saturate(200%) brightness(1.15);
-          -webkit-backdrop-filter: blur(20px) saturate(200%) brightness(1.15);
-          border: 1px solid rgba(255,255,255,0.75);
-          color: rgba(0,0,0,0.85);
-          font-size: 0.68rem;
-          font-weight: 600;
-          white-space: nowrap;
-          padding: 5px 10px;
-          border-radius: 8px;
-          box-shadow: 0 4px 16px rgba(0,0,0,0.1), inset 0 1px 0 rgba(255,255,255,0.9);
-          pointer-events: none;
-          opacity: 0;
-          transition: opacity 0.15s ease, transform 0.15s ease;
-          z-index: 200;
-          letter-spacing: 0.02em;
-        }
-        :global(.tokWrap::after) {
-          content: "";
-          position: absolute;
-          top: calc(100% + 2px);
-          left: 50%;
-          transform: translateX(-50%);
-          border: 5px solid transparent;
-          border-bottom-color: rgba(255,255,255,0.7);
-          pointer-events: none;
-          opacity: 0;
-          transition: opacity 0.15s ease;
-          z-index: 200;
-        }
-        :global(.tokWrap:hover::before) {
-          opacity: 1;
-          transform: translateX(clamp(-120px, -50%, 0px)) translateY(0);
-        }
-        :global(.tokWrap:hover::after) {
-          opacity: 1;
         }
         :global(.pred) {
           background: rgba(0, 0, 0, 0.04);
