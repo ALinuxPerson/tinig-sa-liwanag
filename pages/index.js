@@ -1,5 +1,6 @@
 import Head from "next/head";
 import { useEffect, useMemo, useState } from "react";
+import SegmentedFilter from "../components/SegmentedFilter";
 
 const SWITCH_TYPES = ["HIL", "HIL+EN", "HIL+TL", "HIL+TL+EN"];
 
@@ -272,31 +273,19 @@ export default function Home() {
           <section className="filters">
             <div className="filterGroup">
               <span className="filterLabel">Switch</span>
-              <div className="segTrack">
-                {["ALL", ...SWITCH_TYPES].map((s) => (
-                  <button
-                    key={s}
-                    className={`segBtn ${fSwitch === s ? "segActive" : ""}`}
-                    onClick={() => setFSwitch(s)}
-                  >
-                    {s === "ALL" ? "All" : s}
-                  </button>
-                ))}
-              </div>
+              <SegmentedFilter
+                options={["ALL", ...SWITCH_TYPES].map((s) => ({ id: s, label: s === "ALL" ? "All" : s }))}
+                value={fSwitch}
+                onChange={setFSwitch}
+              />
             </div>
             <div className="filterGroup">
               <span className="filterLabel">Domain</span>
-              <div className="segTrack">
-                {["ALL", ...domains].map((d) => (
-                  <button
-                    key={d}
-                    className={`segBtn ${fDomain === d ? "segActive" : ""}`}
-                    onClick={() => setFDomain(d)}
-                  >
-                    {d === "ALL" ? "All" : d}
-                  </button>
-                ))}
-              </div>
+              <SegmentedFilter
+                options={["ALL", ...domains].map((d) => ({ id: d, label: d === "ALL" ? "All" : d }))}
+                value={fDomain}
+                onChange={setFDomain}
+              />
             </div>
           </section>
 
