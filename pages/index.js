@@ -315,7 +315,7 @@ export default function Home() {
           </div>
         </div>
 
-        <section className="clips">
+        <section className="clips glass">
           {clips.map((c) => (
             <ClipRow
               key={c.clip_id}
@@ -557,21 +557,38 @@ export default function Home() {
         .clips {
           display: flex;
           flex-direction: column;
-          gap: 10px;
+          gap: 0;
+          overflow: hidden;
+          padding: 0;
         }
         :global(.clip) {
           overflow: hidden;
+          border-radius: 0;
+          background: transparent;
+          border: none;
+          box-shadow: none;
+          backdrop-filter: none;
+          -webkit-backdrop-filter: none;
+        }
+        :global(.clip + .clip) {
+          border-top: 1px solid rgba(0, 0, 0, 0.07);
+        }
+        :global(.clipOpen) {
+          background: rgba(0, 0, 0, 0.025) !important;
         }
         :global(.clipHead) {
           width: 100%;
           display: flex;
           align-items: center;
           gap: 12px;
-          padding: 13px 18px;
+          padding: 11px 18px;
           background: transparent;
           border: none;
           cursor: pointer;
           text-align: left;
+        }
+        :global(.clipHead:hover) {
+          background: rgba(0, 0, 0, 0.03);
         }
         :global(.clipId) {
           font-weight: 700;
