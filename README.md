@@ -25,9 +25,11 @@
 
 **Live demo:**
 
-```text
-https://tinig-sa-liwanag.vercel.app
-```
+<p align="center">
+  <a href="https://tinig-sa-liwanag.vercel.app">
+    <img src="https://img.shields.io/badge/Live%20Demo-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Live Demo"/>
+  </a>
+</p>
 
 **Open dataset — built by Team Hague (Hugging Face):**
 
