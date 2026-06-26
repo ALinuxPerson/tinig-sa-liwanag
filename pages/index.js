@@ -272,39 +272,31 @@ export default function Home() {
           <section className="filters">
             <div className="filterGroup">
               <span className="filterLabel">Switch</span>
-              <button
-                className={`glassBtn ${fSwitch === "ALL" ? "active" : ""}`}
-                onClick={() => setFSwitch("ALL")}
-              >
-                All
-              </button>
-              {SWITCH_TYPES.map((s) => (
-                <button
-                  key={s}
-                  className={`glassBtn ${fSwitch === s ? "active" : ""}`}
-                  onClick={() => setFSwitch(s)}
-                >
-                  {s}
-                </button>
-              ))}
+              <div className="segTrack">
+                {["ALL", ...SWITCH_TYPES].map((s) => (
+                  <button
+                    key={s}
+                    className={`segBtn ${fSwitch === s ? "segActive" : ""}`}
+                    onClick={() => setFSwitch(s)}
+                  >
+                    {s === "ALL" ? "All" : s}
+                  </button>
+                ))}
+              </div>
             </div>
             <div className="filterGroup">
               <span className="filterLabel">Domain</span>
-              <button
-                className={`glassBtn ${fDomain === "ALL" ? "active" : ""}`}
-                onClick={() => setFDomain("ALL")}
-              >
-                All
-              </button>
-              {domains.map((d) => (
-                <button
-                  key={d}
-                  className={`glassBtn ${fDomain === d ? "active" : ""}`}
-                  onClick={() => setFDomain(d)}
-                >
-                  {d}
-                </button>
-              ))}
+              <div className="segTrack">
+                {["ALL", ...domains].map((d) => (
+                  <button
+                    key={d}
+                    className={`segBtn ${fDomain === d ? "segActive" : ""}`}
+                    onClick={() => setFDomain(d)}
+                  >
+                    {d === "ALL" ? "All" : d}
+                  </button>
+                ))}
+              </div>
             </div>
           </section>
 
@@ -511,9 +503,36 @@ export default function Home() {
           flex-direction: column;
           gap: 0;
           padding: 16px 20px 14px;
-          position: sticky;
-          top: 16px;
-          z-index: 10;
+        }
+        .segTrack {
+          display: inline-flex;
+          padding: 4px;
+          border-radius: 999px;
+          background: rgba(0,0,0,0.07);
+          box-shadow: inset 0 2px 5px rgba(0,0,0,0.12), inset 0 -1px 0 rgba(255,255,255,0.55);
+          gap: 2px;
+          flex-wrap: wrap;
+        }
+        .segBtn {
+          padding: 5px 14px;
+          border-radius: 999px;
+          border: none;
+          background: transparent;
+          font-size: 0.78rem;
+          font-weight: 500;
+          color: rgba(0,0,0,0.45);
+          cursor: pointer;
+          transition: color 0.15s;
+          white-space: nowrap;
+        }
+        .segBtn:hover {
+          color: rgba(0,0,0,0.7);
+        }
+        .segActive {
+          background: linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(235,238,244,0.95));
+          box-shadow: inset 0 2px 2px rgba(255,255,255,1), inset 0 -2px 3px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.12);
+          color: rgba(0,0,0,0.85) !important;
+          font-weight: 700;
         }
         .filters {
           display: flex;
