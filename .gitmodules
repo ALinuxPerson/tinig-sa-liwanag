@@ -1,0 +1,3 @@
+[submodule "spaces/tinig-sa-liwanag-space"]
+	path = spaces/tinig-sa-liwanag-space
+	url = https://huggingface.co/spaces/ALinuxPerson/tinig-sa-liwanag-space

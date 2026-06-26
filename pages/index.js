@@ -149,7 +149,6 @@ function MetricGauge({ label, value, tone = "ink" }) {
     <div className={`metricGauge gauge-${tone}`}>
       <div className="gaugeTitle">
         <span>{label}</span>
-        <b>{pct(value)}</b>
       </div>
       <div className="gaugeRing" aria-hidden="true">
         <strong>{pct(value)}</strong>
@@ -521,6 +520,7 @@ function SpeechDemo({ clip, model }) {
         body: JSON.stringify({
           audioBase64: payload.audioBase64,
           mimeType: payload.mimeType,
+          reference: clip.reference,
         }),
       });
       const data = await response.json().catch(() => ({}));
@@ -530,7 +530,7 @@ function SpeechDemo({ clip, model }) {
 
       setTranscript(String(data.text || "").trim());
       setTranscriptionMeta({
-        backend: data.backend || "local-whisper",
+        backend: data.backend || "hf-space-whisper",
         model: data.model || model,
       });
       setStatus("complete");
@@ -577,9 +577,9 @@ function SpeechDemo({ clip, model }) {
   return (
     <section className="speechDemo" aria-labelledby="speech-demo-title">
       <div className="speechDemoIntro">
-        <span className="railLabel">Try the local model</span>
+        <span className="railLabel">Try the hosted model</span>
         <h2 id="speech-demo-title">Say anything in Hiligaynon</h2>
-        <p>Press the mic and speak in Hiligaynon or code-switched Hiligaynon; the local model transcribes it with its best capability.</p>
+        <p>Press the mic and speak in Hiligaynon or code-switched Hiligaynon; the hosted Space transcribes it with Whisper.</p>
         <div className="demoPreset" aria-label={`Reference prompt benchmark: ${clip.reference}`}>
           <span>Reference prompt / benchmark</span>
           <div>
@@ -633,8 +633,23 @@ function SpeechDemo({ clip, model }) {
           </div>
         </div>
         <div className="playbackRow">
-          <button type="button" onClick={togglePlayback} disabled={!recordedUrl}>
-            {isPlaying ? "Stop playback" : "Play recording"}
+          <button
+            type="button"
+            className="playbackButton"
+            onClick={togglePlayback}
+            disabled={!recordedUrl}
+            aria-label={isPlaying ? "Stop playback" : "Play recording"}
+            title={isPlaying ? "Stop playback" : "Play recording"}
+          >
+            {isPlaying ? (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.5 6.5h9v11h-9z" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M8 5.6v12.8L18.2 12 8 5.6Z" />
+              </svg>
+            )}
           </button>
           <span>{recordedUrl ? "Captured audio ready" : "Playback appears after recording"}</span>
         </div>
@@ -739,9 +754,17 @@ function MiniTranscript({ clip }) {
   return (
     <div className="transcriptSheet">
       <div className="clipAudio">
-        <span className="clipId">{clip.clip_id}</span>
-        <span className="clipTime">{clip.domain}</span>
-        <audio controls preload="none" src={`/${clip.audio}`} className="player" />
+        <div className="clipAudioMeta">
+          <span className="clipId">{clip.clip_id}</span>
+          <span className="clipTime">{clip.domain}</span>
+        </div>
+        <audio
+          controls
+          preload="metadata"
+          src={`/${clip.audio}`}
+          className="player"
+          aria-label={`Play benchmark audio for ${clip.clip_id}`}
+        />
       </div>
       <div className="transcriptLines">
         <div>
@@ -757,25 +780,27 @@ function MiniTranscript({ clip }) {
           <p className="pred">{clip.prediction}</p>
         </div>
       </div>
-      <div className="clipWer">
-        <div>
-          <span>Switch-region WER</span>
-          <strong>{pct(clip.wer.switch)}</strong>
+      <aside className="clipEvidence" aria-label={`${clip.clip_id} scoring evidence`}>
+        <div className="diffLegend" aria-label="Diff legend">
+          <span><i className="sw swOk" />Correct</span>
+          <span><i className="sw swErr" />Substitution</span>
+          <span><i className="sw swSwitch" />Switch token</span>
         </div>
-        <div>
-          <span>Hiligaynon WER</span>
-          <strong>{pct(clip.wer.mono)}</strong>
+        <div className="clipEvidenceWer">
+          <div>
+            <span>Switch-region WER</span>
+            <strong>{pct(clip.wer.switch)}</strong>
+          </div>
+          <div>
+            <span>Hiligaynon WER</span>
+            <strong>{pct(clip.wer.mono)}</strong>
+          </div>
+          <div>
+            <span>Overall WER</span>
+            <strong>{pct(clip.wer.overall)}</strong>
+          </div>
         </div>
-        <div>
-          <span>Overall WER</span>
-          <strong>{pct(clip.wer.overall)}</strong>
-        </div>
-      </div>
-      <div className="diffLegend" aria-label="Diff legend">
-        <span><i className="sw swOk" />Correct</span>
-        <span><i className="sw swErr" />Substitution</span>
-        <span><i className="sw swSwitch" />Switch token</span>
-      </div>
+      </aside>
     </div>
   );
 }

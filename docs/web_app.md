@@ -1,11 +1,11 @@
 # Web app (demo) — Next.js / Vercel
 
-Deployment, local speech transcription, Tagalog-coverage fallback, and the
+Deployment, hosted speech transcription, Tagalog-coverage fallback, and the
 local Ollama backend for the translation **extension** demo.
 
-The hosted demo is a Next.js app. Live microphone transcription is local-only:
-`pages/api/transcribe.js` runs `ffmpeg` plus the local `whisper` CLI and does not
-call external transcription APIs.
+The hosted demo is a Next.js app. Live microphone transcription calls the
+Hugging Face Space in `spaces/tinig-sa-liwanag-space`, which runs Whisper behind
+a Gradio API endpoint.
 
 ```bash
 npm install
@@ -14,23 +14,42 @@ npm run dev
 
 Then open `http://localhost:3000`.
 
-### Local speech demo
+### Hosted speech demo
 
-Install local tools and keep the Whisper model cached on the machine:
-
-```bash
-brew install ffmpeg openai-whisper
-whisper data/audio/hil_cs_001.wav --model small --language tl --output_format json --output_dir /tmp
-```
-
-Then run the web app:
+Initialize the Hugging Face Space submodule:
 
 ```bash
-LOCAL_WHISPER_MODEL=small LOCAL_WHISPER_LANGUAGE=tl npm run dev
+git submodule update --init --recursive
 ```
 
-The browser records audio, the API route converts it to 16 kHz mono WAV, and the
-local Whisper CLI transcribes it. No `OPENAI_API_KEY` is used.
+The Space lives at:
+
+```text
+https://huggingface.co/spaces/ALinuxPerson/tinig-sa-liwanag-space
+```
+
+The Next.js API route posts browser-recorded base64 audio to the Space's Gradio
+API:
+
+```text
+https://alinuxperson-tinig-sa-liwanag-space.hf.space/gradio_api/call/transcribe_base64
+```
+
+Local dev uses that hosted endpoint by default:
+
+```bash
+npm run dev
+```
+
+Override the endpoint if the Space slug changes:
+
+```bash
+HF_SPACE_TRANSCRIBE_URL=https://alinuxperson-tinig-sa-liwanag-space.hf.space npm run dev
+```
+
+The browser records audio, the API route validates size/base64 shape, and the
+Space runs Whisper. No `OPENAI_API_KEY`, local `ffmpeg`, or local `whisper`
+binary is required by the Next.js app.
 
 Production build:
 
