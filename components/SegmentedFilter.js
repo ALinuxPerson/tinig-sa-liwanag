@@ -5,7 +5,7 @@ export default function SegmentedFilter({ options, value, onChange }) {
       style={{
         display: "inline-flex",
         flexWrap: "wrap",
-        gap: 4,
+        gap: 0,
         padding: 4,
         borderRadius: 999,
         background: "rgba(0,0,0,0.07)",
